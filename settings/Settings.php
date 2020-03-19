@@ -5,6 +5,6 @@ const SETTINGS = [
         "name" => "",
         "user" => "root",
         "password" => "",
-        //"port" => 3306
+        "port" => 3306
     ]
 ];
