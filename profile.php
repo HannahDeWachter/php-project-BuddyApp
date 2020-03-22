@@ -10,12 +10,14 @@ include_once(__DIR__ . "/includes/header.inc.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buddy App</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Buddy Profile</title>
 </head>
 
 <body>
-
+    <img src="" alt="" id="profilePic">
+    <strong id="name"></strong>
 </body>
 
 </html>
+
+<!-- kenmerken: muziek(genre) met checkbox, locatie, hobby's/interesses (zelfde als muziek), design/dev(radio button)(niet op matchen),  -->
