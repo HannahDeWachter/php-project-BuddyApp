@@ -19,5 +19,3 @@ include_once(__DIR__ . "/includes/header.inc.php");
 </body>
 
 </html>
-
-<!-- kenmerken: muziek(genre) met checkbox, locatie, hobby's/interesses (zelfde als muziek), design/dev(radio button)(niet op matchen),  -->
