@@ -11,4 +11,5 @@ class User
     private $music;
     private $hobbies;
     private $specialization;
+    private $travel;
 }
