@@ -15,12 +15,16 @@ class User
     private $specialization;
     private $travel;
 
-    /**
-     * Get the value of id
-     */
+
     public function getId()
     {
         return $this->id;
+    }
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getFirstname()
@@ -45,6 +49,60 @@ class User
         return $this;
     }
 
+    public function getLocation()
+    {
+        return $this->location;
+    }
+    public function setLocation($location)
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
+    public function getMusic()
+    {
+        return $this->music;
+    }
+    public function setMusic($music)
+    {
+        $this->music = $music;
+
+        return $this;
+    }
+
+    public function getHobbies()
+    {
+        return $this->hobbies;
+    }
+    public function setHobbies($hobbies)
+    {
+        $this->hobbies = $hobbies;
+
+        return $this;
+    }
+
+    public function getSpecialization()
+    {
+        return $this->specialization;
+    }
+    public function setSpecialization($specialization)
+    {
+        $this->specialization = $specialization;
+
+        return $this;
+    }
+
+    public function getTravel()
+    {
+        return $this->travel;
+    }
+    public function setTravel($travel)
+    {
+        $this->travel = $travel;
+
+        return $this;
+    }
 
     public function updateUser()
     {
@@ -52,6 +110,12 @@ class User
         $statement = $conn->prepare("UPDATE `users` SET `location`=:location,`music`=:music,`hobbies`=:hobies,`specialization`=:specialization, `travel`=:travel where user_id = :userid");
 
         $userid = $this->getId();
+        $location = $this->getLocation();
+        $music = $this->getMusic();
+        $hobbies = $this->getHobbies();
+        $specialization = $this->getSpecialization();
+        $travel = $this->getTravel();
+
         $statement->bindParam(":userid", $userid);
         $statement->bindParam(":location", $location);
         $statement->bindParam(":music", $music);
