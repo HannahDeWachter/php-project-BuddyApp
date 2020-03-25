@@ -107,7 +107,7 @@ class User
     }
     public function save()
     {
-        try {
+        //try {
         //conn
         $conn = Db::getConnection();
         //insert query
@@ -126,36 +126,32 @@ class User
         $result = $statement->execute();
 
         return $result;
-
-        
-
         //return result
-        } catch ( Throwable $t ) {
-            print "Error!: " . $t->getMessage() . "<br/>";
-            die();
-        }
-
-
-
+       // } catch ( Throwable $t ) {
+           // print "Error!: " . $t->getMessage() . "<br/>";
+           // die();
+      //  }
 
     }
     
+    public function endsWith($email, $endString)
+    {
+        $len = strlen($endString);
+       return(substr($email,0,$len) === $endString); 
+    }
+    public function availableEmail($email){
+        $conn = Db::getConnection();
+        $statement = $conn -> prepare("SELECT * FROM users WHERE email = :email LIMITS 1");
+        $statement->bindparam(":email", $email);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        if($result ==false){
+            return true;
+        }else{
+            return false;
+        }
 
-function endsWith($email, $endString)
-{
-    $len = strlen($endString);
-   return(substr($email,0,$len) === $endString);
-   
-   
-   
-   
-    if (endsWith("@student.thomasmore.be")) {
-        echo true;
-    }else{
-        throw new Exception("email has to end on @student.thomasmore.be");
     }
 
-   
-}
 
     }

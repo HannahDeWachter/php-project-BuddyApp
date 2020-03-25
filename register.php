@@ -14,7 +14,11 @@ if (!empty($_POST)) {
         $user->save();
        // $success = "User saved!";
 
-        $user->endsWith();
+       if ($user->endsWith($_POST['email'],"@student.thomasmore.be")) {
+        echo true;
+    }else{
+        throw new Exception("email has to end on @student.thomasmore.be");
+    }
 
     } 
     catch (Throwable $th) {
