@@ -5,7 +5,35 @@ include_once(__DIR__ . "/classes/Db.php");
 
 
 if (!empty($_POST)) {
-    
+    // $user = new User();
+    // $user->setId(1); //$_SESSION['id']
+    $location = $_POST['location'];
+    echo $location;
+    // $user->setLocation(htmlspecialchars($location));
+    $specialization = $_POST['specialization'];
+    echo $specialization;
+    // $user->setSpecialization($specialization);
+    if (!empty($_POST['music'])) {
+        $music = $_POST['music'];
+        $music = implode(',', $music);
+        echo $music;
+        // $user->setMusic($music);
+    }
+    if (!empty($_POST['hobbies'])) {
+        $hobbies = $_POST['hobbies'];
+        $hobbies = implode(',', $hobbies);
+        echo $hobbies;
+        // $user->setHobbies($hobbies);
+    }
+    if (!empty($_POST['travel'])) {
+        $travel = $_POST['travel'];
+        $travel = implode(',', $travel);
+        echo $travel;
+        // $user->setTravel($travel);
+    }
+
+    // $details = $user->updateUser();
+    // var_dump($details);
 }
 
 ?>
