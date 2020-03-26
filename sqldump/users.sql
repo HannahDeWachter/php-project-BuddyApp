@@ -39,6 +39,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `music` varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL,
   `hobbies` varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL,
   `specialization` varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `travel` varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 COMMIT;

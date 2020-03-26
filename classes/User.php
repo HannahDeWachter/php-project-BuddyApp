@@ -144,7 +144,7 @@ class User
     public function updateUser()
     {
         $conn = Db::getConnection();
-        $statement = $conn->prepare("UPDATE `users` SET `location`=:location,`music`=:music,`hobbies`=:hobies,`specialization`=:specialization, `travel`=:travel where user_id = :userid");
+        $statement = $conn->prepare("UPDATE users SET `location` = :abc, music = :music, hobbies = :hobbies, specialization = :specialization,  travel = :travel where id = :userid");
 
         $userid = $this->getId();
         $location = $this->getLocation();
@@ -154,9 +154,9 @@ class User
         $travel = $this->getTravel();
 
         $statement->bindParam(":userid", $userid);
-        $statement->bindParam(":location", $location);
+        $statement->bindParam(":abc", $location);
         $statement->bindParam(":music", $music);
-        $statement->bindParam(":hobbiees", $hobbies);
+        $statement->bindParam(":hobbies", $hobbies);
         $statement->bindParam(":specialization", $specialization);
         $statement->bindParam(":travel", $travel);
         $statement->execute();

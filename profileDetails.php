@@ -8,31 +8,31 @@ if (!empty($_POST)) {
     $user = new User();
     $user->setId(1); //$_SESSION['id']
     $location = $_POST['location'];
-    echo $location;
+    // echo $location;
     $user->setLocation(htmlspecialchars($location));
     $specialization = $_POST['specialization'];
-    echo $specialization;
+    // echo $specialization;
     $user->setSpecialization($specialization);
     if (!empty($_POST['music'])) {
         $music = $_POST['music'];
         $music = implode(',', $music);
-        echo $music;
+        // echo $music;
         $user->setMusic($music);
     }
     if (!empty($_POST['hobbies'])) {
         $hobbies = $_POST['hobbies'];
         $hobbies = implode(',', $hobbies);
-        echo $hobbies;
+        // echo $hobbies;
         $user->setHobbies($hobbies);
     }
     if (!empty($_POST['travel'])) {
         $travel = $_POST['travel'];
         $travel = implode(',', $travel);
-        echo $travel;
+        // echo $travel;
         $user->setTravel($travel);
     }
 
-    // $details = $user->updateUser();
+    $details = $user->updateUser();
     var_dump($user);
 }
 
@@ -76,21 +76,33 @@ if (!empty($_POST)) {
             <br>
             <input type="checkbox" class="form-inline" id="music" name="music[]" value="rock">Rock
             <br>
-            <input type="checkbox" class="form-inline" id="music" name="music[]" value="rnb">RnB
+            <input type="checkbox" class="form-inline" id="music" name="music[]" value="disco">Disco
+            <br>
+            <input type="checkbox" class="form-inline" id="music" name="music[]" value="rap">Rap
             <br>
             <input type="checkbox" class="form-inline" id="music" name="music[]" value="techno">Techno
             <br>
-            <input type="checkbox" class="form-inline" id="music" name="music[]" value="kpop">K-pop
+            <input type="checkbox" class="form-inline" id="music" name="music[]" value="dnb">DnB
+            <br>
+            <input type="checkbox" class="form-inline" id="music" name="music[]" value="indie">Indie
+            <br>
+            <input type="checkbox" class="form-inline" id="music" name="music[]" value="jazz">Jazz
+            <br>
+            <input type="checkbox" class="form-inline" id="music" name="music[]" value="rnb">RnB
             <br>
             <input type="checkbox" class="form-inline" id="music" name="music[]" value="other">Other
         </div>
         <div class="form-group">
             <label for="hobbies">What do you like to do?</label><br>
+            <input type="checkbox" class="form-inline" id="hobbies" name="hobbies[]" value="paint">Paint
+            <br>
             <input type="checkbox" class="form-inline" id="hobbies" name="hobbies[]" value="sport">Sport
+            <br>
+            <input type="checkbox" class="form-inline" id="hobbies" name="hobbies[]" value="party">Party
             <br>
             <input type="checkbox" class="form-inline" id="hobbies" name="hobbies[]" value="instrument">Play an instrument
             <br>
-            <input type="checkbox" class="form-inline" id="hobbies" name="hobbies[]" value="sing">Sing
+            <input type="checkbox" class="form-inline" id="hobbies" name="hobbies[]" value="read">Read books
             <br>
             <input type="checkbox" class="form-inline" id="hobbies" name="hobbies[]" value="other">Other
         </div>
