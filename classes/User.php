@@ -3,9 +3,9 @@ include_once(__DIR__ . "/Db.php");
 
 class User
 {
-    protected $id;
-    protected $firstname;
-    protected $lastname;
+    private $id;
+    private $firstname;
+    private $lastname;
     private $email;
     private $password;
 
