@@ -23,6 +23,37 @@ class User
     public function setId($id)
     {
         $this->id = $id;
+        return $this;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+    public function setEmail($email)
+    {
+        if (empty($email)) {
+            throw new Exception("email cannot be empty");
+        }
+
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
+    }
+    public function setPassword($password)
+    {
+        if (empty($password)) {
+            //secure those passwords
+            throw new Exception("password cannot be empty!");
+        }
+
+        $password = password_hash($password, PASSWORD_DEFAULT, ['cost' => 14]);
+        $this->password = $password;
 
         return $this;
     }
@@ -33,6 +64,9 @@ class User
     }
     public function setFirstname($firstname)
     {
+        if (empty($firstname)) {
+            throw new Exception("Firstname cannot be empty");
+        }
         $this->firstname = $firstname;
 
         return $this;
@@ -44,6 +78,9 @@ class User
     }
     public function setLastname($lastname)
     {
+        if (empty($lastname)) {
+            throw new Exception("Lastname cannot be empty");
+        }
         $this->lastname = $lastname;
 
         return $this;
@@ -126,5 +163,45 @@ class User
 
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
+    }
+
+    public function save()
+    {
+        //conn
+        $conn = Db::getConnection();
+        //insert query
+        $statement = $conn->prepare("insert into users(firstname,lastname,email,password) values (:firstname, :lastname, :email, :password)");
+        $firstname = $this->getFirstName();
+        $lastname = $this->getLastName();
+        $email = $this->getEmail();
+        $password = $this->getPassword();
+
+        $statement->bindParam(":firstname", $firstname);
+        $statement->bindParam(":lastname", $lastname);
+        $statement->bindParam(":email", $email);
+        $statement->bindParam(":password", $password);
+
+        $result = $statement->execute();
+
+        return $result;
+    }
+
+    public function endsWith($email, $endString)
+    {
+        $len = strlen($endString);
+        return (substr($email, 0, $len) === $endString);
+    }
+    public function availableEmail($email)
+    {
+        $conn = Db::getConnection();
+        $statement = $conn->prepare("SELECT * FROM users WHERE email = :email LIMITS 1");
+        $statement->bindparam(":email", $email);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        if ($result == false) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

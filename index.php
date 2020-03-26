@@ -15,7 +15,13 @@ include_once(__DIR__ . "/includes/header.inc.php");
 </head>
 
 <body>
-
+ <div class="h1">testing here</div>
+ <p>Changes come here in this div</p>
+ /**
+    git status to see if you have commits to push
+    git push to publish them on github branch
+    or click on ... and push
+  */
 </body>
 
 </html>
