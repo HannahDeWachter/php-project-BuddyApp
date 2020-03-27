@@ -6,6 +6,10 @@ session_start();
 $id = $_SESSION['user_id'];
 $dataUser = User::getAllInformation($id);
 
+$musicArray = (explode(",", $dataUser['music']));
+$hobbiesArray = (explode(",", $dataUser['hobbies']));
+$travelArray = (explode(",", $dataUser['travel']));
+
 if (!empty($_POST)) {
     $user = new User();
     $user->setId($id);
@@ -31,7 +35,6 @@ if (!empty($_POST)) {
 
     $details = $user->updateUser();
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,7 +50,7 @@ if (!empty($_POST)) {
     <?php include_once(__DIR__ . "/includes/header.inc.php"); ?>
 
     <a href="profile.php">Go back to profile</a>
-    <?php var_dump($dataUser); ?>
+
     <div class="container wrap form-group input-group-text">
 
         <form action="" method="post">
@@ -72,51 +75,93 @@ if (!empty($_POST)) {
             </div>
             <div class="form-group ">
                 <label for="music" class="">Which music do you like?</label><br>
-                <input type="checkbox" class="custom-checkbox" id="music" name="music[]" value="pop">Pop
+                <input type="checkbox" class="custom-checkbox" id="music" name="music[]" <?php if (in_array("pop", $musicArray)) {
+                                                                                                echo "checked";
+                                                                                            } ?> value="pop">Pop
                 <br>
-                <input type="checkbox" class="custom-checkbox" id="music" name="music[]" value="rock">Rock
+                <input type="checkbox" class="custom-checkbox" id="music" name="music[]" <?php if (in_array("rock", $musicArray)) {
+                                                                                                echo "checked";
+                                                                                            } ?> value="rock">Rock
                 <br>
-                <input type="checkbox" class="custom-checkbox" id="music" name="music[]" value="disco">Disco
+                <input type="checkbox" class="custom-checkbox" id="music" name="music[]" <?php if (in_array("disco", $musicArray)) {
+                                                                                                echo "checked";
+                                                                                            } ?> value="disco">Disco
                 <br>
-                <input type="checkbox" class="custom-checkbox" id="music" name="music[]" value="rap">Rap
+                <input type="checkbox" class="custom-checkbox" id="music" name="music[]" <?php if (in_array("rap", $musicArray)) {
+                                                                                                echo "checked";
+                                                                                            } ?> value="rap">Rap
                 <br>
-                <input type="checkbox" class="custom-checkbox" id="music" name="music[]" value="techno">Techno
+                <input type="checkbox" class="custom-checkbox" id="music" name="music[]" <?php if (in_array("techno", $musicArray)) {
+                                                                                                echo "checked";
+                                                                                            } ?> value="techno">Techno
                 <br>
-                <input type="checkbox" class="custom-checkbox" id="music" name="music[]" value="dnb">DnB
+                <input type="checkbox" class="custom-checkbox" id="music" name="music[]" <?php if (in_array("dnb", $musicArray)) {
+                                                                                                echo "checked";
+                                                                                            } ?> value="dnb">DnB
                 <br>
-                <input type="checkbox" class="custom-checkbox" id="music" name="music[]" value="indie">Indie
+                <input type="checkbox" class="custom-checkbox" id="music" name="music[]" <?php if (in_array("indie", $musicArray)) {
+                                                                                                echo "checked";
+                                                                                            } ?> value="indie">Indie
                 <br>
-                <input type="checkbox" class="custom-checkbox" id="music" name="music[]" value="jazz">Jazz
+                <input type="checkbox" class="custom-checkbox" id="music" name="music[]" <?php if (in_array("jazz", $musicArray)) {
+                                                                                                echo "checked";
+                                                                                            } ?> value="jazz">Jazz
                 <br>
-                <input type="checkbox" class="custom-checkbox" id="music" name="music[]" value="rnb">RnB
+                <input type="checkbox" class="custom-checkbox" id="music" name="music[]" <?php if (in_array("rnb", $musicArray)) {
+                                                                                                echo "checked";
+                                                                                            } ?> value="rnb">RnB
                 <br>
-                <input type="checkbox" class="custom-checkbox" id="music" name="music[]" value="other">Other
+                <input type="checkbox" class="custom-checkbox" id="music" name="music[]" <?php if (in_array("other", $musicArray)) {
+                                                                                                echo "checked";
+                                                                                            } ?> value="other">Other
             </div>
             <div class="form-group">
                 <label for="hobbies">What do you like to do?</label><br>
-                <input type="checkbox" class="custom-checkbox" id="hobbies" name="hobbies[]" value="paint">Paint
+                <input type="checkbox" class="custom-checkbox" id="hobbies" name="hobbies[]" <?php if (in_array("paint", $hobbiesArray)) {
+                                                                                                    echo "checked";
+                                                                                                } ?> value="paint">Paint
                 <br>
-                <input type="checkbox" class="custom-checkbox" id="hobbies" name="hobbies[]" value="sport">Sport
+                <input type="checkbox" class="custom-checkbox" id="hobbies" name="hobbies[]" <?php if (in_array("sport", $hobbiesArray)) {
+                                                                                                    echo "checked";
+                                                                                                } ?> value="sport">Sport
                 <br>
-                <input type="checkbox" class="custom-checkbox" id="hobbies" name="hobbies[]" value="party">Party
+                <input type="checkbox" class="custom-checkbox" id="hobbies" name="hobbies[]" <?php if (in_array("party", $hobbiesArray)) {
+                                                                                                    echo "checked";
+                                                                                                } ?> value="party">Party
                 <br>
-                <input type="checkbox" class="custom-checkbox" id="hobbies" name="hobbies[]" value="instrument">Play an instrument
+                <input type="checkbox" class="custom-checkbox" id="hobbies" name="hobbies[]" <?php if (in_array("instrument", $hobbiesArray)) {
+                                                                                                    echo "checked";
+                                                                                                } ?> value="instrument">Play an instrument
                 <br>
-                <input type="checkbox" class="custom-checkbox" id="hobbies" name="hobbies[]" value="read">Read books
+                <input type="checkbox" class="custom-checkbox" id="hobbies" name="hobbies[]" <?php if (in_array("read", $hobbiesArray)) {
+                                                                                                    echo "checked";
+                                                                                                } ?> value="read">Read books
                 <br>
-                <input type="checkbox" class="custom-checkbox" id="hobbies" name="hobbies[]" value="other">Other
+                <input type="checkbox" class="custom-checkbox" id="hobbies" name="hobbies[]" <?php if (in_array("other", $hobbiesArray)) {
+                                                                                                    echo "checked";
+                                                                                                } ?> value="other">Other
             </div>
             <div class="form-group">
                 <label for="travel">Where have you travelled?</label><br>
-                <input type="checkbox" class="custom-checkbox" id="travel" name="travel[]" value="africa">Africa
+                <input type="checkbox" class="custom-checkbox" id="travel" name="travel[]" <?php if (in_array("africa", $travelArray)) {
+                                                                                                echo "checked";
+                                                                                            } ?> value="africa">Africa
                 <br>
-                <input type="checkbox" class="custom-checkbox" id="travel" name="travel[]" value="america">America
+                <input type="checkbox" class="custom-checkbox" id="travel" name="travel[]" <?php if (in_array("america", $travelArray)) {
+                                                                                                echo "checked";
+                                                                                            } ?> value="america">America
                 <br>
-                <input type="checkbox" class="custom-checkbox" id="travel" name="travel[]" value="asia">Asia
+                <input type="checkbox" class="custom-checkbox" id="travel" name="travel[]" <?php if (in_array("asia", $travelArray)) {
+                                                                                                echo "checked";
+                                                                                            } ?> value="asia">Asia
                 <br>
-                <input type="checkbox" class="custom-checkbox" id="travel" name="travel[]" checked value="europe">Europe
+                <input type="checkbox" class="custom-checkbox" id="travel" name="travel[]" <?php if (in_array("europe", $travelArray)) {
+                                                                                                echo "checked";
+                                                                                            } ?> checked value="europe">Europe
                 <br>
-                <input type="checkbox" class="custom-checkbox" id="travel" name="travel[]" value="oceania">Oceania
+                <input type="checkbox" class="custom-checkbox" id="travel" name="travel[]" <?php if (in_array("oceania", $travelArray)) {
+                                                                                                echo "checked";
+                                                                                            } ?> value="oceania">Oceania
             </div>
             <div class="form btn">
                 <input type="submit" class="btn btn-primary" value="Save">
