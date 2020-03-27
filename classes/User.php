@@ -217,4 +217,46 @@ class User
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    public static function canLogin($email, $password)
+    {
+        //db connectie
+        $conn = Db::getConnection();
+
+        //email zoeken in db
+        $statement = $conn->prepare('select * from users where email = :email');
+        $statement->bindParam(':email', $email);
+        $statement->execute();
+        $user = $statement->fetch(PDO::FETCH_ASSOC);
+
+        //passwoorden komen overeen?
+        if (password_verify($password, $user['password'])) {
+            //ja -> naar index
+            //echo "joepie de poepie!!!!";
+            return $user;
+        } else {
+            //nee -> error
+            //echo "jammer joh";
+            return false;
+        }
+    }
+
+    public static function doLogin($user)
+    {
+        $_SESSION['email'] = $user['email'];
+        $_SESSION['user_id'] = $user['id'];
+        header('location: index.php');
+    }
+
+    public static function getUserId()
+    {
+        $email = $_SESSION['email'];
+        $conn = new PDO('mysql:host=localhost;dbname=login', "root", "");
+        $statement = $conn->prepare('select id from users where email = :email');
+        $statement->bindParam(':email', $email);
+        $statement->execute();
+        $user = $statement->fetch(PDO::FETCH_ASSOC);
+
+        return $user['id'];
+    }
 }
