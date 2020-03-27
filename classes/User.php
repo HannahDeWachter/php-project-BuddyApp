@@ -25,9 +25,10 @@ class User
      * @return  self
      */
     public function setEmail($email)
-    { if( empty($email)){
-        throw new Exception("email cannot be empty");
-    }
+    {
+        if (empty($email)) {
+            throw new Exception("email cannot be empty");
+        }
 
         $this->email = $email;
 
@@ -61,7 +62,7 @@ class User
      * Get the value of lastname
      */
     public function getLastname()
-    { 
+    {
         return $this->lastname;
     }
 
@@ -71,9 +72,10 @@ class User
      * @return  self
      */
     public function setLastname($lastname)
-    {if(empty($lastname)){
-        throw new Exception("Lastname cannot be empty");
-    }
+    {
+        if (empty($lastname)) {
+            throw new Exception("Lastname cannot be empty");
+        }
         $this->lastname = $lastname;
 
         return $this;
@@ -83,7 +85,7 @@ class User
      * Get the value of password
      */
     public function getPassword()
-    { 
+    {
         return $this->password;
     }
 
@@ -93,17 +95,17 @@ class User
      * @return  self
      */
     public function setPassword($password)
-    {   if(empty($password)){
-        //secure those passwords
-        //$salt = "djghdiguhosifj";
-        throw new Exception("password cannot be empty!");
-    }
+    {
+        if (empty($password)) {
+            //secure those passwords
+            //$salt = "djghdiguhosifj";
+            throw new Exception("password cannot be empty!");
+        }
 
         $password = password_hash($password, PASSWORD_DEFAULT, ['cost' => 14]); // niet goed --> md5($password.$salt); //te snel
-       $this->password = $password;
+        $this->password = $password;
 
-       return $this;
-      
+        return $this;
     }
     public function save()
     {
@@ -124,36 +126,34 @@ class User
         $statement->bindParam(":password", $password);
 
         $result = $statement->execute();
-echo "ik ben hier aan het saven";
+        echo "ik ben hier aan het saven";
         return $result;
         //return result
-       // } catch ( Throwable $t ) {
-           // print "Error!: " . $t->getMessage() . "<br/>";
-           // die();
-      //  }
+        // } catch ( Throwable $t ) {
+        // print "Error!: " . $t->getMessage() . "<br/>";
+        // die();
+        //  }
 
     }
-    
+
     public function endsWith($email, $endString)
     {
         $len = strlen($endString);
-       return(substr($email, 0, $len) === $endString);
-       echo "emailtje";
+        return (substr($email, -$len, $len));
+        // echo "emailtje";
     }
-    public function availableEmail($email){
+    public function availableEmail($email)
+    {
         $conn = Db::getConnection();
-        $statement = $conn -> prepare("SELECT * FROM users WHERE email = :email LIMITS 1");
+        $statement = $conn->prepare("SELECT * FROM users WHERE email = :email LIMITS 1");
         $statement->bindparam(":email", $email);
         $statement->execute();
         $result = $statement->fetch(PDO::FETCH_ASSOC);
-        echo "emailtje dubbel?";
-        if($result ==false){
+        // echo "emailtje dubbel?";
+        if ($result == false) {
             return true;
-        }else{
+        } else {
             return false;
         }
-
     }
-
-
-    }
+}

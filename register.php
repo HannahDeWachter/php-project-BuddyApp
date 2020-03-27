@@ -6,33 +6,33 @@ include_once(__DIR__ . "/classes/User.php");
 if (!empty($_POST)) {
     try {
         $user = new User();
-        if($user->availableEmail($user->getEmail())){
-         if($user->endsWith($_POST['email'], "@student.thomasmore.be")){
+        if ($user->availableEmail($user->getEmail())) {
+            if ($user->endsWith($_POST['email'], "@student.thomasmore.be") === "@student.thomasmore.be") {
+                // $error = "klopt!";
+            } else {
+                $error = "email has to end with @student.thomasmore.be";
+            }
+        } else {
+            $error = "email is already in use";
+        }
 
-         }  else{
-             $error = "email has to end on @student.thomasmore.be";}
-         
-
-        }else{ $error = "email is already in use";}
-    
-        if(!isset($error)){
-            $user=new User();
+        if (!isset($error)) {
+            $user = new User();
             $user->setEmail(htmlspecialchars($_POST['email']));
             $user->setFirstName(htmlspecialchars($_POST['firstname']));
             $user->setLastName(htmlspecialchars($_POST['lastname']));
             $user->setPassword(htmlspecialchars($_POST['password']));
             $user->save();
-
         }
-    }catch(Throwable $th){
+    } catch (Throwable $th) {
         $error = $th->getMessage();
     }
 }
-       
 
-       
-       // $success = "User saved!";
-     
+
+
+// $success = "User saved!";
+
 
 ?>
 
@@ -59,11 +59,6 @@ if (!empty($_POST)) {
                     </div>
                 <?php endif; ?>
 
-              <!--  <?php if (isset($success)) : ?>
-                    <div class="success" style="color:green;">
-                        <?php echo $success; ?>
-                    </div>
-                <?php endif; ?> !-->
 
                 <form action="" method="post">
                     <h2 form__title>Create an account</h2>
