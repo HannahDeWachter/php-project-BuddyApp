@@ -2,38 +2,33 @@
 
 include_once(__DIR__ . "/classes/User.php");
 include_once(__DIR__ . "/classes/Db.php");
-
+session_start();
+// $_SESSION['id'] = $id;
 
 if (!empty($_POST)) {
     $user = new User();
-    $user->setId(1); //$_SESSION['id']
+    $user->setId($_SESSION['id']);
     $location = $_POST['location'];
-    // echo $location;
     $user->setLocation(htmlspecialchars($location));
     $specialization = $_POST['specialization'];
-    // echo $specialization;
     $user->setSpecialization($specialization);
     if (!empty($_POST['music'])) {
         $music = $_POST['music'];
         $music = implode(',', $music);
-        // echo $music;
         $user->setMusic($music);
     }
     if (!empty($_POST['hobbies'])) {
         $hobbies = $_POST['hobbies'];
         $hobbies = implode(',', $hobbies);
-        // echo $hobbies;
         $user->setHobbies($hobbies);
     }
     if (!empty($_POST['travel'])) {
         $travel = $_POST['travel'];
         $travel = implode(',', $travel);
-        // echo $travel;
         $user->setTravel($travel);
     }
 
     $details = $user->updateUser();
-    var_dump($user);
 }
 
 ?>
@@ -50,11 +45,12 @@ if (!empty($_POST)) {
 <body>
     <?php include_once(__DIR__ . "/includes/header.inc.php"); ?>
 
+    <a href="profile.php">Go back to profile</a>
 
     <form action="" method="post">
         <div class="form-group">
             <label for="location">In what city do you live?</label><br>
-            <input type="text" class="form-control" name="location" id="location">
+            <input type="text" class="form-control" name="location" id="location" placeholder="City">
         </div>
         <div class="form-group">
             <label for="specialization">Design or Development?</label><br>
@@ -118,12 +114,10 @@ if (!empty($_POST)) {
             <br>
             <input type="checkbox" class="form-inline" id="travel" name="travel[]" value="oceania">Oceania
         </div>
-        <div class="form__btn">
+        <div class="form btn">
             <input type="submit" class="btn btn-primary" value="Save">
         </div>
     </form>
 </body>
 
 </html>
-
-<!-- kenmerken: muziek(genre) met checkbox, locatie, hobby's/interesses (zelfde als muziek), design/dev(radio button)(niet op matchen), travel -->
