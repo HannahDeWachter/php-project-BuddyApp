@@ -6,7 +6,7 @@ include_once(__DIR__ . "/classes/User.php");
 if (!empty($_POST)) {
     try {
         $user = new User();
-        if ($user->availableEmail($user->getEmail())) {
+        if ($user->availableEmail($_POST['email'])) {
             if ($user->endsWith($_POST['email'], "@student.thomasmore.be") === "@student.thomasmore.be") {
                 // $error = "klopt!";
             } else {
@@ -42,7 +42,7 @@ if (!empty($_POST)) {
 </head>
 
 <body>
-    <div class="container--login">
+    <div class="container">
         <div class="wrap">
 
             <div class="form-group">

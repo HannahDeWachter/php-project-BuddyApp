@@ -21,11 +21,11 @@ if (!empty($_POST)) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Eurben</title>
-
+  <title>Login</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- CSS Files -->
-  <link href="../GitHub/php-project-BuddyApp/css/style.css" rel="stylesheet" />
+  <link href="css/style.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -34,11 +34,15 @@ if (!empty($_POST)) {
 
     <form class="form" method="post" action="">
 
-
-
       <div class="header">
         <h2>BUDDY APP</h2>
-
+        <?php if (isset($error)) : ?>
+        <div class="form alert-danger">
+          <p>
+            Sorry, we can't log you in with that email address and password. Can you try again?
+          </p>
+        </div>
+      <?php endif; ?>
         <h4>Login</h4>
 
       </div>
@@ -57,17 +61,6 @@ if (!empty($_POST)) {
 
 
       <input type="submit" value="Sign in" class="btn btn-primary">
-      <?php if (isset($error)) : ?>
-        <div class="form__error">
-          <p>
-            Sorry, we can't log you in with that email address and password. Can you try again?
-          </p>
-        </div>
-      <?php endif; ?>
-
-
-
-
 
     </form>
 
