@@ -208,16 +208,16 @@ class User
             return false;
         }*/
     }
-    public function getAllInformation()
+    public static function getAllInformation($id)
     {
         $conn = Db::getConnection();
         $statement = $conn->prepare("SELECT * FROM users WHERE id = :id");
-        $id = $this->getId();
+        // $id = $this->getId();
 
         $statement->bindparam(":id", $id);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        return $result[0];
     }
 
     public static function canLogin($email, $password)
@@ -248,7 +248,9 @@ class User
         session_start();
         $_SESSION['email'] = $user['email'];
         $_SESSION['user_id'] = $user['id'];
-        header('location: index.php');
+        $_SESSION['firstname'] = $user['firstname'];
+        var_dump($user);
+        // header('location: index.php');
     }
 
     public static function getUserId()

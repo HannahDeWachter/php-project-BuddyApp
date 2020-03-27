@@ -3,11 +3,12 @@
 include_once(__DIR__ . "/classes/User.php");
 include_once(__DIR__ . "/classes/Db.php");
 session_start();
-// $_SESSION['id'] = $id;
+$id = $_SESSION['user_id'];
+$dataUser = User::getAllInformation($id);
 
 if (!empty($_POST)) {
     $user = new User();
-    $user->setId($_SESSION['id']);
+    $user->setId($id);
     $location = $_POST['location'];
     $user->setLocation(htmlspecialchars($location));
     $specialization = $_POST['specialization'];
@@ -46,25 +47,25 @@ if (!empty($_POST)) {
     <?php include_once(__DIR__ . "/includes/header.inc.php"); ?>
 
     <a href="profile.php">Go back to profile</a>
-
+    <?php var_dump($dataUser); ?>
     <div class="container wrap form-group input-group-text">
 
         <form action="" method="post">
-            <h2 class="form__title">Complete your profile</h2>
+            <h2 class="form__title">Complete your profile, <?php echo $dataUser['firstname']; ?></h2>
             <div class="form-group">
                 <label for="location">In what city do you live?</label><br>
-                <input type="text" class="form-control" name="location" id="location" placeholder="City">
+                <input type="text" class="form-control" name="location" id="location" placeholder="City" value="<?php echo $dataUser['location']; ?>">
             </div>
             <div class="form-group">
                 <label for="specialization">Design or Development?</label><br>
                 <select name="specialization" class="form-control" id="specialization">
-                    <option <?php if (isset($specialization) && $specialization === "design") {
+                    <option <?php if (isset($dataUser['specialization']) && $dataUser['specialization'] === "design") {
                                 echo "selected";
                             } ?> value="design">Design</option>
-                    <option <?php if (isset($specialization) && $specialization === "dev") {
+                    <option <?php if (isset($dataUser['specialization']) && $dataUser['specialization'] === "dev") {
                                 echo "selected";
                             } ?> value="dev">Development</option>
-                    <option <?php if (isset($specialization) && $specialization === "both") {
+                    <option <?php if (isset($dataUser['specialization']) && $dataUser['specialization'] === "both") {
                                 echo "selected";
                             } ?> value="both">Both</option>
                 </select>

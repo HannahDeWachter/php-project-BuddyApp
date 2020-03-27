@@ -3,15 +3,12 @@
 include_once(__DIR__ . "/classes/User.php");
 include_once(__DIR__ . "/classes/Db.php");
 session_start();
-
-$user = new User();
-$id = 1;
-$user->setId($id); // session -> $_SESSION['id'];
-$allInformation = $user->getAllInformation();
+$id = $_SESSION['user_id'];
+$allInformation = User::getAllInformation($id);
 // var_dump($allInformation);
 
 // checken of velden (location, music, travel, specialization, hobbies) allemaal zijn ingevuld
-if (($allInformation[$id - 1]['location'] === "") || ($allInformation[$id - 1]['music'] === "") || ($allInformation[$id - 1]['travel'] === "") || ($allInformation[$id - 1]['specialization'] === "") || ($allInformation[$id - 1]['hobbies'] === "")) {
+if (($allInformation['location'] === "") || ($allInformation['music'] === "") || ($allInformation['travel'] === "") || ($allInformation['specialization'] === "") || ($allInformation['hobbies'] === "")) {
     // als niet iets ingevuld -> $message = "You have not completed your profile yet."
     $message = "You have not completed your profile yet.";
 }
