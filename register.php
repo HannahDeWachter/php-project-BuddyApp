@@ -30,10 +30,6 @@ if (!empty($_POST)) {
 }
 
 
-
-// $success = "User saved!";
-
-
 ?>
 
 <!DOCTYPE html>
@@ -57,38 +53,37 @@ if (!empty($_POST)) {
                     </div>
                 <?php endif; ?>
 
-                <<<<<<< HEAD=======>>>>>>> master
-                    <form action="" method="post">
-                        <h2 form__title>Create an account</h2>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="text" class="form-control" id="email" name="email">
-                        </div>
-                        <div class="form-group">
-                            <label for="firstname">Firstname</label>
-                            <input type="text" class="form-control" id="firstname" name="firstname">
-                        </div>
-                        <div class="form-group">
-                            <label for="lastname">Lastname</label>
-                            <input type="text" class="form-control" id="lastname" name="lastname">
-                        </div>
-
-
-
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" id="password" name="password">
-                        </div>
-
-
-
-                        <div class="form__btn">
-                            <input type="submit" class="btn btn-primary" name="submit" value="Sign me up!">
-                        </div>
-                    </form>
-                    <div class="link">
-                        <p> <a href="login.php"> Back to login</a></p>
+                <form action="" method="post">
+                    <h2 class="form__title">Create an account</h2>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text" class="form-control" id="email" name="email">
                     </div>
+                    <div class="form-group">
+                        <label for="firstname">Firstname</label>
+                        <input type="text" class="form-control" id="firstname" name="firstname">
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname">Lastname</label>
+                        <input type="text" class="form-control" id="lastname" name="lastname">
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password">
+                    </div>
+
+
+
+                    <div class="form__btn">
+                        <input type="submit" class="btn btn-primary" name="submit" value="Sign me up!">
+                    </div>
+                </form>
+                <div class="link">
+                    <p> <a href="login.php"> Back to login</a></p>
+                </div>
             </div>
         </div>
     </div>

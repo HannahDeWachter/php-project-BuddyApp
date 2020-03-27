@@ -23,7 +23,7 @@ if (($allInformation[$id - 1]['location'] === "") || ($allInformation[$id - 1]['
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <title>Buddy Profile</title>
 </head>
 
@@ -33,7 +33,7 @@ if (($allInformation[$id - 1]['location'] === "") || ($allInformation[$id - 1]['
     <img src="" alt="" id="profilePic">
     <strong id="name"></strong>
     <?php if (isset($message)) : ?>
-        <div class="alert-warning">
+        <div class="alert-info">
             <p><?php echo $message ?> Click <a href="profileDetails.php">here</a> to complete your profile.</p>
         </div>
     <?php endif; ?>
