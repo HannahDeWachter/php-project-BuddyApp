@@ -6,25 +6,33 @@ include_once(__DIR__ . "/classes/User.php");
 if (!empty($_POST)) {
     try {
         $user = new User();
-        $user->setEmail(htmlspecialchars($_POST['email']));
-        $user->setFirstName(htmlspecialchars($_POST['firstname']));
-        $user->setLastName(htmlspecialchars($_POST['lastname']));
-        $user->setPassword(htmlspecialchars($_POST['password']));
+        if($user->availableEmail($user->getEmail())){
+         if($user->endsWith($_POST['email'], "@student.thomasmore.be")){
 
-        $user->save();
-       // $success = "User saved!";
+         }  else{
+             $error = "email has to end on @student.thomasmore.be";}
+         
 
-       if ($user->endsWith($_POST['email'],"@student.thomasmore.be")) {
-        echo true;
-    }else{
-        throw new Exception("email has to end on @student.thomasmore.be");
-    }
+        }else{ $error = "email is already in use";}
+    
+        if(!isset($error)){
+            $user=new User();
+            $user->setEmail(htmlspecialchars($_POST['email']));
+            $user->setFirstName(htmlspecialchars($_POST['firstname']));
+            $user->setLastName(htmlspecialchars($_POST['lastname']));
+            $user->setPassword(htmlspecialchars($_POST['password']));
+            $user->save();
 
-    } 
-    catch (Throwable $th) {
+        }
+    }catch(Throwable $th){
         $error = $th->getMessage();
     }
 }
+       
+
+       
+       // $success = "User saved!";
+     
 
 ?>
 

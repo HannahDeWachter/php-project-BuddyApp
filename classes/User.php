@@ -124,7 +124,7 @@ class User
         $statement->bindParam(":password", $password);
 
         $result = $statement->execute();
-
+echo "ik ben hier aan het saven";
         return $result;
         //return result
        // } catch ( Throwable $t ) {
@@ -137,7 +137,8 @@ class User
     public function endsWith($email, $endString)
     {
         $len = strlen($endString);
-       return(substr($email,0,$len) === $endString); 
+       return(substr($email, 0, $len) === $endString);
+       echo "emailtje";
     }
     public function availableEmail($email){
         $conn = Db::getConnection();
@@ -145,6 +146,7 @@ class User
         $statement->bindparam(":email", $email);
         $statement->execute();
         $result = $statement->fetch(PDO::FETCH_ASSOC);
+        echo "emailtje dubbel?";
         if($result ==false){
             return true;
         }else{
