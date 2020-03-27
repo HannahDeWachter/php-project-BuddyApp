@@ -4,8 +4,14 @@ include_once(__DIR__ . "/classes/User.php");
 include_once(__DIR__ . "/classes/Db.php");
 session_start();
 
+$user = new User();
+$id = 1;
+$user->setId($id); // session -> $_SESSION['id'];
+$allInformation = $user->getAllInformation();
+// var_dump($allInformation);
+
 // checken of velden (location, music, travel, specialization, hobbies) allemaal zijn ingevuld
-if (empty($location) || empty($music) || empty($travel) || empty($specialization) || empty($hobbies)) {
+if (($allInformation[$id - 1]['location'] === "") || ($allInformation[$id - 1]['music'] === "") || ($allInformation[$id - 1]['travel'] === "") || ($allInformation[$id - 1]['specialization'] === "") || ($allInformation[$id - 1]['hobbies'] === "")) {
     // als niet iets ingevuld -> $message = "You have not completed your profile yet."
     $message = "You have not completed your profile yet.";
 }
