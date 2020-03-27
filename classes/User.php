@@ -182,7 +182,7 @@ class User
         $statement->bindParam(":password", $password);
 
         $result = $statement->execute();
-        echo "ik ben hier aan het saven";
+        // echo "ik ben hier aan het saven";
         return $result;
     }
 
@@ -195,16 +195,18 @@ class User
     public function availableEmail($email)
     {
         $conn = Db::getConnection();
-        $statement = $conn->prepare("SELECT * FROM users WHERE email = :email LIMITS 1");
+        $statement = $conn->prepare("SELECT * FROM users WHERE email = :email ");
         $statement->bindparam(":email", $email);
         $statement->execute();
-        $result = $statement->fetch(PDO::FETCH_ASSOC);
-        // echo "emailtje dubbel?";
-        if ($result == false) {
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC); //fetchAll geeft array, fetch geeft true/false
+        return empty($result); //is hetzelfde als if else hieronder
+        /*if (empty($result)) {
+            // echo "gestuurd";
             return true;
         } else {
+            // echo "niet gestuurd";
             return false;
-        }
+        }*/
     }
     public function getAllInformation()
     {
@@ -243,6 +245,7 @@ class User
 
     public static function doLogin($user)
     {
+        session_start();
         $_SESSION['email'] = $user['email'];
         $_SESSION['user_id'] = $user['id'];
         header('location: index.php');
