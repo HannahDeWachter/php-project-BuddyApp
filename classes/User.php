@@ -206,4 +206,15 @@ class User
             return false;
         }
     }
+    public function getAllInformation()
+    {
+        $conn = Db::getConnection();
+        $statement = $conn->prepare("SELECT * FROM users WHERE id = :id");
+        $id = $this->getId();
+
+        $statement->bindparam(":id", $id);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
 }

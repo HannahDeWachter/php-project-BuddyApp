@@ -2,6 +2,7 @@
 
 include_once(__DIR__ . "/classes/User.php");
 include_once(__DIR__ . "/classes/Db.php");
+session_start();
 
 // checken of velden (location, music, travel, specialization, hobbies) allemaal zijn ingevuld
 if (empty($location) || empty($music) || empty($travel) || empty($specialization) || empty($hobbies)) {
@@ -25,11 +26,11 @@ if (empty($location) || empty($music) || empty($travel) || empty($specialization
 
     <img src="" alt="" id="profilePic">
     <strong id="name"></strong>
-    <php if(isset($message)): ?>
+    <?php if (isset($message)) : ?>
         <div class="alert-warning">
             <p><?php echo $message ?> Click <a href="profileDetails.php">here</a> to complete your profile.</p>
         </div>
-        <php endif; ?>
+    <?php endif; ?>
 </body>
 
 </html>
