@@ -9,6 +9,7 @@ class User
     private $firstname;
     private $lastname;
     private $password;
+    private $profileImg;
 
 
     /**
@@ -107,6 +108,32 @@ class User
 
         return $this;
     }
+
+
+     /**
+     * Get the value of profileImg
+     */ 
+    public function getProfileImg()
+    {
+        return $this->profileImg;
+    }
+
+    /**
+     * Set the value of profileImg
+     *
+     * @return  self
+     */ 
+    public function setProfileImg($profileImg)
+    {
+        $this->profileImg = $profileImg;
+
+        return $this;
+    }
+
+
+
+
+
     public function save()
     {
         //try {
@@ -156,4 +183,6 @@ class User
             return false;
         }
     }
+
+   
 }
