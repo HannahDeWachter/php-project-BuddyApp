@@ -9,14 +9,14 @@ class Db
             include_once(__DIR__ . "/../settings/settings.php");
 
             if (self::$conn != null) {
-               // echo ('connectie is er');
+                echo ('connectie is er');
 
                 /**
                  * ⚠️ Return connection when not empty ⚠️
                  */
                 return self::$conn;
             } else {
-               // echo ('connectie moet aangemaakt worden');
+                echo ('connectie moet aangemaakt worden');
                 /**
                  * Create new connection when self::$conn === null ⚠️
                  */

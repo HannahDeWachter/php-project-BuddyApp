@@ -9,7 +9,8 @@ class User
     private $firstname;
     private $lastname;
     private $password;
-    private $profileImg;
+    private $profileImage;
+    private $bio;
 
 
     /**
@@ -111,21 +112,21 @@ class User
 
 
      /**
-     * Get the value of profileImg
+     * Get the value of profileImage
      */ 
-    public function getProfileImg()
+    public function getProfileImage()
     {
-        return $this->profileImg;
+        return $this->profileImage;
     }
 
     /**
-     * Set the value of profileImg
+     * Set the value of profileImage
      *
      * @return  self
      */ 
-    public function setProfileImg($profileImg)
+    public function setProfileImage($profileImage)
     {
-        $this->profileImg = $profileImg;
+        $this->profileImage = $profileImage;
 
         return $this;
     }
@@ -184,5 +185,149 @@ class User
         }
     }
 
+    public static function profileImage(){
+
+        $conn = Db::getConnection();
+
+        $statement = $conn->prepare("SELECT id FROM users WHERE email = '".$_SESSION['email']."'");
+        $statement->execute();
+        $id = $statement->fetch(PDO::FETCH_COLUMN);
+        
+
+        $statement = $conn->prepare("SELECT profileImage FROM users WHERE users.id=:id");
+        $statement->bindParam(':id', $id);
+        $statement->execute();
+        $profileImage = $statement->fetch(PDO::FETCH_COLUMN);
+
+     
+
+        return $profileImage;
+    }  
    
+
+    /**
+     * Get the value of bio
+     */ 
+    public function getBio()
+    {
+        return $this->bio;
+    }
+
+    /**
+     * Set the value of bio
+     *
+     * @return  self
+     */ 
+    public function setBio($bio)
+    {
+        $this->bio = $bio;
+
+        return $this;
+    }
+
+    public static function bio(){
+
+        $conn = Db::getConnection();
+
+        $statement = $conn->prepare("SELECT id FROM users WHERE email = '".$_SESSION['email']."'");
+        $statement->execute();
+        $id = $statement->fetch(PDO::FETCH_COLUMN);
+
+        $statement = $conn->prepare("SELECT bio FROM users WHERE users.id=:id");
+        $statement->bindParam(':id', $id);
+        $statement->execute();
+        $bio = $statement->fetch(PDO::FETCH_COLUMN);
+
+       
+
+        return $bio;
+        
+    }
+
+    public static function updateBio(){
+
+        $conn = Db::getConnection();
+
+        if(isset($_POST['submit'])){
+            $bio = htmlspecialchars($_POST['bio']);
+
+            if(empty($bio)){
+                echo '<p>Write something nice</p>';
+            } else {
+                $statement = $conn -> prepare("SELECT id FROM users WHERE email = '".$_SESSION['email']."'");
+                $statement->execute();
+                $id = $statement->fetch(PDO::FETCH_COLUMN);
+
+                $insert = $conn->prepare("UPDATE users SET bio = :bio WHERE users.id=:id");
+                $insert->bindParam(':bio', $bio);
+                $insert->bindParam(':id', $id);
+                $insert->execute();
+            }
+            return $insert;
+        }
+    }
+
+    public static function changeEmail(){
+
+        $conn = Db::getConnection();
+
+        if(isset($_POST['submit'])){
+            $newEmail = htmlspecialchars($_POST['newEmail']);
+            $password = htmlspecialchars($_POST['password']);
+
+            if(empty($password)){
+                echo "You need to fill in your password!";
+            } else {
+                $statement = $conn->prepare("SELECT id FROM users WHERE email ='".$_SESSION['email']."'");
+                $statement->execute();
+                $id =$statement->fetch(PDO::FETCH_COLUMN);
+
+                $insert = $conn->prepare("UPDATE users SET email = :email WHERE users.id = '".$_SESSION['id']."'");
+                $insert->bindParam(':email', $newEmail);
+                $insert->execute();
+                header('Location:index.php');
+            }
+            return $insert;
+
+        }
+    }
+
+
+    public static function changePassword(){
+        $conn=Db::getConnection();
+
+        $statement = $conn->prepare("SELECT id FROM users WHERE email = '".$_SESSION['email']."'");
+        $statement->execute();
+        $id = $statement->fetch(PDO::FETCH_ASSOC);
+
+        $statement = $conn->prepare("SELECT password FROM users WHERE users.id = '".$id."'");
+        $statement->bindParam(':password', $password);
+        $statement->execute();
+
+        if(!empty($_POST)){
+            $oldPassword = $_POST['oldPassword'];
+            $newPassword = $_POST['newPassword'];
+            $confPassword = $_POST['confPassword'];
+      
+            if(empty($newPassword)|| empty($confPassword)  || $newPassword != $confPassword){
+                $error = "All the fields need to be filled in and the 2 passwords need to be the same!";
+
+                if(password_verify($oldPassword, $password)){
+                    $newPassword = password_hash($newPassword, PASSWORD_DEFAULT,['cost'=>12]);
+    
+                    $insert = $conn->prepare("UPDATE users SET password = :password WHERE users.id = '".$id."'");
+                    $insert->bindParam(':password', $newPassword);
+                    $insert->execute();
+
+                    echo "Your password is updated!";
+
+                } else {
+                
+                    echo "Your old password is incorrect!";
+               
+                }            
+            }
+            return $insert;
+        }
+    }
 }
