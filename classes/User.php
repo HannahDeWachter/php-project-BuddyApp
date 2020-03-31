@@ -8,7 +8,7 @@ class User
     private $lastname;
     private $email;
     private $password;
-
+    private $year;
     private $location;
     private $music;
     private $hobbies;
@@ -82,6 +82,17 @@ class User
             throw new Exception("Lastname cannot be empty");
         }
         $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getYear()
+    {
+        return $this->year;
+    }
+    public function setYear($year)
+    {
+        $this->year = $year;
 
         return $this;
     }
@@ -256,7 +267,7 @@ class User
     public static function getUserId()
     {
         $email = $_SESSION['email'];
-        $conn = new PDO('mysql:host=localhost;dbname=login', "root", "");
+        $conn = Db::getConnection();
         $statement = $conn->prepare('select id from users where email = :email');
         $statement->bindParam(':email', $email);
         $statement->execute();
