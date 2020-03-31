@@ -38,52 +38,39 @@ if (($allInformation['location'] === "") || ($allInformation['music'] === "") ||
   </div>
       <div class="form-group">
                 <label for="music" class="">Music</label><br>
-                <input type="checkbox" class="custom-checkbox" id="music" name="music[]"  value="pop">Pop
-                <br>
-                <input type="checkbox" class="custom-checkbox" id="music" name="music[]"  value="rock">Rock
-                <br>
-                <input type="checkbox" class="custom-checkbox" id="music" name="music[]"  value="disco">Disco
-                <br>
-                <input type="checkbox" class="custom-checkbox" id="music" name="music[]"  value="rap">Rap
-                <br>
-                <input type="checkbox" class="custom-checkbox" id="music" name="music[]" value="techno">Techno
-                <br>
-                <input type="checkbox" class="custom-checkbox" id="music" name="music[]"  value="dnb">DnB
-                <br>
-                <input type="checkbox" class="custom-checkbox" id="music" name="music[]"  value="indie">Indie
-                <br>
-                <input type="checkbox" class="custom-checkbox" id="music" name="music[]" value="jazz">Jazz
-                <br>
-                <input type="checkbox" class="custom-checkbox" id="music" name="music[]" value="rnb">RnB
-                <br>
-                <input type="checkbox" class="custom-checkbox" id="music" name="music[]"  value="other">Other
+                <select id="music"> 
+                  <option value="pop"> Pop </option>
+                  <option value="rock">Rock</option>
+                  <option value="disco">Disco</option>
+                  <option value="rap">Rap</option>
+                  <option value="techno">Techno</option>
+                  <option value="dnb">Dnb</option>
+                  <option value="indie">Indie</option>
+                  <option value="jazz">Jazz</option>
+                  <option value="rnb">Rnb</option>
+  </select>
             </div>
-            <div class="form-group">
-                <label for="hobbies">Hobbies</label><br>
-                <input type="checkbox" class="custom-checkbox" id="hobbies" name="hobbies[]"  value="paint">Paint
-                <br>
-                <input type="checkbox" class="custom-checkbox" id="hobbies" name="hobbies[]"  value="sport">Sport
-                <br>
-                <input type="checkbox" class="custom-checkbox" id="hobbies" name="hobbies[]"  value="party">Party
-                <br>
-                <input type="checkbox" class="custom-checkbox" id="hobbies" name="hobbies[]" value="instrument">Play an instrument
-                <br>
-                <input type="checkbox" class="custom-checkbox" id="hobbies" name="hobbies[]" value="read">Read books
-                <br>
-                <input type="checkbox" class="custom-checkbox" id="hobbies" name="hobbies[]"  value="other">Other
-            </div>
-            <div class="form-group">
-                <label for="travel">Travel places</label><br>
-                <input type="checkbox" class="custom-checkbox" id="travel" name="travel[]"  value="africa">Africa
-                <br>
-                <input type="checkbox" class="custom-checkbox" id="travel" name="travel[]" value="america">America
-                <br>
-                <input type="checkbox" class="custom-checkbox" id="travel" name="travel[]" value="asia">Asia
-                <br>
-                <input type="checkbox" class="custom-checkbox" id="travel" name="travel[]"  checked value="europe">Europe
-                <br>
-                <input type="checkbox" class="custom-checkbox" id="travel" name="travel[]" value="oceania">Oceania
-            </div>
+            <br>
+        <div class="form-group">
+                <label for="hobbies"class="">Hobbies</label><br>
+                <select id="hobbies"> 
+                  <option value="paint"> Paint </option>
+                  <option value="sport">Sport</option>
+                  <option value="party">Party</option>
+                  <option value="instrument">Play an instrument</option>
+                  <option value="read">Read books</option>
+  </select>
+        <div class="form-group">
+                <label for="travel"class="">Travel</label><br>
+                <select id="travel"> 
+                  <option value="africa"> Africa </option>
+                  <option value="america">America</option>
+                  <option value="asia">Asia</option>
+                  <option value="europe">Europe</option>
+                  <option value="oceania">Oceania</option>
+  </select>
+                
+            
             <div class="form btn">
                 <input type="submit" class="btn btn-primary" value="Save">
             </div>
