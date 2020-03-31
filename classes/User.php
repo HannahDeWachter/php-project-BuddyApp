@@ -250,7 +250,7 @@ class User
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['firstname'] = $user['firstname'];
         // var_dump($user);
-        header('location: index.php');
+        header('location: matches.php');
     }
 
     public static function getUserId()
