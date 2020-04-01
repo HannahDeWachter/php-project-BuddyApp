@@ -68,12 +68,21 @@ if (($allInformation['location'] === "") || ($allInformation['music'] === "") ||
                   <option value="asia">Asia</option>
                   <option value="europe">Europe</option>
                   <option value="oceania">Oceania</option>
-  </select>
-                
-            
-            <div class="form btn">
-                <input type="submit" class="btn btn-primary" value="Save">
+  </select> <br> <br>
+ <div class="form btn">
+  <input type="submit" class="btn btn-primary" value="Search">
             </div>
+            <br>
+
+<div class="form-group"> 
+  <label for="search" class=""> Search name </label>
+  <input type="text" name="namesearch" id="namesearch" placeholder="@name"> 
+</div> <br>
+<div class="form btn">
+                <input type="submit" class="btn btn-primary" value="search name">
+            </div>
+            <br>
+
 </body>
 
 </html>
