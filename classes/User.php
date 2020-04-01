@@ -289,4 +289,49 @@ class User
 
         return $this;
     }
-}
+
+    /*  public function searchname()
+    {
+        //conn
+        $conn = Db::getConnection();
+        //insert query
+        $statement = $conn->prepare("select* from users(firstname) values (:firstname)");
+        $firstname = $this->getFirstName();
+        
+        $statement->bindParam(":firstname", $firstname);
+       
+        $result = $statement->execute();
+        
+        // echo "ik ben hier aan het saven";
+        return $result;
+        
+    } */
+
+    public static function searchpeop() {
+
+        $firstname = $_SESSION['firstname'];
+        $conn = new PDO('mysql:host=localhost;dbname=login', "root", "");
+        $statement = $conn->prepare('select * from users where firstname = :firstname');
+        $statement->bindParam(':firstname', $firstname);
+        $statement->execute();
+        $user = $statement->fetch(PDO::FETCH_ASSOC);
+
+        return $user['firtsname'];
+            
+           
+                              
+        
+        }
+    }
+    
+
+    
+
+    
+        
+        
+
+
+        
+    
+
