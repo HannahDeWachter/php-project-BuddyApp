@@ -207,7 +207,7 @@ class User
     {
         $conn = Db::getConnection();
         $statement = $conn->prepare("SELECT * FROM users WHERE email = :email ");
-        $statement->bindparam(":email", $email);
+        $statement->bindParam(":email", $email);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC); //fetchAll geeft array, fetch geeft true/false
         return empty($result); //is hetzelfde als if else hieronder
@@ -225,7 +225,7 @@ class User
         $statement = $conn->prepare("SELECT * FROM users WHERE id = :id");
         // $id = $this->getId();
 
-        $statement->bindparam(":id", $id);
+        $statement->bindParam(":id", $id);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result[0];
@@ -264,15 +264,13 @@ class User
         header('location: matches.php');
     }
 
-    public static function getUserId()
+    public static function getAllUsers()
     {
-        $email = $_SESSION['email'];
         $conn = Db::getConnection();
-        $statement = $conn->prepare('select id from users where email = :email');
-        $statement->bindParam(':email', $email);
+        $statement = $conn->prepare('select * from users');
         $statement->execute();
-        $user = $statement->fetch(PDO::FETCH_ASSOC);
-
-        return $user['id'];
+        $users = $statement->fetchAll(PDO::FETCH_ASSOC);
+        var_dump($users);
+        return $users;
     }
 }
