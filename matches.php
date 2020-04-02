@@ -8,8 +8,9 @@ $dataUser = User::getAllInformation($id);
 var_dump($dataUser);
 
 // data andere users ophalen
-User::getAllUsers();
+$arrayUsers = User::getAllUsers($id);
 // andere users vergelijken met jezelf
+User::findMatches($arrayUsers);
 // goede match? => weergeven
 // weergeven waarom goede match ("jullie vinden beiden ... leuk") 
 

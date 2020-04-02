@@ -264,13 +264,19 @@ class User
         header('location: matches.php');
     }
 
-    public static function getAllUsers()
+    public static function getAllUsers($id)
     {
         $conn = Db::getConnection();
-        $statement = $conn->prepare('select * from users');
+        $statement = $conn->prepare('select * from users where id != :id'); //zonder ingelogde user
+        $statement->bindParam(":id", $id);
         $statement->execute();
         $users = $statement->fetchAll(PDO::FETCH_ASSOC);
         var_dump($users);
         return $users;
+    }
+    public static function findMatches($arrayUsers)
+    {
+        for ($x = 0; $x < count($arrayUsers); $x++) {
+        }
     }
 }
