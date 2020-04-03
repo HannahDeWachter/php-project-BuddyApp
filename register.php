@@ -22,6 +22,7 @@ if (!empty($_POST)) {
             $user->setFirstName(htmlspecialchars($_POST['firstname']));
             $user->setLastName(htmlspecialchars($_POST['lastname']));
             $user->setPassword(htmlspecialchars($_POST['password']));
+            $user->setImdYear(htmlspecialchars($_POST['imdYear']));
             $user->save();
         }
     } catch (Throwable $th) {
@@ -74,7 +75,14 @@ if (!empty($_POST)) {
                         <label for="password">Password</label>
                         <input type="password" class="form-control" id="password" name="password">
                     </div>
+                    <div class="form-group">
+                        <input type="radio" name="imdYear" id="1IMD" value="1IMD" /> 1IMD <br>
+                        <input type="radio" name="imdYear" id="2IMD" value="2IMD" /> 2IMD <br>
+                        <input type="radio" name="imdYear" id="3IMD" value="3IMD" /> 3IMD <br>
 
+
+
+                    </div>
 
 
                     <div class="form__btn">

@@ -12,7 +12,13 @@ if (($allInformation['location'] === "") || ($allInformation['music'] === "") ||
     // als niet iets ingevuld -> $message = "You have not completed your profile yet."
     $message = "You have not completed your profile yet.";
 }
-
+if($allInformation['imdYear']=== "1IMD"){
+    $buddymes="je zoekt een buddy!";
+}if($allInformation['imdYear']=== "2IMD"){
+    $buddymes="je bent een buddy!";
+}if($allInformation['imdYear']==="3IMD"){
+    $buddymes="je bent een buddy!";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +32,8 @@ if (($allInformation['location'] === "") || ($allInformation['music'] === "") ||
 
 <body>
     <?php include_once(__DIR__ . "/includes/header.inc.php"); ?>
-
+    
+ <p> <?php echo $buddymes; ?> </p>
     <img src="" alt="" id="profilePic">
     <strong id="name"></strong>
     <?php if (isset($message)) : ?>

@@ -12,6 +12,7 @@ if (($allInformation['location'] === "") || ($allInformation['music'] === "") ||
   // als niet iets ingevuld -> $message = "You have not completed your profile yet."
   $message = "You have not completed your profile yet.";
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

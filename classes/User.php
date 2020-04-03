@@ -8,7 +8,8 @@ class User
     private $lastname;
     private $email;
     private $password;
-    private $year;
+    private $imdYear;
+
     private $location;
     private $music;
     private $hobbies;
@@ -181,21 +182,25 @@ class User
         //conn
         $conn = Db::getConnection();
         //insert query
-        $statement = $conn->prepare("insert into users(firstname,lastname,email,password) values (:firstname, :lastname, :email, :password)");
+        $statement = $conn->prepare("insert into users(firstname,lastname,email,password,imdYear) values (:firstname, :lastname, :email, :password, :imdYear)");
         $firstname = $this->getFirstName();
         $lastname = $this->getLastName();
         $email = $this->getEmail();
         $password = $this->getPassword();
+        $imdYear= $this->getImdYear();
 
         $statement->bindParam(":firstname", $firstname);
         $statement->bindParam(":lastname", $lastname);
         $statement->bindParam(":email", $email);
         $statement->bindParam(":password", $password);
+        $statement->bindParam(":imdYear",$imdYear);
 
         $result = $statement->execute();
+        header('location: login.php');
         // echo "ik ben hier aan het saven";
         // var_dump($result);
         return $result;
+        
     }
 
     public function endsWith($email, $endString)
@@ -281,5 +286,25 @@ class User
         for ($x = 0; $x < count($arrayUsers); $x++) {
             // niet op specialization matchen!
         }
+    }
+
+    /**
+     * Get the value of imdYear
+     */ 
+    public function getImdYear()
+    {
+        return $this->imdYear;
+    }
+
+    /**
+     * Set the value of imdYear
+     *
+     * @return  self
+     */ 
+    public function setImdYear($imdYear)
+    {
+        $this->imdYear = $imdYear;
+
+        return $this;
     }
 }
