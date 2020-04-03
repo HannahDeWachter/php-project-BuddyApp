@@ -10,10 +10,10 @@ var_dump($dataUser);
 // data andere users ophalen
 $arrayUsers = User::getAllUsers($id);
 // andere users vergelijken met jezelf
-User::findMatches($arrayUsers);
+var_dump(User::findMatches($arrayUsers, $dataUser));
 // goede match? => weergeven
-// weergeven waarom goede match ("jullie vinden beiden ... leuk") 
 
+// weergeven waarom goede match ("jullie vinden beiden ... leuk") 
 
 ?>
 <!DOCTYPE html>

@@ -153,6 +153,17 @@ class User
         return $this;
     }
 
+    public function getImdYear()
+    {
+        return $this->imdYear;
+    }
+    public function setImdYear($imdYear)
+    {
+        $this->imdYear = $imdYear;
+
+        return $this;
+    }
+
     public function updateUser()
     {
         $conn = Db::getConnection();
@@ -187,20 +198,19 @@ class User
         $lastname = $this->getLastName();
         $email = $this->getEmail();
         $password = $this->getPassword();
-        $imdYear= $this->getImdYear();
+        $imdYear = $this->getImdYear();
 
         $statement->bindParam(":firstname", $firstname);
         $statement->bindParam(":lastname", $lastname);
         $statement->bindParam(":email", $email);
         $statement->bindParam(":password", $password);
-        $statement->bindParam(":imdYear",$imdYear);
+        $statement->bindParam(":imdYear", $imdYear);
 
         $result = $statement->execute();
         header('location: login.php');
         // echo "ik ben hier aan het saven";
         // var_dump($result);
         return $result;
-        
     }
 
     public function endsWith($email, $endString)
@@ -281,30 +291,55 @@ class User
         var_dump($users);
         return $users;
     }
-    public static function findMatches($arrayUsers)
+    public static function findMatches($arrayUsers, $dataUser)
     {
+        define("locationScore", 20);
+        define("musicScore", 10);
+        define("hobbiesScore", 15);
+        define("travelScore", 25);
+        $scoreUsers = [];
+        $matchingReason = [];
+        $dataUserMusicArray = (explode(",", $dataUser['music']));
+        $dataUserHobbiesArray = (explode(",", $dataUser['hobbies']));
+        $dataUserTravelArray = (explode(",", $dataUser['travel']));
+        // var_dump($dataUserHobbiesArray);
         for ($x = 0; $x < count($arrayUsers); $x++) {
             // niet op specialization matchen!
+            $score = 0;
+            $matchingString = "";
+            $arrayUsersMusicArray = (explode(",", $arrayUsers[$x]['music']));
+            $arrayUsersHobbiesArray = (explode(",", $arrayUsers[$x]['hobbies']));
+            $arrayUsersTravelArray = (explode(",", $arrayUsers[$x]['travel']));
+
+            if ($arrayUsers[$x]['location'] === $dataUser['location']) { // null = null
+                $score += locationScore;
+                $matchingString = $matchingString . " Location: " . $dataUser['location'] . ",";
+                // TODO: rekening houden met null values matchen?
+            }
+            // echo $score;
+            for ($mx = 0; $mx < count($arrayUsersMusicArray); $mx++) {
+                if ($arrayUsersMusicArray[$mx] != '' && in_array($arrayUsersMusicArray[$mx], $dataUserMusicArray)) {
+                    $score += musicScore;
+                    $matchingString = $matchingString . " Music: " . $arrayUsersMusicArray[$mx] . ",";
+                }
+            }
+            // echo $score;
+            for ($hx = 0; $hx < count($arrayUsersHobbiesArray); $hx++) {
+                if ($arrayUsersHobbiesArray[$hx] != '' && in_array($arrayUsersHobbiesArray[$hx], $dataUserHobbiesArray)) {
+                    $score += hobbiesScore;
+                }
+            }
+            // echo $score;
+            for ($tx = 0; $tx < count($arrayUsersTravelArray); $tx++) {
+                if ($arrayUsersTravelArray[$tx] != '' && in_array($arrayUsersTravelArray[$tx], $dataUserTravelArray)) {
+                    $score += travelScore;
+                }
+            }
+            // echo $score;
+            echo $matchingString;
+            $scoreUsers[$arrayUsers[$x]['id']] = $score;
         }
-    }
-
-    /**
-     * Get the value of imdYear
-     */ 
-    public function getImdYear()
-    {
-        return $this->imdYear;
-    }
-
-    /**
-     * Set the value of imdYear
-     *
-     * @return  self
-     */ 
-    public function setImdYear($imdYear)
-    {
-        $this->imdYear = $imdYear;
-
-        return $this;
+        arsort($scoreUsers); // van hoog naar laag (score) sorteren
+        return $scoreUsers;
     }
 }
