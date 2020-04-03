@@ -293,18 +293,19 @@ class User
     }
     public static function findMatches($arrayUsers, $dataUser)
     {
+        // niet op specialization matchen!
         define("locationScore", 20);
         define("musicScore", 10);
         define("hobbiesScore", 15);
         define("travelScore", 25);
         $scoreUsers = [];
         $matchingReason = [];
+        $returnArray = [];
         $dataUserMusicArray = (explode(",", $dataUser['music']));
         $dataUserHobbiesArray = (explode(",", $dataUser['hobbies']));
         $dataUserTravelArray = (explode(",", $dataUser['travel']));
         // var_dump($dataUserHobbiesArray);
         for ($x = 0; $x < count($arrayUsers); $x++) {
-            // niet op specialization matchen!
             $score = 0;
             $matchingString = "";
             $arrayUsersMusicArray = (explode(",", $arrayUsers[$x]['music']));
@@ -327,19 +328,27 @@ class User
             for ($hx = 0; $hx < count($arrayUsersHobbiesArray); $hx++) {
                 if ($arrayUsersHobbiesArray[$hx] != '' && in_array($arrayUsersHobbiesArray[$hx], $dataUserHobbiesArray)) {
                     $score += hobbiesScore;
+                    $matchingString = $matchingString . " Hobbies: " . $arrayUsersHobbiesArray[$hx] . ",";
                 }
             }
             // echo $score;
             for ($tx = 0; $tx < count($arrayUsersTravelArray); $tx++) {
                 if ($arrayUsersTravelArray[$tx] != '' && in_array($arrayUsersTravelArray[$tx], $dataUserTravelArray)) {
                     $score += travelScore;
+                    $matchingString = $matchingString . " Travel: " . $arrayUsersTravelArray[$tx] . ",";
                 }
             }
             // echo $score;
             echo $matchingString;
             $scoreUsers[$arrayUsers[$x]['id']] = $score;
+            $matchingReason[$arrayUsers[$x]['id']] = $matchingString;
         }
         arsort($scoreUsers); // van hoog naar laag (score) sorteren
-        return $scoreUsers;
+        for ($i = 0; $i < count($scoreUsers); $i++) {
+            $id = key($scoreUsers);
+            $returnArray[$i] = $id . ", " . $scoreUsers[$id] . ", " . $matchingReason[$id];
+            next($scoreUsers);
+        }
+        return $returnArray;
     }
 }
