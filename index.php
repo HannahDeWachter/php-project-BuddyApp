@@ -12,10 +12,11 @@ if (($allInformation['location'] === "") || ($allInformation['music'] === "") ||
   // als niet iets ingevuld -> $message = "You have not completed your profile yet."
   $message = "You have not completed your profile yet.";
 }
-if(!empty($_POST)){
-  $namesearch = htmlspecialchars($_POST['firstname']);
+
+if( !empty($_POST) ){
+  $namesearch = $_POST['namesearch'];
+  $result = User::searchpeop($namesearch);
 }
-$result= User::searchpeop($namesearch);
     
 ?>
 <!DOCTYPE html>
@@ -36,13 +37,14 @@ $result= User::searchpeop($namesearch);
       <p><?php echo $message ?> Click <a href="profileDetails.php">here</a> to complete your profile.</p>
     </div>
   <?php endif; ?>
-
+  <form action="" method="post">
   <div class="form-group "> 
       <h1> Filters </h1>
   </div>
       <div class="form-group">
                 <label for="music" class="">Music</label><br>
                 <select id="music" name="music"> 
+                  <option value=""> -- Select an item -- </option>
                   <option value="pop"> Pop </option>
                   <option value="rock">Rock</option>
                   <option value="disco">Disco</option>
@@ -54,19 +56,24 @@ $result= User::searchpeop($namesearch);
                   <option value="rnb">Rnb</option>
   </select>
             </div>
-            <br>
+          
+          
         <div class="form-group">
                 <label for="hobbies"class="">Hobbies</label><br>
                 <select id="hobbies" name="hobbies"> 
+                <option value=""> -- Select an item -- </option>
                   <option value="paint" > Paint </option>
                   <option value="sport">Sport</option>
                   <option value="party">Party</option>
                   <option value="instrument">Play an instrument</option>
                   <option value="read">Read books</option>
   </select>
+  <br>
+<br>
         <div class="form-group">
                 <label for="travel"class="">Travel</label><br>
                 <select id="travel" name="travel"> 
+                <option value=""> -- Select an item -- </option>
                   <option value="africa"> Africa </option>
                   <option value="america">America</option>
                   <option value="asia">Asia</option>
@@ -77,18 +84,32 @@ $result= User::searchpeop($namesearch);
   <input type="submit" class="btn btn-primary" value="Search">
             </div>
             <br>
-
+ 
+  </form>
+          <p> <b> Results: </b> </p>
+          <?php if (isset($result)) : ?>
+        <p><?php echo $result['firstname']. " " . $result['lastname'];  ?>  </p> <!-- resultaat van searchpeop() moet hier komen !-->
+          <?php endif; ?>
+          <hr>
+          </hr>
+          <!-- dit is de namesearch div !-->
+<h1> Filter op naam </h1>
+<br>
+<form action="" method="post">
 <div class="form-group"> 
-  <label for="search" class=""> Search name </label>
+  <label for="namesearch" class=""> Search name </label>
   <input type="text" name="namesearch" id="namesearch" placeholder="name"> 
 </div> <br>
 <div class="form btn">
                 <input type="submit" class="btn btn-primary" value="searchname">
             </div>
+</form>
             <br>
-          <p> Results: </p>
-          <p> <?php echo $result ;  ?> </p> <!-- resultaat van searchpeop() moet hier komen !-->
-
+           
+          <p> <b> Results: </b> </p>
+          <?php if (isset($result)) : ?>
+        <p><?php echo $result['firstname']. " " . $result['lastname'];  ?>  </p> <!-- resultaat van searchpeop() moet hier komen !-->
+          <?php endif; ?>
 </body>
 
 </html>

@@ -290,22 +290,31 @@ class User
         return $this;
     }
 
-    /*  public function searchname()
-    {
-        //conn
+    public static function filter($music) {
+
         $conn = Db::getConnection();
-        //insert query
-        $statement = $conn->prepare("select* from users(firstname) values (:firstname)");
-        $firstname = $this->getFirstName();
+        $statement = $conn->prepare("SELECT * from users where firstname = :music");
+        //feature 6 naam zoeken uitkomst
+
+        if(isset($_POST['value'])) { 
+            if($_POST['value'] == 'music') {}
+                // query to get all categories  
+                $statement = $conn->prepare("SELECT * from users where firstname = :music");
+                 
+            }   
+            
         
-        $statement->bindParam(":firstname", $firstname);
-       
-        $result = $statement->execute();
         
-        // echo "ik ben hier aan het saven";
-        return $result;
         
-    } */
+        $statement->bindParam(":music", $music);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        //var_dump($result);
+        return $result[0];
+                     
+        
+        }
+
 
     public static function searchpeop($namesearch) {
 
@@ -313,13 +322,12 @@ class User
         
         $statement = $conn->prepare("SELECT * from users where firstname = :namesearch");
         //feature 6 naam zoeken uitkomst
-    
-  
-        $statement->bindParam(":firstname", $namesearch);
+        
+        $statement->bindParam(":namesearch", $namesearch);
         $statement->execute();
-        $result = $statement->fetch(PDO::FETCH_ASSOC);
-
-        return $result;
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        //var_dump($result);
+        return $result[0];
                      
         
         }
