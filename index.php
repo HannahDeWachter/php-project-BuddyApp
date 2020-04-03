@@ -12,7 +12,11 @@ if (($allInformation['location'] === "") || ($allInformation['music'] === "") ||
   // als niet iets ingevuld -> $message = "You have not completed your profile yet."
   $message = "You have not completed your profile yet.";
 }
-
+if(!empty($_POST)){
+  $namesearch = htmlspecialchars($_POST['firstname']);
+}
+$result= User::searchpeop($namesearch);
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,7 +42,7 @@ if (($allInformation['location'] === "") || ($allInformation['music'] === "") ||
   </div>
       <div class="form-group">
                 <label for="music" class="">Music</label><br>
-                <select id="music"> 
+                <select id="music" name="music"> 
                   <option value="pop"> Pop </option>
                   <option value="rock">Rock</option>
                   <option value="disco">Disco</option>
@@ -53,8 +57,8 @@ if (($allInformation['location'] === "") || ($allInformation['music'] === "") ||
             <br>
         <div class="form-group">
                 <label for="hobbies"class="">Hobbies</label><br>
-                <select id="hobbies"> 
-                  <option value="paint"> Paint </option>
+                <select id="hobbies" name="hobbies"> 
+                  <option value="paint" > Paint </option>
                   <option value="sport">Sport</option>
                   <option value="party">Party</option>
                   <option value="instrument">Play an instrument</option>
@@ -62,7 +66,7 @@ if (($allInformation['location'] === "") || ($allInformation['music'] === "") ||
   </select>
         <div class="form-group">
                 <label for="travel"class="">Travel</label><br>
-                <select id="travel"> 
+                <select id="travel" name="travel"> 
                   <option value="africa"> Africa </option>
                   <option value="america">America</option>
                   <option value="asia">Asia</option>
@@ -76,12 +80,14 @@ if (($allInformation['location'] === "") || ($allInformation['music'] === "") ||
 
 <div class="form-group"> 
   <label for="search" class=""> Search name </label>
-  <input type="text" name="namesearch" id="namesearch" placeholder="@name"> 
+  <input type="text" name="namesearch" id="namesearch" placeholder="name"> 
 </div> <br>
 <div class="form btn">
-                <input type="submit" class="btn btn-primary" value="search name">
+                <input type="submit" class="btn btn-primary" value="searchname">
             </div>
             <br>
+          <p> Results: </p>
+          <p> <?php echo $result ;  ?> </p> <!-- resultaat van searchpeop() moet hier komen !-->
 
 </body>
 

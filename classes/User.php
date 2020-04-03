@@ -307,22 +307,26 @@ class User
         
     } */
 
-    public static function searchpeop() {
+    public static function searchpeop($namesearch) {
 
-        $firstname = $_SESSION['firstname'];
-        $conn = new PDO('mysql:host=localhost;dbname=login', "root", "");
-        $statement = $conn->prepare('select * from users where firstname = :firstname');
-        $statement->bindParam(':firstname', $firstname);
+        $conn = Db::getConnection();
+        
+        $statement = $conn->prepare("SELECT * from users where firstname = :namesearch");
+        //feature 6 naam zoeken uitkomst
+    
+  
+        $statement->bindParam(":firstname", $namesearch);
         $statement->execute();
-        $user = $statement->fetch(PDO::FETCH_ASSOC);
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
 
-        return $user['firtsname'];
-            
-           
-                              
+        return $result;
+                     
         
         }
+
     }
+    
+    
     
 
     
