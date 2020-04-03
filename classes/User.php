@@ -9,6 +9,9 @@ class User
     private $email;
     private $password;
     private $imdYear;
+    private $profileImg;
+    private $bio;
+    
 
     private $location;
     private $music;
@@ -255,7 +258,7 @@ class User
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['firstname'] = $user['firstname'];
         // var_dump($user);
-        header('location: index.php');
+        header('location: profile.php');
     }
 
     public static function getUserId()
@@ -289,4 +292,193 @@ class User
 
         return $this;
     }
+
+    /**
+     * Get the value of profileImg
+     */ 
+    public function getProfileImg()
+    {
+        return $this->profileImg;
+    }
+
+    /**
+     * Set the value of profileImg
+     *
+     * @return  self
+     */ 
+    public function setProfileImg($profileImg)
+    {
+        $this->profileImg = $profileImg;
+
+        return $this;
+    }
+
+    
+
+    public static function uploadImg($fileImg){
+
+        $conn = Db::getConnection();
+        //insert query
+        // $statement = $conn->prepare("SELECT id FROM users WHERE email = '".$_SESSION['email']."'");
+        // $statement = $conn->prepare("SELECT * FROM users WHERE id = '12'");
+        $statement = $conn->prepare("SELECT id FROM users WHERE email = 'r123@student.thomasmore.be'");
+        $statement->execute();
+        $id = $statement->fetch(PDO::FETCH_COLUMN);
+
+        // $statement = $conn->prepare("UPDATE users SET profileImg = :profileImg WHERE users.id = '".$id."'");
+        $statement = $conn->prepare("UPDATE users SET profileImg = :profileImg WHERE users.id = $id");
+        // $statement = $conn->prepare("INSERT INTO users (profileImg) VALUES (:profileImg)");
+        $statement->bindParam(":profileImg", $fileImg);
+
+        $result = $statement->execute();
+        header('location: profile.php');
+        echo "ik ben hier aan het saven";
+        return $result;
+
+    }
+    /**
+     * Get the value of bio
+     */ 
+    public function getBio()
+    {
+        return $this->bio;
+    }
+
+    /**
+     * Set the value of bio
+     *
+     * @return  self
+     */ 
+    public function setBio($bio)
+    {
+        $this->bio = $bio;
+
+        return $this;
+    }
+
+  
+    public static function uploadBio($text){
+
+        $conn = Db::getConnection();
+        
+            $statement = $conn->prepare("SELECT * FROM users WHERE id = '22'");
+            $statement->execute();
+            $id = $statement->fetch(PDO::FETCH_COLUMN);
+        
+            $statement = $conn->prepare("UPDATE users SET bio = :bio WHERE users.id = $id");
+            $statement->bindParam(':bio', $text);             
+        
+            $result = $statement->execute();
+                
+            header('location: profile.php');
+            echo "ik ben hier aan het saven";
+            return $result;
+    }
+
+        
+
+        
+       
+    
+
+    public static function changePassword(){   
+
+    $conn = Db::getConnection();
+    if(isset($_POST["submitPassword"])){
+
+        $oldPassword = htmlspecialchars($_POST["oldPassword"]);
+        $newPassword =htmlspecialchars($_POST["newPassword"]);
+        
+        $statement = $conn->prepare("select * from users where id = '22'");
+        $statement->execute();
+        $user = $statement->fetch(PDO::FETCH_ASSOC);
+
+        $options = [
+        'cost' => 14,
+            ];
+        $newPassword =  password_hash($newPassword, PASSWORD_DEFAULT, $options);
+
+
+   
+    if(empty($oldPassword) || empty($newPassword) ){
+        echo"All fields need to be filled in";
+    } 
+        else if( $oldPassword == $newPassword){
+            echo"The old and new password need to be different";
+        } else if (password_verify($oldPassword, $user['password'])) {
+            //ja -> naar index
+            //echo "joepie de poepie!!!!";
+            $statement = $conn->prepare("SELECT id FROM users WHERE id = '22'");
+            $statement->execute();
+            $id = $statement->fetch(PDO::FETCH_COLUMN);
+                            
+
+            $statement = $conn->prepare("UPDATE users SET password = :password WHERE users.id = $id");
+            $statement->bindParam(':password', $newPassword);
+            $result = $statement->execute();
+
+            header('Location: profile.php');                   
+            echo"password has been updated";
+
+            return $result;
+        } else {
+            //nee -> error
+            //echo "jammer joh";
+           echo"Oud wachtwoord komt niet overeen!";
+        }  
+              
+        
+        }
+        
+    }   
+    
+
+
+
+    public static function changeEmail(){   
+
+        $conn = Db::getConnection();
+        if(isset($_POST["submitEmail"])){
+    
+            $oldEmail = htmlspecialchars($_POST["oldEmail"]);
+            $newEmail =htmlspecialchars($_POST["newEmail"]);
+            
+            $statement = $conn->prepare("select * from users where id = '22'");
+            $statement->execute();
+            $user = $statement->fetch(PDO::FETCH_ASSOC);
+    
+                   
+        if(empty($oldEmail) || empty($newEmail) ){
+            echo"All fields need to be filled in";
+        } 
+            else if( $oldEmail == $newEmail){
+                echo"The old and new password need to be different";
+            } else if (($oldEmail == $user['email'])) {
+                //ja -> naar index
+                //echo "joepie de poepie!!!!";
+                $statement = $conn->prepare("SELECT id FROM users WHERE id = '22'");
+                $statement->execute();
+                $id = $statement->fetch(PDO::FETCH_COLUMN);
+                                
+    
+                $statement = $conn->prepare("UPDATE users SET email = :email WHERE users.id = $id");
+                $statement->bindParam(':email', $newEmail);
+                $result = $statement->execute();
+    
+                header('Location: profile.php');                   
+                echo"password has been updated";
+    
+                return $result;
+            } else {
+                //nee -> error
+                //echo "jammer joh";
+               echo"Your old email doesn't match with your current one!";
+            }  
+                  
+            
+            }
+            
+        }
+    
 }
+
