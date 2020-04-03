@@ -8,7 +8,7 @@ $allInformation = User::getAllInformation($id);
 // var_dump($allInformation);
 
 // checken of velden (location, music, travel, specialization, hobbies) allemaal zijn ingevuld
-if (($allInformation['location'] === "") || ($allInformation['music'] === "") || ($allInformation['travel'] === "") || ($allInformation['specialization'] === "") || ($allInformation['hobbies'] === "")) {
+if (is_null($allInformation['location']) || is_null($allInformation['music']) || is_null($allInformation['travel']) || is_null($allInformation['specialization']) || is_null($allInformation['hobbies'])) {
   // als niet iets ingevuld -> $message = "You have not completed your profile yet."
   $message = "You have not completed your profile yet.";
 }
