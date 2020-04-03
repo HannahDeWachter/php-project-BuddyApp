@@ -295,9 +295,9 @@ class User
     {
         // niet op specialization matchen!
         define("locationScore", 20);
-        define("musicScore", 10);
+        define("musicScore", 15);
         define("hobbiesScore", 15);
-        define("travelScore", 25);
+        define("travelScore", 10);
         $scoreUsers = [];
         $matchingReason = [];
         $returnArray = [];
