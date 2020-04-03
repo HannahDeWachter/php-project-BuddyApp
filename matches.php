@@ -16,9 +16,19 @@ if (is_null($dataUser['location']) || is_null($dataUser['music']) || is_null($da
 // data andere users ophalen
 $arrayUsers = User::getAllUsers($id);
 // andere users vergelijken met jezelf
-var_dump(User::findMatches($arrayUsers, $dataUser));
-// goede match? => weergeven
-
+$matches = User::findMatches($arrayUsers, $dataUser);
+var_dump($matches);
+// goede match? (score >= 25) => weergeven
+for ($x = 0; $x < count($matches); $x++) {
+    if ($matches[$x]['score'] >= 25) {
+        // echo "Match!";
+        $matchId = $matches[$x]["id"];
+        $key = array_search($matchId, array_column($arrayUsers, 'id'));
+        echo $arrayUsers[$key]['firstname'];
+    } else {
+        $x = count($matches); // array is gesorteerd op score, dus als er een kleiner is dan 25 moet de rest niet meer bekeken worden
+    }
+}
 // weergeven waarom goede match ("jullie vinden beiden ... leuk") 
 
 ?>
