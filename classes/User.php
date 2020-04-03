@@ -261,7 +261,7 @@ class User
     public static function getUserId()
     {
         $email = $_SESSION['email'];
-        $conn = new PDO('mysql:host=localhost;dbname=login', "root", "");
+        $conn = Db::getConnection();
         $statement = $conn->prepare('select id from users where email = :email');
         $statement->bindParam(':email', $email);
         $statement->execute();
