@@ -277,7 +277,7 @@ class User
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['firstname'] = $user['firstname'];
         // var_dump($user);
-        header('location: matches.php');
+        header('location: index.php');
     }
 
     public static function getAllUsers($id)
@@ -312,10 +312,9 @@ class User
             $arrayUsersHobbiesArray = (explode(",", $arrayUsers[$x]['hobbies']));
             $arrayUsersTravelArray = (explode(",", $arrayUsers[$x]['travel']));
 
-            if ($arrayUsers[$x]['location'] === $dataUser['location']) { // null = null
+            if ($arrayUsers[$x]['location'] != '' && $arrayUsers[$x]['location'] === $dataUser['location']) { // null = null
                 $score += locationScore;
                 $matchingString = $matchingString . " Location: " . $dataUser['location'] . ",";
-                // TODO: rekening houden met null values matchen?
             }
             // echo $score;
             for ($mx = 0; $mx < count($arrayUsersMusicArray); $mx++) {
@@ -339,7 +338,7 @@ class User
                 }
             }
             // echo $score;
-            echo $matchingString;
+            // echo $matchingString;
             $scoreUsers[$arrayUsers[$x]['id']] = $score;
             $matchingReason[$arrayUsers[$x]['id']] = $matchingString;
         }
