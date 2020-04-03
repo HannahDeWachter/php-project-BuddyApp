@@ -194,6 +194,7 @@ class User
 
         $result = $statement->execute();
         // echo "ik ben hier aan het saven";
+        // var_dump($result);
         return $result;
     }
 
@@ -266,8 +267,9 @@ class User
 
     public static function getAllUsers($id)
     {
+        // als je id meegeeft (via session of gewoon) dan krijg je alle user behalve die id terug, als je als parameter null meegeeft dan krijg je alle user incl. jezelf
         $conn = Db::getConnection();
-        $statement = $conn->prepare('select * from users where id != :id'); //zonder ingelogde user
+        $statement = $conn->prepare('select * from users where (id != :id or :id is null)');
         $statement->bindParam(":id", $id);
         $statement->execute();
         $users = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -277,6 +279,7 @@ class User
     public static function findMatches($arrayUsers)
     {
         for ($x = 0; $x < count($arrayUsers); $x++) {
+            // niet op specialization matchen!
         }
     }
 }
