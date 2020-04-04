@@ -222,7 +222,7 @@ class User
         $statement->bindparam(":id", $id);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-        return $result[0];
+        return $result;
     }
 
     public static function canLogin($email, $password)
@@ -301,28 +301,29 @@ class User
         var_dump($users);
         return $users;
     }
-    public static function filter($music) {
+    public static function filter($music, $hobbies , $travel) {
 
         $conn = Db::getConnection();
        // $statement = $conn->prepare("SELECT * from users where firstname = :music or firstname = :travel or firstname = :hobbies);
         //feature 6 naam zoeken uitkomst
 
-        if(isset($_POST['value'])) { 
-            if($_POST['music'] === ':music') {}
+         
+            if($_POST['music'] === ':music') {
                 // query to get all categories  
-                $statement = $conn->prepare("SELECT * from users where firstname = :music");
+                $statement = $conn->prepare("SELECT * from users where music = :music");
                  
             }  if($_POST['hobbies']=== ':hobbies') {
-                $statement = $conn->prepare("SELECT * from users where firstname = :hobbies");
+                $statement = $conn->prepare("SELECT * from users where hobbies = :hobbies");
             }
             if($_POST['travel']=== ':travel'){
-                $statement = $conn->prepare("SELECT * from users where firstname = :travel");
+                $statement = $conn->prepare("SELECT * from users where travel = :travel");
             }
-            
         
         
         
         $statement->bindParam(":music", $music);
+        $statement  ->bindParam(":hobbies",$hobbies)  ;
+        $statement->bindParam(":travel",$travel);    
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         //var_dump($result);
