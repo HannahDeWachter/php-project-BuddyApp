@@ -80,8 +80,61 @@ if(isset($_POST['submitBio'])){
 
 }
 
-User::changePassword();
-User::changeEmail();
+// User::changePassword();
+
+if(isset($_POST['submitPassword'])){
+
+    $oldPassword = htmlspecialchars($_POST["oldPassword"]);
+    $newPassword =htmlspecialchars($_POST["newPassword"]);
+
+    $options = [
+        'cost' => 14,
+            ];
+    $newPassword =  password_hash($newPassword, PASSWORD_DEFAULT, $options);
+
+    if(empty($oldPassword) || empty($newPassword)){
+        $error="All fields need to be filled in";
+    }
+        else if($oldPassword == $newPassword){
+            $error="The old and new password need to be different";
+        }
+            else if(password_verify($oldPassword,$allInformation['password'])){
+                User::changePassword($newPassword);
+                $error="Your password has been updated 😎";
+            } else {
+                $error="Old password and current one don't match.";
+            }
+}
+
+
+if(isset($_POST["submitEmail"])){
+
+    $oldEmail = htmlspecialchars($_POST["oldEmail"]);
+    $newEmail =htmlspecialchars($_POST["newEmail"]);
+
+    if(empty($oldEmail) || empty($newEmail)){
+        $error="All fields need to be filled in.";
+    } 
+        else if($oldEmail == $newEmail) {
+        $error="The old and new email need to be different";
+        }
+            else if($oldEmail == $allInformation['email']){
+                $confEmail = new User();
+                if($confEmail->availableEmail($_POST['newEmail'])){
+                    if($confEmail->endsWith($_POST['newEmail'], "@student.thomasmore.be") === "@student.thomasmore.be") {
+                        User::changeEmail($newEmail);
+                    } else {
+                            $error="Your email needs to end with '@student.thomasmore.be";
+                    }
+                }else{
+                    $error="The new email adress is already in use.";
+                }                  
+
+            } else {
+                $error ="The old email doesn't match your current one.";
+            }
+
+}
 
 
 ?>

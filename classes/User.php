@@ -220,7 +220,7 @@ class User
     {
         $conn = Db::getConnection();
         $statement = $conn->prepare("SELECT * FROM users WHERE id = :id");
-        // $id = $this->getId();
+        $id = $this->getId();
 
         $statement->bindparam(":id", $id);
         $statement->execute();
@@ -320,17 +320,16 @@ class User
         $conn = Db::getConnection();
         //insert query
         // $statement = $conn->prepare("SELECT id FROM users WHERE email = '".$_SESSION['email']."'");
-        // $statement = $conn->prepare("SELECT * FROM users WHERE id = '12'");
-        $statement = $conn->prepare("SELECT id FROM users WHERE email = 'r123@student.thomasmore.be'");
+        $statement = $conn->prepare("SELECT * FROM users WHERE id = :id");
+        $statement->bindParam(":id", $id);
         $statement->execute();
         $id = $statement->fetch(PDO::FETCH_COLUMN);
 
-        // $statement = $conn->prepare("UPDATE users SET profileImg = :profileImg WHERE users.id = '".$id."'");
         $statement = $conn->prepare("UPDATE users SET profileImg = :profileImg WHERE users.id = $id");
-        // $statement = $conn->prepare("INSERT INTO users (profileImg) VALUES (:profileImg)");
         $statement->bindParam(":profileImg", $fileImg);
 
         $result = $statement->execute();
+
         header('location: profile.php');
         echo "ik ben hier aan het saven";
         return $result;
@@ -361,7 +360,8 @@ class User
 
         $conn = Db::getConnection();
         
-            $statement = $conn->prepare("SELECT * FROM users WHERE id = '22'");
+            $statement = $conn->prepare("SELECT * FROM users WHERE id = :id");
+            $statement->bindParam(":id",$id);
             $statement->execute();
             $id = $statement->fetch(PDO::FETCH_COLUMN);
         
@@ -375,110 +375,47 @@ class User
             return $result;
     }
 
-        
-
-        
-       
-    
-
-    public static function changePassword(){   
+    public static function changePassword($newPassword){   
 
     $conn = Db::getConnection();
-    if(isset($_POST["submitPassword"])){
+           
+    $statement = $conn->prepare("SELECT * FROM users WHERE id = :id");
+    $statement->bindParam(":id", $id);
+    $statement->execute();
+    $id = $statement->fetch(PDO::FETCH_COLUMN);
+                    
 
-        $oldPassword = htmlspecialchars($_POST["oldPassword"]);
-        $newPassword =htmlspecialchars($_POST["newPassword"]);
-        
-        $statement = $conn->prepare("select * from users where id = '22'");
-        $statement->execute();
-        $user = $statement->fetch(PDO::FETCH_ASSOC);
+    $statement = $conn->prepare("UPDATE users SET password = :password WHERE users.id = $id");
+    $statement->bindParam(':password', $newPassword);
+    $result = $statement->execute();
 
-        $options = [
-        'cost' => 14,
-            ];
-        $newPassword =  password_hash($newPassword, PASSWORD_DEFAULT, $options);
+    header('Location: profile.php');                   
+    echo"password has been updated";
 
+    return $result;
+                
+}   
 
-   
-    if(empty($oldPassword) || empty($newPassword) ){
-        echo"All fields need to be filled in";
-    } 
-        else if( $oldPassword == $newPassword){
-            echo"The old and new password need to be different";
-        } else if (password_verify($oldPassword, $user['password'])) {
-            //ja -> naar index
-            //echo "joepie de poepie!!!!";
-            $statement = $conn->prepare("SELECT id FROM users WHERE id = '22'");
-            $statement->execute();
-            $id = $statement->fetch(PDO::FETCH_COLUMN);
-                            
-
-            $statement = $conn->prepare("UPDATE users SET password = :password WHERE users.id = $id");
-            $statement->bindParam(':password', $newPassword);
-            $result = $statement->execute();
-
-            header('Location: profile.php');                   
-            echo"password has been updated";
-
-            return $result;
-        } else {
-            //nee -> error
-            //echo "jammer joh";
-           echo"Oud wachtwoord komt niet overeen!";
-        }  
-              
-        
-        }
-        
-    }   
-    
-
-
-
-    public static function changeEmail(){   
+    public static function changeEmail($newEmail){
 
         $conn = Db::getConnection();
-        if(isset($_POST["submitEmail"])){
+
+        $statement = $conn->prepare("SELECT * FROM users WHERE id = :id");
+        $statement->bindParam(":id", $id);
+        $statement->execute();
+        $id = $statement->fetch(PDO::FETCH_COLUMN);
+                        
+
+        $statement = $conn->prepare("UPDATE users SET email = :email WHERE users.id = $id");
+        $statement->bindParam(':email', $newEmail);
+        $result = $statement->execute();
+
+        header('Location: profile.php');                   
+        echo"password has been updated";
+
+        return $result;
+
+    }
     
-            $oldEmail = htmlspecialchars($_POST["oldEmail"]);
-            $newEmail =htmlspecialchars($_POST["newEmail"]);
-            
-            $statement = $conn->prepare("select * from users where id = '22'");
-            $statement->execute();
-            $user = $statement->fetch(PDO::FETCH_ASSOC);
-    
-                   
-        if(empty($oldEmail) || empty($newEmail) ){
-            echo"All fields need to be filled in";
-        } 
-            else if( $oldEmail == $newEmail){
-                echo"The old and new password need to be different";
-            } else if (($oldEmail == $user['email'])) {
-                //ja -> naar index
-                //echo "joepie de poepie!!!!";
-                $statement = $conn->prepare("SELECT id FROM users WHERE id = '22'");
-                $statement->execute();
-                $id = $statement->fetch(PDO::FETCH_COLUMN);
-                                
-    
-                $statement = $conn->prepare("UPDATE users SET email = :email WHERE users.id = $id");
-                $statement->bindParam(':email', $newEmail);
-                $result = $statement->execute();
-    
-                header('Location: profile.php');                   
-                echo"password has been updated";
-    
-                return $result;
-            } else {
-                //nee -> error
-                //echo "jammer joh";
-               echo"Your old email doesn't match with your current one!";
-            }  
-                  
-            
-            }
-            
-        }
-    
-}
+} 
 
