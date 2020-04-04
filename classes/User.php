@@ -290,18 +290,34 @@ class User
         return $this;
     }
 
+    public static function getAllUsers($id)
+    {
+        // als je id meegeeft (via session of gewoon) dan krijg je alle user behalve die id terug, als je als parameter null meegeeft dan krijg je alle user incl. jezelf
+        $conn = Db::getConnection();
+        $statement = $conn->prepare('select * from users where (id != :id or :id is null)');
+        $statement->bindParam(":id", $id);
+        $statement->execute();
+        $users = $statement->fetchAll(PDO::FETCH_ASSOC);
+        var_dump($users);
+        return $users;
+    }
     public static function filter($music) {
 
         $conn = Db::getConnection();
-        $statement = $conn->prepare("SELECT * from users where firstname = :music");
+       // $statement = $conn->prepare("SELECT * from users where firstname = :music or firstname = :travel or firstname = :hobbies);
         //feature 6 naam zoeken uitkomst
 
         if(isset($_POST['value'])) { 
-            if($_POST['value'] == 'music') {}
+            if($_POST['music'] === ':music') {}
                 // query to get all categories  
                 $statement = $conn->prepare("SELECT * from users where firstname = :music");
                  
-            }   
+            }  if($_POST['hobbies']=== ':hobbies') {
+                $statement = $conn->prepare("SELECT * from users where firstname = :hobbies");
+            }
+            if($_POST['travel']=== ':travel'){
+                $statement = $conn->prepare("SELECT * from users where firstname = :travel");
+            }
             
         
         

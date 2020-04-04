@@ -88,7 +88,7 @@ if( !empty($_POST) ){
   </form>
           <p> <b> Results: </b> </p>
           <?php if (isset($result)) : ?>
-        <p><?php echo $result['firstname']. " " . $result['lastname'];  ?>  </p> <!-- resultaat van searchpeop() moet hier komen !-->
+        <p><?php echo $result['firstname']. " " . $result['lastname'];  ?>  </p> <!-- resultaat van searchfilter() moet hier komen !-->
           <?php endif; ?>
           <hr>
           </hr>
