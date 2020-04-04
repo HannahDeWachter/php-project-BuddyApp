@@ -24,6 +24,7 @@ for ($x = 0; $x < count($matches); $x++) {
     $matchInterestsReason = "";
     $matchLocationReason = "";
     $matchTravelReason = "";
+    $travelString = "";
     if ($matches[$x]['score'] >= 25) {
         // echo "Match!";
         $matchId = $matches[$x]["id"];
@@ -31,13 +32,29 @@ for ($x = 0; $x < count($matches); $x++) {
         $matchName = $arrayUsers[$key]['firstname'] . " " . $arrayUsers[$key]['lastname'];
         // weergeven waarom goede match ("jullie vinden beiden ... leuk")
         if ($matches[$x]['location'] != "") {
-            $matchLocationReason = "You both live in " . $matches[$x]['location'];
+            $matchLocationReason = "You both live in " . $matches[$x]['location'] . ".";
         }
         if ($matches[$x]['music'] != "") {
             $matchInterestsReason = "You both like " . $matches[$x]['music'] . $matches[$x]['hobbies'];
         }
         if ($matches[$x]['travel'] != "") {
-            $matchTravelReason = "You have both travelled in " . $matches[$x]['travel'];
+            $travelArray = (explode(",", $matches[$x]['travel']));
+            // var_dump($travelArray);
+            $i = count($travelArray) - 2; // er staat nog komma achter de laatste waarde dus '' is de laatste waarde in array
+            while ($i >= 0) {
+                // echo $i;
+                if ($i === count($travelArray) - 2) {
+                    $travelString = $travelArray[$i] . ".";
+                } else {
+                    if ($i === count($travelArray) - 3) {
+                        $travelString = $travelArray[$i] . " and " . $travelString;
+                    } else {
+                        $travelString = $travelArray[$i] . ", " . $travelString;
+                    }
+                }
+                $i--;
+            }
+            $matchTravelReason = "You have both travelled in " . $travelString;
         }
         $showedMatches[$x] = array("id" => $matchId, "name" => $matchName, "location" => $matchLocationReason, "interests" => $matchInterestsReason, "travel" => $matchTravelReason);
     } else {
