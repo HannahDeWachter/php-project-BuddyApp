@@ -354,7 +354,7 @@ class User
         arsort($scoreUsers); // van hoog naar laag (score) sorteren
         for ($i = 0; $i < count($scoreUsers); $i++) {
             $id = key($scoreUsers);
-            $returnArray[$i] = array("id" => $id, "score" => $scoreUsers[$id], "location" => $matchingLocationReason[$id], "music" => $matchingMusicReason[$id], "hobbies" => $matchingHobbiesReason[$id], "travel" => $matchingTravelReason[$id]);
+            $returnArray[$i] = array("id" => $id, "score" => $scoreUsers[$id], "location" => $matchingLocationReason[$id], "interests" => $matchingMusicReason[$id] . $matchingHobbiesReason[$id], "travel" => $matchingTravelReason[$id]);
             next($scoreUsers);
         }
         return $returnArray;

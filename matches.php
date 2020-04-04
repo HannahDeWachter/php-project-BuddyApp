@@ -25,6 +25,7 @@ for ($x = 0; $x < count($matches); $x++) {
     $matchLocationReason = "";
     $matchTravelReason = "";
     $travelString = "";
+    $interestString = "";
     if ($matches[$x]['score'] >= 25) {
         // echo "Match!";
         $matchId = $matches[$x]["id"];
@@ -34,8 +35,24 @@ for ($x = 0; $x < count($matches); $x++) {
         if ($matches[$x]['location'] != "") {
             $matchLocationReason = "You both live in " . $matches[$x]['location'] . ".";
         }
-        if ($matches[$x]['music'] != "") {
-            $matchInterestsReason = "You both like " . $matches[$x]['music'] . $matches[$x]['hobbies'];
+        if ($matches[$x]['interests'] != "") {
+            $interestsArray = (explode(",", $matches[$x]['interests']));
+            $i = count($interestsArray) - 2; // er staat nog komma achter de laatste waarde dus '' is de laatste waarde in array. Nu is $i gelijk aan de array index
+            while ($i >= 0) {
+                // echo $i;
+                if ($i === count($interestsArray) - 2) {
+                    $interestString = $interestsArray[$i] . ".";
+                } else {
+                    if ($i === count($interestsArray) - 3) {
+                        $interestString = $interestsArray[$i] . " and " . $interestString;
+                    } else {
+                        $interestString = $interestsArray[$i] . ", " . $interestString;
+                    }
+                }
+                $i--;
+            }
+
+            $matchInterestsReason = "You both like " . $interestString;
         }
         if ($matches[$x]['travel'] != "") {
             $travelArray = (explode(",", $matches[$x]['travel']));
@@ -85,7 +102,7 @@ for ($x = 0; $x < count($matches); $x++) {
     <?php endif; ?>
     <?php if (!empty($showedMatches)) : ?>
         <?php foreach ($showedMatches as $match) : ?>
-            <div class="">
+            <div class="table">
                 <strong><?php echo $match["name"]; ?></strong>
                 <p><?php echo $match["location"]; ?></p>
                 <p><?php echo $match["interests"]; ?></p>
