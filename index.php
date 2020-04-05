@@ -98,7 +98,7 @@ if (!empty($_POST)) {
   </form>
   <p> <b> Results: </b> </p>
   <?php foreach ($filters as $filter) : ?>
-    <p><?php echo $filter['firstname'] . " " . $filter['lastname'];  ?>  </p> <!-- resultaat van searchfilter() moet hier komen !-->
+    <p><?php echo $filter['firstname'] . " " . $filter['lastname'];  ?> </p> <!-- resultaat van searchfilter() moet hier komen !-->
   <?php endforeach; ?>
   <hr>
   </hr>
@@ -117,7 +117,7 @@ if (!empty($_POST)) {
   <br>
 
   <p> <b> Results: </b> </p>
-  <?php foreach($results as $result): ?>
+  <?php foreach ($results as $result) : ?>
     <p><?php echo $result['firstname'] . " " . $result['lastname'];  ?> </p> <!-- resultaat van searchpeop() moet hier komen !-->
   <?php endforeach; ?>
 </body>

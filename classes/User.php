@@ -235,7 +235,7 @@ class User
             return false;
         }*/
     }
-    public  function getAllInformation($id)
+    public static  function getAllInformation($id)
     {
         $conn = Db::getConnection();
         $statement = $conn->prepare("SELECT * FROM users WHERE id = :id");
@@ -244,7 +244,7 @@ class User
         $statement->bindParam(":id", $id);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        return $result[0];
     }
 
     public  function canLogin($email, $password)
@@ -280,9 +280,9 @@ class User
         header('location: index.php');
     }
 
-    
 
-    
+
+
     public static function findMatches($arrayUsers, $dataUser)
     {
         // niet op specialization matchen!
