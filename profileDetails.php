@@ -119,7 +119,7 @@ if (!empty($_POST)) {
                 <label for="hobbies">What do you like to do?</label><br>
                 <input type="checkbox" class="custom-checkbox" id="hobbies" name="hobbies[]" <?php if (in_array("paint", $hobbiesArray)) {
                                                                                                     echo "checked";
-                                                                                                } ?> value="paint">Paint
+                                                                                                } ?> value="to paint">Paint
                 <br>
                 <input type="checkbox" class="custom-checkbox" id="hobbies" name="hobbies[]" <?php if (in_array("sport", $hobbiesArray)) {
                                                                                                     echo "checked";
@@ -127,15 +127,15 @@ if (!empty($_POST)) {
                 <br>
                 <input type="checkbox" class="custom-checkbox" id="hobbies" name="hobbies[]" <?php if (in_array("party", $hobbiesArray)) {
                                                                                                     echo "checked";
-                                                                                                } ?> value="party">Party
+                                                                                                } ?> value="to party">Party
                 <br>
                 <input type="checkbox" class="custom-checkbox" id="hobbies" name="hobbies[]" <?php if (in_array("instrument", $hobbiesArray)) {
                                                                                                     echo "checked";
-                                                                                                } ?> value="instrument">Play an instrument
+                                                                                                } ?> value="to play an instrument">Play an instrument
                 <br>
                 <input type="checkbox" class="custom-checkbox" id="hobbies" name="hobbies[]" <?php if (in_array("read", $hobbiesArray)) {
                                                                                                     echo "checked";
-                                                                                                } ?> value="read">Read books
+                                                                                                } ?> value="to read">Read books
                 <br>
                 <input type="checkbox" class="custom-checkbox" id="hobbies" name="hobbies[]" <?php if (in_array("other", $hobbiesArray)) {
                                                                                                     echo "checked";
