@@ -15,7 +15,7 @@ if (($allInformation['location'] === "") || ($allInformation['music'] === "") ||
 
 if (!empty($_POST)) {
   $namesearch = $_POST['namesearch'];
-  $result = $user->searchpeop($namesearch);
+  $results = $user->searchpeop($namesearch);
 }
 
 

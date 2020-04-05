@@ -176,19 +176,18 @@ class User
         $lastname = $this->getLastName();
         $email = $this->getEmail();
         $password = $this->getPassword();
-        $imdYear= $this->getImdYear();
+        $imdYear = $this->getImdYear();
 
         $statement->bindParam(":firstname", $firstname);
         $statement->bindParam(":lastname", $lastname);
         $statement->bindParam(":email", $email);
         $statement->bindParam(":password", $password);
-        $statement->bindParam(":imdYear",$imdYear);
+        $statement->bindParam(":imdYear", $imdYear);
 
         $result = $statement->execute();
         header('location: login.php');
         // echo "ik ben hier aan het saven";
         return $result;
-        
     }
 
     public function endsWith($email, $endString)
@@ -213,7 +212,7 @@ class User
             return false;
         }*/
     }
-    public static function getAllInformation($id)
+    public  function getAllInformation($id)
     {
         $conn = Db::getConnection();
         $statement = $conn->prepare("SELECT * FROM users WHERE id = :id");
@@ -225,7 +224,7 @@ class User
         return $result;
     }
 
-    public static function canLogin($email, $password)
+    public  function canLogin($email, $password)
     {
         //db connectie
         $conn = Db::getConnection();
@@ -248,7 +247,7 @@ class User
         }
     }
 
-    public static function doLogin($user)
+    public  function doLogin($user)
     {
         session_start();
         $_SESSION['email'] = $user['email'];
@@ -258,7 +257,7 @@ class User
         header('location: index.php');
     }
 
-    public static function getUserId()
+    public  function getUserId()
     {
         $email = $_SESSION['email'];
         $conn = new PDO('mysql:host=localhost;dbname=login', "root", "");
@@ -272,7 +271,7 @@ class User
 
     /**
      * Get the value of imdYear
-     */ 
+     */
     public function getImdYear()
     {
         return $this->imdYear;
@@ -282,7 +281,7 @@ class User
      * Set the value of imdYear
      *
      * @return  self
-     */ 
+     */
     public function setImdYear($imdYear)
     {
         $this->imdYear = $imdYear;
@@ -290,7 +289,7 @@ class User
         return $this;
     }
 
-    public static function getAllUsers($id)
+    public  function getAllUsers($id)
     {
         // als je id meegeeft (via session of gewoon) dan krijg je alle user behalve die id terug, als je als parameter null meegeeft dan krijg je alle user incl. jezelf
         $conn = Db::getConnection();
@@ -301,66 +300,37 @@ class User
         var_dump($users);
         return $users;
     }
-    public static function filter($music, $hobbies , $travel) {
+    public  function filter($music, $hobbies, $travel)
+    {
 
         $conn = Db::getConnection();
-       // $statement = $conn->prepare("SELECT * from users where firstname = :music or firstname = :travel or firstname = :hobbies);
+        $statement = $conn->prepare("SELECT * from users where music LIKE concat('%',  :music, '%')  or 
+        travel LIKE concat('%', :travel,'%') or hobbies
+        LIKE concat('%', :hobbies, '%')");
         //feature 6 naam zoeken uitkomst
 
-         
-            if($_POST['music'] === ':music') {
-                // query to get all categories  
-                $statement = $conn->prepare("SELECT * from users where music = :music");
-                 
-            }  if($_POST['hobbies']=== ':hobbies') {
-                $statement = $conn->prepare("SELECT * from users where hobbies = :hobbies");
-            }
-            if($_POST['travel']=== ':travel'){
-                $statement = $conn->prepare("SELECT * from users where travel = :travel");
-            }
-        
-        
-        
         $statement->bindParam(":music", $music);
-        $statement  ->bindParam(":hobbies",$hobbies)  ;
-        $statement->bindParam(":travel",$travel);    
+        $statement->bindParam(":hobbies", $hobbies);
+        $statement->bindParam(":travel", $travel);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         //var_dump($result);
-        return $result[0];
-                     
-        
-        }
+        return $result;
+    }
 
 
-    public static function searchpeop($namesearch) {
+    public  function searchpeop($namesearch)
+    {
 
         $conn = Db::getConnection();
-        
+
         $statement = $conn->prepare("SELECT * from users where firstname = :namesearch");
         //feature 6 naam zoeken uitkomst
-        
+
         $statement->bindParam(":namesearch", $namesearch);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         //var_dump($result);
-        return $result[0];
-                     
-        
-        }
-
+        return $result;
     }
-    
-    
-    
-
-    
-
-    
-        
-        
-
-
-        
-    
-
+}
