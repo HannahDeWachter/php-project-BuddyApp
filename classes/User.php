@@ -87,6 +87,17 @@ class User
         return $this;
     }
 
+    public function getYear()
+    {
+        return $this->year;
+    }
+    public function setYear($year)
+    {
+        $this->year = $year;
+
+        return $this;
+    }
+
     public function getLocation()
     {
         return $this->location;
@@ -142,6 +153,17 @@ class User
         return $this;
     }
 
+    public function getImdYear()
+    {
+        return $this->imdYear;
+    }
+    public function setImdYear($imdYear)
+    {
+        $this->imdYear = $imdYear;
+
+        return $this;
+    }
+
     public function updateUser()
     {
         $conn = Db::getConnection();
@@ -187,6 +209,7 @@ class User
         $result = $statement->execute();
         header('location: login.php');
         // echo "ik ben hier aan het saven";
+        // var_dump($result);
         return $result;
     }
 
@@ -200,7 +223,7 @@ class User
     {
         $conn = Db::getConnection();
         $statement = $conn->prepare("SELECT * FROM users WHERE email = :email ");
-        $statement->bindparam(":email", $email);
+        $statement->bindParam(":email", $email);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC); //fetchAll geeft array, fetch geeft true/false
         return empty($result); //is hetzelfde als if else hieronder
@@ -218,7 +241,7 @@ class User
         $statement = $conn->prepare("SELECT * FROM users WHERE id = :id");
         // $id = $this->getId();
 
-        $statement->bindparam(":id", $id);
+        $statement->bindParam(":id", $id);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
@@ -257,36 +280,76 @@ class User
         header('location: index.php');
     }
 
-    public  function getUserId()
+    
+
+    
+    public static function findMatches($arrayUsers, $dataUser)
     {
-        $email = $_SESSION['email'];
-        $conn = new PDO('mysql:host=localhost;dbname=login', "root", "");
-        $statement = $conn->prepare('select id from users where email = :email');
-        $statement->bindParam(':email', $email);
-        $statement->execute();
-        $user = $statement->fetch(PDO::FETCH_ASSOC);
+        // niet op specialization matchen!
+        define("locationScore", 20);
+        define("musicScore", 15);
+        define("hobbiesScore", 15);
+        define("travelScore", 10);
+        $scoreUsers = [];
+        $matchingLocationReason = [];
+        $matchingMusicReason = [];
+        $matchingHobbiesReason = [];
+        $matchingTravelReason = [];
+        $returnArray = [];
+        $dataUserMusicArray = (explode(",", $dataUser['music']));
+        $dataUserHobbiesArray = (explode(",", $dataUser['hobbies']));
+        $dataUserTravelArray = (explode(",", $dataUser['travel']));
+        // var_dump($dataUserHobbiesArray);
+        for ($x = 0; $x < count($arrayUsers); $x++) {
+            $score = 0;
+            $matchingLocationString = "";
+            $matchingMusicString = "";
+            $matchingHobbiesString = "";
+            $matchingTravelString = "";
+            $arrayUsersMusicArray = (explode(",", $arrayUsers[$x]['music']));
+            $arrayUsersHobbiesArray = (explode(",", $arrayUsers[$x]['hobbies']));
+            $arrayUsersTravelArray = (explode(",", $arrayUsers[$x]['travel']));
 
-        return $user['id'];
-    }
-
-    /**
-     * Get the value of imdYear
-     */
-    public function getImdYear()
-    {
-        return $this->imdYear;
-    }
-
-    /**
-     * Set the value of imdYear
-     *
-     * @return  self
-     */
-    public function setImdYear($imdYear)
-    {
-        $this->imdYear = $imdYear;
-
-        return $this;
+            if ($arrayUsers[$x]['location'] != '' && $arrayUsers[$x]['location'] === $dataUser['location']) { // null = null
+                $score += locationScore;
+                $matchingLocationString = $matchingLocationString . $dataUser['location'];
+            }
+            // echo $score;
+            for ($mx = 0; $mx < count($arrayUsersMusicArray); $mx++) {
+                if ($arrayUsersMusicArray[$mx] != '' && in_array($arrayUsersMusicArray[$mx], $dataUserMusicArray)) {
+                    $score += musicScore;
+                    $matchingMusicString = $matchingMusicString . $arrayUsersMusicArray[$mx] . ",";
+                }
+            }
+            // echo $score;
+            for ($hx = 0; $hx < count($arrayUsersHobbiesArray); $hx++) {
+                if ($arrayUsersHobbiesArray[$hx] != '' && in_array($arrayUsersHobbiesArray[$hx], $dataUserHobbiesArray)) {
+                    $score += hobbiesScore;
+                    $matchingHobbiesString = $matchingHobbiesString . $arrayUsersHobbiesArray[$hx] . ",";
+                }
+            }
+            // echo $score;
+            for ($tx = 0; $tx < count($arrayUsersTravelArray); $tx++) {
+                if ($arrayUsersTravelArray[$tx] != '' && in_array($arrayUsersTravelArray[$tx], $dataUserTravelArray)) {
+                    $score += travelScore;
+                    $matchingTravelString = $matchingTravelString . $arrayUsersTravelArray[$tx] . ",";
+                }
+            }
+            // echo $score;
+            // echo $matchingString;
+            $scoreUsers[$arrayUsers[$x]['id']] = $score;
+            $matchingLocationReason[$arrayUsers[$x]['id']] = $matchingLocationString;
+            $matchingMusicReason[$arrayUsers[$x]['id']] = $matchingMusicString;
+            $matchingHobbiesReason[$arrayUsers[$x]['id']] = $matchingHobbiesString;
+            $matchingTravelReason[$arrayUsers[$x]['id']] = $matchingTravelString;
+        }
+        arsort($scoreUsers); // van hoog naar laag (score) sorteren
+        for ($i = 0; $i < count($scoreUsers); $i++) {
+            $id = key($scoreUsers);
+            $returnArray[$i] = array("id" => $id, "score" => $scoreUsers[$id], "location" => $matchingLocationReason[$id], "interests" => $matchingMusicReason[$id] . $matchingHobbiesReason[$id], "travel" => $matchingTravelReason[$id]);
+            next($scoreUsers);
+        }
+        return $returnArray;
     }
 
     public  function getAllUsers($id)

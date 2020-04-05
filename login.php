@@ -4,7 +4,7 @@ include_once(__DIR__ . "/classes/User.php");
 
 if (!empty($_POST)) {
   //email en password opvragen
-  $email = $_POST['email'];
+  $email = htmlspecialchars($_POST['email']);
   $password = $_POST['password'];
   $user = User::canLogin($email, $password);
   if ($user) {
@@ -37,12 +37,12 @@ if (!empty($_POST)) {
       <div class="header">
         <h2>BUDDY APP</h2>
         <?php if (isset($error)) : ?>
-        <div class="form alert-danger">
-          <p>
-            Sorry, we can't log you in with that email address and password. Can you try again?
-          </p>
-        </div>
-      <?php endif; ?>
+          <div class="form alert-danger">
+            <p>
+              Sorry, we can't log you in with that email address and password. Can you try again?
+            </p>
+          </div>
+        <?php endif; ?>
         <h4>Login</h4>
 
       </div>
@@ -66,7 +66,6 @@ if (!empty($_POST)) {
 
     <a href="register.php">Not an account yet? Sign up here!</a>
 
-  </div>
   </div>
 </body>
 

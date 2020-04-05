@@ -51,9 +51,9 @@ if (!empty($_POST)) {
 
     <a href="profile.php">Go back to profile</a>
 
-    <div class="container wrap form-group input-group-text">
+    <div class="container">
 
-        <form action="" method="post">
+        <form action="" method="post" class="form">
             <h2 class="form__title">Complete your profile, <?php echo $dataUser['firstname']; ?></h2>
             <div class="form-group">
                 <label for="location">In what city do you live?</label><br>
@@ -73,7 +73,7 @@ if (!empty($_POST)) {
                             } ?> value="both">Both</option>
                 </select>
             </div>
-            <div class="form-group ">
+            <div class="form-group">
                 <label for="music" class="">Which music do you like?</label><br>
                 <input type="checkbox" class="custom-checkbox" id="music" name="music[]" <?php if (in_array("pop", $musicArray)) {
                                                                                                 echo "checked";
@@ -119,7 +119,7 @@ if (!empty($_POST)) {
                 <label for="hobbies">What do you like to do?</label><br>
                 <input type="checkbox" class="custom-checkbox" id="hobbies" name="hobbies[]" <?php if (in_array("paint", $hobbiesArray)) {
                                                                                                     echo "checked";
-                                                                                                } ?> value="paint">Paint
+                                                                                                } ?> value="to paint">Paint
                 <br>
                 <input type="checkbox" class="custom-checkbox" id="hobbies" name="hobbies[]" <?php if (in_array("sport", $hobbiesArray)) {
                                                                                                     echo "checked";
@@ -127,15 +127,15 @@ if (!empty($_POST)) {
                 <br>
                 <input type="checkbox" class="custom-checkbox" id="hobbies" name="hobbies[]" <?php if (in_array("party", $hobbiesArray)) {
                                                                                                     echo "checked";
-                                                                                                } ?> value="party">Party
+                                                                                                } ?> value="to party">Party
                 <br>
                 <input type="checkbox" class="custom-checkbox" id="hobbies" name="hobbies[]" <?php if (in_array("instrument", $hobbiesArray)) {
                                                                                                     echo "checked";
-                                                                                                } ?> value="instrument">Play an instrument
+                                                                                                } ?> value="to play an instrument">Play an instrument
                 <br>
                 <input type="checkbox" class="custom-checkbox" id="hobbies" name="hobbies[]" <?php if (in_array("read", $hobbiesArray)) {
                                                                                                     echo "checked";
-                                                                                                } ?> value="read">Read books
+                                                                                                } ?> value="to read">Read books
                 <br>
                 <input type="checkbox" class="custom-checkbox" id="hobbies" name="hobbies[]" <?php if (in_array("other", $hobbiesArray)) {
                                                                                                     echo "checked";
@@ -163,9 +163,7 @@ if (!empty($_POST)) {
                                                                                                 echo "checked";
                                                                                             } ?> value="oceania">Oceania
             </div>
-            <div class="form btn">
-                <input type="submit" class="btn btn-primary" value="Save">
-            </div>
+            <input type="submit" class="btn btn-primary" value="Save">
         </form>
     </div>
 </body>

@@ -8,9 +8,9 @@ $allInformation = User::getAllInformation($id);
 // var_dump($allInformation);
 $user = new User(); //altijd doen als je $user -> functie omdat je nieuwe instantie user van klasse user maakt 
 // checken of velden (location, music, travel, specialization, hobbies) allemaal zijn ingevuld
-if (($allInformation['location'] === "") || ($allInformation['music'] === "") || ($allInformation['travel'] === "") || ($allInformation['specialization'] === "") || ($allInformation['hobbies'] === "")) {
+if (is_null($allInformation['location']) || is_null($allInformation['music']) || is_null($allInformation['travel']) || is_null($allInformation['specialization']) || is_null($allInformation['hobbies'])) {
   // als niet iets ingevuld -> $message = "You have not completed your profile yet."
-  $message = "You have not completed your profile yet.";
+  $messageComplete = "You have not completed your profile yet.";
 }
 
 if (!empty($_POST)) {
@@ -42,9 +42,9 @@ if (!empty($_POST)) {
 
 <body>
   <?php include_once(__DIR__ . "/includes/header.inc.php"); ?>
-  <?php if (isset($message)) : ?>
+  <?php if (isset($messageComplete)) : ?>
     <div class="alert-info">
-      <p><?php echo $message ?> Click <a href="profileDetails.php">here</a> to complete your profile.</p>
+      <p><?php echo $messageComplete ?> Click <a href="profileDetails.php">here</a> to complete your profile.</p>
     </div>
   <?php endif; ?>
   <form action="" method="post">
