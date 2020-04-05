@@ -304,17 +304,15 @@ class User
     {
 
         $conn = Db::getConnection();
-        $statement = $conn->prepare("SELECT * from users where music LIKE concat('%',  :music, '%')  or 
-        travel LIKE concat('%', :travel,'%') or hobbies
+        $statement = $conn->prepare("SELECT * from users where music
+        LIKE concat('%', :music, '%') or travel
+        LIKE concat('%', :travel, '%') or hobbies
         LIKE concat('%', :hobbies, '%')");
-        //feature 6 naam zoeken uitkomst
-
         $statement->bindParam(":music", $music);
         $statement->bindParam(":hobbies", $hobbies);
         $statement->bindParam(":travel", $travel);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-        //var_dump($result);
         return $result;
     }
 

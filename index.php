@@ -25,7 +25,7 @@ if (!empty($_POST)) {
   $hobbies = $_POST['hobbies'];
   $travel = $_POST['travel'];
   // $result = User::filter($music, $hobbies, $travel);
-  $result = $user->filter($music, $hobbies, $travel);
+  $filters = $user->filter($music, $hobbies, $travel);
 }
 
 ?>
@@ -97,9 +97,9 @@ if (!empty($_POST)) {
 
   </form>
   <p> <b> Results: </b> </p>
-  <?php if (isset($result)) : ?>
-    <p><?php echo $result['firstname'] . " " . $result['lastname'];  ?> </p> <!-- resultaat van searchfilter() moet hier komen !-->
-  <?php endif; ?>
+  <?php foreach ($filters as $filter) : ?>
+    <p><?php echo $filter['firstname'] . " " . $filter['lastname'];  ?>  </p> <!-- resultaat van searchfilter() moet hier komen !-->
+  <?php endforeach; ?>
   <hr>
   </hr>
   <!-- dit is de namesearch div !-->
@@ -117,9 +117,9 @@ if (!empty($_POST)) {
   <br>
 
   <p> <b> Results: </b> </p>
-  <?php if (isset($result)) : ?>
+  <?php foreach($results as $result): ?>
     <p><?php echo $result['firstname'] . " " . $result['lastname'];  ?> </p> <!-- resultaat van searchpeop() moet hier komen !-->
-  <?php endif; ?>
+  <?php endforeach; ?>
 </body>
 
 </html>
