@@ -14,7 +14,7 @@ if (is_null($allInformation['location']) || is_null($allInformation['music']) ||
 }
 
 if (!empty($_POST)) {
-  $namesearch = $_POST['namesearch'];
+  $namesearch = htmlspecialchars($_POST['namesearch']);
   $results = $user->searchpeop($namesearch);
 }
 
