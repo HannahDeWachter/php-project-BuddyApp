@@ -102,11 +102,19 @@ for ($x = 0; $x < count($matches); $x++) {
     <?php endif; ?>
     <?php if (!empty($showedMatches)) : ?>
         <?php foreach ($showedMatches as $match) : ?>
-            <div class="input-group-text">
-                <strong><?php echo $match["name"]; ?></strong>
-                <p><?php echo $match["location"]; ?></p>
-                <p><?php echo $match["interests"]; ?></p>
-                <p><?php echo $match["travel"]; ?></p>
+            <div class="input-group-text card">
+                <strong class="card-title"><?php echo $match["name"]; ?></strong>
+                <?php if ($match['location'] != "") : ?>
+                    <p class="card-text"><?php echo $match["location"]; ?></p>
+                <?php endif; ?>
+                <?php if ($match['interests'] != "") : ?>
+                    <p class="card-text"><?php echo $match["interests"]; ?></p>
+                <?php endif; ?>
+                <?php if ($match['travel'] != "") : ?>
+                    <p class="card-text"><?php echo $match["travel"]; ?></p>
+                <?php endif; ?>
+                <a href="" class="card-link">Accept</a>
+                <a href="" class="card-link">Decline</a>
             </div>
         <?php endforeach; ?>
     <?php endif; ?>

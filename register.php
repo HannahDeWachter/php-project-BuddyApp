@@ -44,55 +44,42 @@ if (!empty($_POST)) {
 
 <body>
     <div class="container">
-        <div class="wrap">
-
-            <div class="form-group">
-
+        <form action="" method="post" class="form">
+            <div class="header">
+                <h2>BUDDY APP</h2>
                 <?php if (isset($error)) : ?>
                     <div class="error" style="color:red;">
                         <?php echo $error; ?>
                     </div>
                 <?php endif; ?>
-
-                <form action="" method="post">
-                    <h2 class="form__title">Create an account</h2>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="text" class="form-control" id="email" name="email">
-                    </div>
-                    <div class="form-group">
-                        <label for="firstname">Firstname</label>
-                        <input type="text" class="form-control" id="firstname" name="firstname">
-                    </div>
-                    <div class="form-group">
-                        <label for="lastname">Lastname</label>
-                        <input type="text" class="form-control" id="lastname" name="lastname">
-                    </div>
-
-
-
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="password">
-                    </div>
-                    <div class="form-group">
-                        <input type="radio" name="imdYear" id="1IMD" value="1IMD" /> 1IMD <br>
-                        <input type="radio" name="imdYear" id="2IMD" value="2IMD" /> 2IMD <br>
-                        <input type="radio" name="imdYear" id="3IMD" value="3IMD" /> 3IMD <br>
-
-
-
-                    </div>
-
-
-                    <div class="form__btn">
-                        <input type="submit" class="btn btn-primary" name="submit" value="Sign me up!">
-                    </div>
-                </form>
-                <div class="link">
-                    <p> <a href="login.php"> Back to login</a></p>
-                </div>
+                <h4>Create an account</h2>
             </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" class="form-control" id="email" name="email" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <label for="firstname">Firstname</label>
+                <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Fristname">
+            </div>
+            <div class="form-group">
+                <label for="lastname">Lastname</label>
+                <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Lastname">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <input type="radio" name="imdYear" id="1IMD" value="1IMD" /> 1IMD <br>
+                <input type="radio" name="imdYear" id="2IMD" value="2IMD" /> 2IMD <br>
+                <input type="radio" name="imdYear" id="3IMD" value="3IMD" /> 3IMD <br>
+            </div>
+            <input type="submit" class="btn btn-primary" name="submit" value="Sign me up!">
+        </form>
+        <div class="link">
+            <a href="login.php">Back to login</a>
         </div>
     </div>
 </body>
