@@ -2,13 +2,15 @@
 
 include_once(__DIR__ . "/classes/User.php");
 include_once(__DIR__ . "/includes/header.inc.php");
+
 session_start();
 $id = $_SESSION['user_id'];
-$dataUser = User::getAllInformation($id);
-// var_dump($dataUser);
+$allInformation = User::getAllInformation($id);
+//var_dump($allInformation);
+
 
 // checken of velden (location, music, travel, specialization, hobbies) allemaal zijn ingevuld
-if (is_null($dataUser['location']) || is_null($dataUser['music']) || is_null($dataUser['travel']) || is_null($dataUser['specialization']) || is_null($dataUser['hobbies'])) {
+if (is_null($allInformation['location']) || is_null($allInformation['music']) || is_null($allInformation['travel']) || is_null($allInformation['specialization']) || is_null($allInformation['hobbies'])) {
     // als niet iets ingevuld -> $message = "You have not completed your profile yet."
     $message = "You cannot have matches if your profile is not completed.";
 }
@@ -16,7 +18,7 @@ if (is_null($dataUser['location']) || is_null($dataUser['music']) || is_null($da
 // data andere users ophalen
 $arrayUsers = User::getAllUsers($id);
 // andere users vergelijken met jezelf
-$matches = User::findMatches($arrayUsers, $dataUser);
+$matches = User::findMatches($arrayUsers, $allInformation);
 // var_dump($matches);
 // goede match? (score >= 25) => weergeven
 $showedMatches = [];
@@ -78,8 +80,17 @@ for ($x = 0; $x < count($matches); $x++) {
         $x = count($matches); // array is gesorteerd op score, dus als er een kleiner is dan 25 moet de rest niet meer bekeken worden
     }
 }
- var_dump($showedMatches);
 
+if(isset($_GET['id'])){
+  $user2 = $_GET['id'];
+  $user1 = $id;
+  $infoUser2 = User::getAllInformation($showedMatches[$user2]["id"]);
+  
+}else{
+
+die("an ID is missing 😕");
+
+}
 
 
 ?>
@@ -87,33 +98,53 @@ for ($x = 0; $x < count($matches); $x++) {
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buddy App</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buddy App</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/styleChat.css">
+  
+
+
 </head>
 
 <body>
-    <?php include_once(__DIR__ . "/includes/header.inc.php"); ?>
+  <?php include_once(__DIR__ . "/includes/header.inc.php"); ?>
+  <!-- <strong>?php echo $showedMatches[$user2]["name"];?></strong>
+  <p>?php echo $showedMatches[$user2]["location"]; ?></p>
+  <p>?php echo $showedMatches[$user2]["interests"]; ?></p>
+  <p>?php echo $showedMatches[$user2]["travel"]; ?></p> -->
 
-    <?php if (isset($message)) : ?>
-        <div class="alert-danger">
-            <p><?php echo $message ?> Click <a href="profileDetails.php">here</a> to complete your profile.</p>
+  <div id="containerChat">
+    <div id="menuChat">
+      <?php echo $allInformation["firstname"]." ".$allInformation["lastname"]; ?>
+    </div>
+    <div id="left-col">
+      <div id="container-left-col">
+        <div class="grey-back">
+            <img src="images/<?php echo $infoUser2["profileImg"] ?>" class="chatImage" alt="profileImage"/>
+            <p><?php echo $showedMatches[$user2]["name"]; ?></p>
         </div>
-    <?php endif; ?>
-    <h2>Matches</h2>
-    <?php if (!empty($showedMatches)) : ?>
-        <?php foreach ($showedMatches as $match => $buddy) : ?>
-            <div class="table">
-                <strong><?php echo $match["name"]; ?></strong>
-                <p><?php echo $match["location"]; ?></p>
-                <p><?php echo $match["interests"]; ?></p>
-                <p><?php echo $match["travel"]; ?></p>
-            </div>
-            <a href="chat.php?id=<?php echo $match;?>">Accept</a>
-        <?php endforeach; ?>
-    <?php endif; ?>
+      </div>
+    </div>
+    <div id="right-col">
+      <div id="container-right-col">
+        <div id="container-message">
+          <div class="grey-message">
+            <a href="#"><?php echo $allInformation["firstname"];?></a>
+            <p>this message is grey</p>
+          </div>
+          <div class="white-message">
+            <a href="#"><?php echo $showedMatches[$user2]["name"]; ?></a>
+            <p>this message is white</p>
+          </div>
+        </div>
+        <textarea class="textarea"  placeholder="Write your message here"></textarea>
+      </div>
+    </div>
+  </div>
+
 </body>
 
 </html>

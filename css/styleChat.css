@@ -1,0 +1,91 @@
+html, body{
+    height: 100%;
+    overflow: hidden;
+    padding: 0px;
+    margin: 0px;
+}
+
+/* a, p{
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+} */
+
+#containerChat{
+    box-shadow: 2px 2px 10px #0000;
+    width: 1200px;
+    height: 90%;
+    margin:  2% auto;
+    border-radius: 1%;
+    overflow: hidden;
+
+}
+
+#menuChat{
+    background: #233070;
+    color: white;
+    padding: 1%;
+    font-size: 30px;
+}
+
+#left-col, #right-col{
+    position: relative;
+    float: left;
+    height: 90%;
+}
+
+#left-col{
+    width: 30%;
+}
+
+#right-col{
+    width: 70%;
+    border:2px solid #efefef;
+}
+
+#container-left-col, #container-right-col{
+    width: 100%;
+    height: 100%;
+    margin: 0px auto;
+    overflow: auto;
+}
+
+.grey-back{
+    border:2px solid grey;
+    background: #efefef;
+    margin: 0px auto;
+    margin-top: 2px;
+    overflow:auto;
+}
+
+.chatImage{
+    float: left;
+    margin-right: 5px;
+    width: 50px;
+    height: 50px;
+}
+#container-message{
+    height: 85%;
+    overflow: auto;
+}
+
+.textarea{
+    width: 100%;
+    height: 15%;
+    position: absolute;
+    bottom: 1%;
+
+}
+
+.grey-message, .white-message{
+    border:1px solid black;
+    width: 96%;
+    padding: 5px;
+    margin:0px auto;
+    margin-top: 2px;
+    overflow: auto;
+
+}
+
+.grey-message{
+    background-color: #efefef;
+}

@@ -9,6 +9,8 @@ class User
     private $email;
     private $password;
     private $imdYear;
+    private $user1;
+    private $user2;
 
     private $location;
     private $music;
@@ -307,7 +309,7 @@ class User
         $dataUserMusicArray = (explode(",", $dataUser['music']));
         $dataUserHobbiesArray = (explode(",", $dataUser['hobbies']));
         $dataUserTravelArray = (explode(",", $dataUser['travel']));
-        // var_dump($dataUserHobbiesArray);
+        //var_dump($dataUserHobbiesArray);
         for ($x = 0; $x < count($arrayUsers); $x++) {
             $score = 0;
             $matchingLocationString = "";
@@ -322,21 +324,21 @@ class User
                 $score += locationScore;
                 $matchingLocationString = $matchingLocationString . $dataUser['location'];
             }
-            // echo $score;
+            //echo $score;
             for ($mx = 0; $mx < count($arrayUsersMusicArray); $mx++) {
                 if ($arrayUsersMusicArray[$mx] != '' && in_array($arrayUsersMusicArray[$mx], $dataUserMusicArray)) {
                     $score += musicScore;
                     $matchingMusicString = $matchingMusicString . $arrayUsersMusicArray[$mx] . ",";
                 }
             }
-            // echo $score;
+             //echo $score;
             for ($hx = 0; $hx < count($arrayUsersHobbiesArray); $hx++) {
                 if ($arrayUsersHobbiesArray[$hx] != '' && in_array($arrayUsersHobbiesArray[$hx], $dataUserHobbiesArray)) {
                     $score += hobbiesScore;
                     $matchingHobbiesString = $matchingHobbiesString . $arrayUsersHobbiesArray[$hx] . ",";
                 }
             }
-            // echo $score;
+             //echo $score;
             for ($tx = 0; $tx < count($arrayUsersTravelArray); $tx++) {
                 if ($arrayUsersTravelArray[$tx] != '' && in_array($arrayUsersTravelArray[$tx], $dataUserTravelArray)) {
                     $score += travelScore;
@@ -358,5 +360,55 @@ class User
             next($scoreUsers);
         }
         return $returnArray;
+    }
+
+
+   
+
+    /**
+     * Get the value of user1
+     */ 
+    public function getUser1()
+    {
+        return $this->user1;
+    }
+
+    /**
+     * Set the value of user1
+     *
+     * @return  self
+     */ 
+    public function setUser1($user1)
+    {
+        $this->user1 = $user1;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of user2
+     */ 
+    public function getUser2()
+    {
+        return $this->user2;
+    }
+
+    /**
+     * Set the value of user2
+     *
+     * @return  self
+     */ 
+    public function setUser2($user2)
+    {
+        $this->user2 = $user2;
+
+        return $this;
+    }
+
+    public static function newBuddy(){
+
+        $conn=Db::getConnection();
+        
+
     }
 }

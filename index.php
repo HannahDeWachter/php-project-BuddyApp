@@ -13,6 +13,81 @@ if (is_null($allInformation['location']) || is_null($allInformation['music']) ||
   $message = "You have not completed your profile yet.";
 }
 
+
+
+$arrayUsers = User::getAllUsers($id);
+// andere users vergelijken met jezelf
+$matches = User::findMatches($arrayUsers, $allInformation);
+// var_dump($matches);
+// goede match? (score >= 25) => weergeven
+$showedMatches = [];
+for ($x = 0; $x < count($matches); $x++) {
+  $matchInterestsReason = "";
+  $matchLocationReason = "";
+  $matchTravelReason = "";
+  $travelString = "";
+  $interestString = "";
+  if ($matches[$x]['score'] >= 25) {
+      // echo "Match!";
+      $matchId = $matches[$x]["id"];
+      $key = array_search($matchId, array_column($arrayUsers, 'id'));
+      $matchName = $arrayUsers[$key]['firstname'] . " " . $arrayUsers[$key]['lastname'];
+      // weergeven waarom goede match ("jullie vinden beiden ... leuk")
+      if ($matches[$x]['location'] != "") {
+          $matchLocationReason = "You both live in " . $matches[$x]['location'] . ".";
+      }
+      if ($matches[$x]['interests'] != "") {
+          $interestsArray = (explode(",", $matches[$x]['interests']));
+          $i = count($interestsArray) - 2; // er staat nog komma achter de laatste waarde dus '' is de laatste waarde in array. Nu is $i gelijk aan de array index
+          while ($i >= 0) {
+              // echo $i;
+              if ($i === count($interestsArray) - 2) {
+                  $interestString = $interestsArray[$i] . ".";
+              } else {
+                  if ($i === count($interestsArray) - 3) {
+                      $interestString = $interestsArray[$i] . " and " . $interestString;
+                  } else {
+                      $interestString = $interestsArray[$i] . ", " . $interestString;
+                  }
+              }
+              $i--;
+          }
+
+          $matchInterestsReason = "You both like " . $interestString;
+      }
+      if ($matches[$x]['travel'] != "") {
+          $travelArray = (explode(",", $matches[$x]['travel']));
+          // var_dump($travelArray);
+          $i = count($travelArray) - 2; // er staat nog komma achter de laatste waarde dus '' is de laatste waarde in array
+          while ($i >= 0) {
+              // echo $i;
+              if ($i === count($travelArray) - 2) {
+                  $travelString = $travelArray[$i] . ".";
+              } else {
+                  if ($i === count($travelArray) - 3) {
+                      $travelString = $travelArray[$i] . " and " . $travelString;
+                  } else {
+                      $travelString = $travelArray[$i] . ", " . $travelString;
+                  }
+              }
+              $i--;
+          }
+          $matchTravelReason = "You have both travelled in " . $travelString;
+      }
+      $showedMatches[$x] = array("id" => $matchId, "name" => $matchName, "location" => $matchLocationReason, "interests" => $matchInterestsReason, "travel" => $matchTravelReason);
+  } else {
+      $x = count($matches); // array is gesorteerd op score, dus als er een kleiner is dan 25 moet de rest niet meer bekeken worden
+  }
+}
+ //var_dump($showedMatches);
+
+if(isset($_POST["btnAccept"])){
+
+    echo key($match);
+}
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,6 +107,28 @@ if (is_null($allInformation['location']) || is_null($allInformation['music']) ||
       <p><?php echo $message ?> Click <a href="profileDetails.php">here</a> to complete your profile.</p>
     </div>
   <?php endif; ?>
+
+ 
+  <?php if (!empty($showedMatches)) : ?>
+        <?php foreach ($showedMatches as $match => $buddy ) : ?>
+            <div class="table">
+                <!-- <strong>?php echo $match["name"]; ?></strong>
+                <p>?php echo $match["location"]; ?></p>
+                <p>?php echo $match["interests"]; ?></p>
+                <p>?php echo $match["travel"]; ?></p> -->
+
+                <strong><?php echo $buddy["name"]; ?></strong>
+                <!-- <p><php echo $buddy["location"]; ?></p>
+                <p>?php echo $buddy["interests"]; ?></p>
+                <p>?php echo $buddy["travel"]; ?></p> -->
+            </div>
+            <a href="chat.php?id=<?php echo $match; ?>" <?php echo $buddy["id"];?> class="btn btn-primary">Accept</a>
+        <?php endforeach; ?>
+    <?php endif; ?>
+
+
+
+
 </body>
 
 </html>
