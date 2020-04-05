@@ -102,7 +102,7 @@ for ($x = 0; $x < count($matches); $x++) {
     <?php endif; ?>
     <?php if (!empty($showedMatches)) : ?>
         <?php foreach ($showedMatches as $match) : ?>
-            <div class="table">
+            <div class="input-group-text">
                 <strong><?php echo $match["name"]; ?></strong>
                 <p><?php echo $match["location"]; ?></p>
                 <p><?php echo $match["interests"]; ?></p>
