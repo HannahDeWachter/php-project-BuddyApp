@@ -4,7 +4,7 @@ include_once(__DIR__ . "/classes/User.php");
 
 if (!empty($_POST)) {
   //email en password opvragen
-  $email = $_POST['email'];
+  $email = htmlspecialchars($_POST['email']);
   $password = $_POST['password'];
   $user = User::canLogin($email, $password);
   if ($user) {
