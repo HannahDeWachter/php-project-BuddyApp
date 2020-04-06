@@ -97,9 +97,11 @@ if (!empty($_POST)) {
 
   </form>
   <p> <b> Results: </b> </p>
+  <?php if(isset ($filters)) : ?>
   <?php foreach ($filters as $filter) : ?>
     <p><?php echo $filter['firstname'] . " " . $filter['lastname'];  ?> </p> <!-- resultaat van searchfilter() moet hier komen !-->
   <?php endforeach; ?>
+  <?php endif ; ?>
   <hr>
   </hr>
   <!-- dit is de namesearch div !-->
@@ -117,9 +119,11 @@ if (!empty($_POST)) {
   <br>
 
   <p> <b> Results: </b> </p>
+  <?php if(isset ($results)): ?>
   <?php foreach ($results as $result) : ?>
     <p><?php echo $result['firstname'] . " " . $result['lastname'];  ?> </p> <!-- resultaat van searchpeop() moet hier komen !-->
   <?php endforeach; ?>
+  <?php endif; ?>
 </body>
 
 </html>
