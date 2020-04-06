@@ -13,14 +13,14 @@ if (is_null($allInformation['location']) || is_null($allInformation['music']) ||
   $messageComplete = "You have not completed your profile yet.";
 }
 
-if (!empty($_POST)) {
+if (!empty($_POST['name'])) {
   $namesearch = htmlspecialchars($_POST['namesearch']);
   $results = $user->searchpeop($namesearch);
 }
 
 
 
-if (!empty($_POST)) {
+if (!empty($_POST['filter'])) {
   $music = $_POST['music'];
   $hobbies = $_POST['hobbies'];
   $travel = $_POST['travel'];
@@ -91,17 +91,17 @@ if (!empty($_POST)) {
           <option value="oceania">Oceania</option>
         </select> <br> <br>
         <div class="form btn">
-          <input type="submit" class="btn btn-primary" value="Search">
+          <input type="submit" class="btn btn-primary" name="filter" value="Search">
         </div>
         <br>
 
   </form>
   <p> <b> Results: </b> </p>
-  <?php if(isset ($filters)) : ?>
-  <?php foreach ($filters as $filter) : ?>
-    <p><?php echo $filter['firstname'] . " " . $filter['lastname'];  ?> </p> <!-- resultaat van searchfilter() moet hier komen !-->
-  <?php endforeach; ?>
-  <?php endif ; ?>
+  <?php if (isset($filters)) : ?>
+    <?php foreach ($filters as $filter) : ?>
+      <p><?php echo $filter['firstname'] . " " . $filter['lastname'];  ?> </p> <!-- resultaat van searchfilter() moet hier komen !-->
+    <?php endforeach; ?>
+  <?php endif; ?>
   <hr>
   </hr>
   <!-- dit is de namesearch div !-->
@@ -113,16 +113,16 @@ if (!empty($_POST)) {
       <input type="text" name="namesearch" id="namesearch" placeholder="name">
     </div> <br>
     <div class="form btn">
-      <input type="submit" class="btn btn-primary" value="searchname">
+      <input type="submit" class="btn btn-primary" name="name" value="searchname">
     </div>
   </form>
   <br>
 
   <p> <b> Results: </b> </p>
-  <?php if(isset ($results)): ?>
-  <?php foreach ($results as $result) : ?>
-    <p><?php echo $result['firstname'] . " " . $result['lastname'];  ?> </p> <!-- resultaat van searchpeop() moet hier komen !-->
-  <?php endforeach; ?>
+  <?php if (isset($results)) : ?>
+    <?php foreach ($results as $result) : ?>
+      <p><?php echo $result['firstname'] . " " . $result['lastname'];  ?> </p> <!-- resultaat van searchpeop() moet hier komen !-->
+    <?php endforeach; ?>
   <?php endif; ?>
 </body>
 
