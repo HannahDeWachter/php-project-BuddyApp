@@ -18,9 +18,9 @@ if ($allInformation['imdYear'] === "1IMD") {
 if ($allInformation['imdYear'] === "2IMD") {
     $buddymes = "je bent een buddy!";
 }
-if ($allInformation['imdYear'] === "3IMD") {
-    $buddymes = "je bent een buddy!";
-}
+//if ($allInformation['imdYear'] === "3IMD") {
+    //$buddymes = "je bent een buddy!";
+//}
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -72,9 +72,9 @@ if (!empty($_POST)) {
                 <input type="password" class="form-control" id="password" name="password" placeholder="Password">
             </div>
             <div class="form-group">
-                <input type="radio" name="imdYear" id="1IMD" value="1IMD" /> 1IMD <br>
-                <input type="radio" name="imdYear" id="2IMD" value="2IMD" /> 2IMD <br>
-                <input type="radio" name="imdYear" id="3IMD" value="3IMD" /> 3IMD <br>
+                <input type="radio" name="imdYear" id="1IMD" value="1IMD" />Ik zoek een buddy <br>
+                <input type="radio" name="imdYear" id="2IMD" value="2IMD" /> Ik wil een buddy zijn <br>
+                <!-- <input type="radio" name="imdYear" id="3IMD" value="3IMD" /> 3IMD <br> !-->
             </div>
             <input type="submit" class="btn btn-primary" name="submit" value="Sign me up!">
         </form>
