@@ -5,7 +5,7 @@ include_once(__DIR__ . "/classes/Db.php");
 session_start();
 $id = $_SESSION['user_id'];
 $allInformation = User::getAllInformation($id);
- var_dump($allInformation);
+//  var_dump($allInformation);
 
 
 // checken of velden (location, music, travel, specialization, hobbies) allemaal zijn ingevuld
