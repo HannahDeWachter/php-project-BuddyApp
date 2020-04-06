@@ -5,7 +5,7 @@ include_once(__DIR__ . "/classes/Db.php");
 session_start();
 $id = $_SESSION['user_id'];
 $allInformation = User::getAllInformation($id);
- var_dump($allInformation);
+ //var_dump($allInformation);
 
 
 // checken of velden (location, music, travel, specialization, hobbies) allemaal zijn ingevuld
@@ -70,6 +70,8 @@ if(isset($_POST["submitProfileImg"])){
 }
 
 
+
+
 if(isset($_POST['submitBio'])){
 
     $text = htmlspecialchars($_POST['text']);
@@ -81,6 +83,8 @@ if(isset($_POST['submitBio'])){
     }
 
 }
+
+$bio = User::bio();
 
 // User::changePassword();
 
@@ -138,7 +142,6 @@ if(isset($_POST["submitEmail"])){
 
 }
 
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -153,7 +156,7 @@ if(isset($_POST["submitEmail"])){
 <body>
     <?php include_once(__DIR__ . "/includes/header.inc.php"); ?>
 
-    <p> <?php echo $buddymes; ?> </p>
+
     
  <!-- <p> ?php echo $buddymes; ?> </p> -->
     <img src="" alt="" id="profilePic">
@@ -172,7 +175,7 @@ if(isset($_POST["submitEmail"])){
     <?php endif; ?>
 
 <div class="contianerProfileImg">
-<img src="images/<?php echo $fileImg; ?>" height="100px" width="100px">
+<img src="images/<?php echo $fileImg; ?>" alt="profileImage" class="profile-image" height="100px" width="100px">
     <form action="" method="POST" enctype="multipart/form-data">
         <div class="form-group">
             <label for="profilImg">Upload profile image</label>
@@ -183,7 +186,7 @@ if(isset($_POST["submitEmail"])){
 </div>
 
 <div class="containerBio">
-    <p></p>
+    <p><?php echo $bio;?></p>
     <form method="POST">    
     <div class="form-group">
         <label for="bio">Write something nice about yourself</label>

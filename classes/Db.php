@@ -10,14 +10,14 @@ class Db
 
             if (self::$conn != null) {
                // echo ('connectie is er');
-                echo"🍕";
+                // echo"🍕";
                 /**
                  * ⚠️ Return connection when not empty ⚠️
                  */
                 return self::$conn;
             } else {
                // echo ('connectie moet aangemaakt worden');
-               echo "🚀";
+            //    echo "🚀";
                 /**
                  * Create new connection when self::$conn === null ⚠️
                  */

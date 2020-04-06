@@ -242,7 +242,7 @@ class User
     {
         $conn = Db::getConnection();
         $statement = $conn->prepare("SELECT * FROM users WHERE id = :id");
-        $id = $this->getId();
+        
 
         $statement->bindParam(":id", $id);
         $statement->execute();
@@ -280,7 +280,7 @@ class User
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['firstname'] = $user['firstname'];
         // var_dump($user);
-        header('location: profile.php');
+        header('location: index.php');
     }
 
 
@@ -425,7 +425,7 @@ class User
         $conn = Db::getConnection();
         //insert query
         // $statement = $conn->prepare("SELECT id FROM users WHERE email = '".$_SESSION['email']."'");
-        $statement = $conn->prepare("SELECT * FROM users WHERE id = :id");
+        $statement = $conn->prepare("SELECT * FROM users WHERE id = '".$_SESSION["user_id"]."'");
         $statement->bindParam(":id", $id);
         $statement->execute();
         $id = $statement->fetch(PDO::FETCH_COLUMN);
@@ -440,6 +440,7 @@ class User
         return $result;
 
     }
+
     /**
      * Get the value of bio
      */ 
@@ -465,8 +466,7 @@ class User
 
         $conn = Db::getConnection();
         
-            $statement = $conn->prepare("SELECT * FROM users WHERE id = :id");
-            $statement->bindParam(":id",$id);
+            $statement = $conn->prepare("SELECT * FROM users WHERE id = '".$_SESSION["user_id"]."'");
             $statement->execute();
             $id = $statement->fetch(PDO::FETCH_COLUMN);
         
@@ -480,12 +480,27 @@ class User
             return $result;
     }
 
+    public static function bio(){
+        $conn=Db::getConnection();
+
+        $statement=$conn->prepare("SELECT id FROM users WHERE id='".$_SESSION["user_id"]."'");
+        $statement->execute();
+        $id=$statement->fetch(PDO::FETCH_COLUMN);
+
+        $statement=$conn->prepare("SELECT bio FROM users WHERE id = $id");
+        $statement->bindParam(":id", $id);
+        $statement->execute();
+        $bio = $statement->fetch(PDO::FETCH_COLUMN);
+
+        return $bio;
+
+    }
+
     public static function changePassword($newPassword){   
 
     $conn = Db::getConnection();
            
-    $statement = $conn->prepare("SELECT * FROM users WHERE id = :id");
-    $statement->bindParam(":id", $id);
+    $statement = $conn->prepare("SELECT * FROM users WHERE id = '".$_SESSION["user_id"]."'");
     $statement->execute();
     $id = $statement->fetch(PDO::FETCH_COLUMN);
                     
@@ -505,8 +520,7 @@ class User
 
         $conn = Db::getConnection();
 
-        $statement = $conn->prepare("SELECT * FROM users WHERE id = :id");
-        $statement->bindParam(":id", $id);
+        $statement = $conn->prepare("SELECT * FROM users WHERE id = '".$_SESSION["user_id"]."'");
         $statement->execute();
         $id = $statement->fetch(PDO::FETCH_COLUMN);
                         
