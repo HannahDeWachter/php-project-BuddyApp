@@ -101,22 +101,22 @@ for ($x = 0; $x < count($matches); $x++) {
         </div>
     <?php endif; ?>
     <?php if (!empty($showedMatches)) : ?>
-        <?php foreach ($showedMatches as $match) : ?>
+        <?php foreach ($showedMatches as $match => $buddy) : ?>
             <div class="input-group-text card">
-                <strong class="card-title"><?php echo $match["name"]; ?></strong>
+                <strong class="card-title"><?php echo $buddy["name"]; ?></strong>
 
                 <?php if ($match['location'] != "") : ?>
-                    <p class="card-text"><?php echo $match["location"]; ?></p>
+                    <p class="card-text"><?php echo $buddy["location"]; ?></p>
                 <?php endif; ?>
                 <?php if ($match['interests'] != "") : ?>
-                    <p class="card-text"><?php echo $match["interests"]; ?></p>
+                    <p class="card-text"><?php echo $buddy["interests"]; ?></p>
                 <?php endif; ?>
                 <?php if ($match['travel'] != "") : ?>
-                    <p class="card-text"><?php echo $match["travel"]; ?></p>
+                    <p class="card-text"><?php echo $buddy["travel"]; ?></p>
                 <?php endif; ?>
 
                 <div class="card-group">
-                    <a href="" class="card-link">Accept</a>
+                    <a href="chat.php?id=<?php echo $buddy["id"];?>" class="card-link">Accept</a>
                     <a href="" class="card-link">Decline</a>
                 </div>
             </div>
