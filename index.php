@@ -28,6 +28,18 @@ if (!empty($_POST['filter'])) {
   $filters = $user->filter($music, $hobbies, $travel);
 }
 
+if(!empty($_POST)){
+    $users = new User();
+    $users->setUser1($_POST('user1'));
+    $users->setUser2($_POST('user2'));
+
+    $users->save();
+    $success = "User Saved";
+
+}
+
+$user = User::matched();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -124,6 +136,13 @@ if (!empty($_POST['filter'])) {
       <p><?php echo $result['firstname'] . " " . $result['lastname'];  ?> </p> <!-- resultaat van searchpeop() moet hier komen !-->
     <?php endforeach; ?>
   <?php endif; ?>
+
+
+<?php if (isset($results)) : ?>
+<?php foreach($users as $user): ?>
+    <h2><?php echo $users['user1'] ?></h2>
+<?php endforeach;  ?>
+<?php endif; ?>
 </body>
 
 </html>
