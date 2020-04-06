@@ -81,16 +81,27 @@ for ($x = 0; $x < count($matches); $x++) {
     }
 }
 
-if(isset($_GET['id'])){
-  $user2 = $_GET['id'];
-  $user1 = $id;
-  $infoUser2 = User::getAllInformation($showedMatches[$user2]["id"]);
-  
-}else{
-
-die("an ID is missing 😕");
+if(isset($_GET["id"])){
+$user2_id = ($_GET["id"]);
+$user1_id = $id;
+$user2 = User::getAllInformation($user2_id);
+User::buddy( $user1_id, $user2_id);
+var_dump($user2);
 
 }
+
+
+
+
+if(isset($_POST['send-message'])){    
+        
+  $message = htmlspecialchars($_POST['text']);
+  $date = date("y-m-d h:i:sa");
+  
+  User::message($user1_id, $user2_id, $message, $date);
+}
+
+
 
 
 ?>
@@ -111,10 +122,21 @@ die("an ID is missing 😕");
 
 <body>
   <?php include_once(__DIR__ . "/includes/header.inc.php"); ?>
-  <!-- <strong>?php echo $showedMatches[$user2]["name"];?></strong>
-  <p>?php echo $showedMatches[$user2]["location"]; ?></p>
-  <p>?php echo $showedMatches[$user2]["interests"]; ?></p>
-  <p>?php echo $showedMatches[$user2]["travel"]; ?></p> -->
+  
+  <div id="new-message">
+    <p class="m-header">new message</p>
+    <p class="m-body">
+      <form method="post" id="form-message">
+        <input type="text" list="" onkeyup="check_in_db()" name="user_name" id="user_name" class="message-input" placeholder="user_name" ><br><br>
+        <datalist id="user"></datalist>
+        <br><br>
+        <textarea class="message-input" placeholder="write your message"></textarea>
+        <input type="submit" value="send" name="send">
+        <button onclick="document.getElementById('new-message').style.display='none'" >cancel</button>
+      </form>
+    </p>
+    <p class="m-footer">click send</p>
+  </div>
 
   <div id="containerChat">
     <div id="menuChat">
@@ -122,9 +144,19 @@ die("an ID is missing 😕");
     </div>
     <div id="left-col">
       <div id="container-left-col">
+      <div class="white-back" onclick="document.getElementById('new-message').style.display='block'">
+            <p align="center">new message</p>
+        </div>
         <div class="grey-back">
             <img src="images/<?php echo $infoUser2["profileImg"] ?>" class="chatImage" alt="profileImage"/>
-            <p><?php echo $showedMatches[$user2]["name"]; ?></p>
+            <strong><?php echo $user2["firstname"]. " ". $user2["lastname"];?></strong>
+            <!-- <br>
+            <br>
+            <br> -->
+            <!-- <strong>Common intressests</strong> -->
+            <!-- <p>?php echo $showedMatches[$user2]["location"]; ?></p>
+            <p>?php echo $showedMatches[$user2]["interests"]; ?></p>
+            <p>?php echo $showedMatches[$user2]["travel"]; ?></p> -->
         </div>
       </div>
     </div>
@@ -136,15 +168,40 @@ die("an ID is missing 😕");
             <p>this message is grey</p>
           </div>
           <div class="white-message">
-            <a href="#"><?php echo $showedMatches[$user2]["name"]; ?></a>
+            <a href="#"><?php echo $user2["firstname"]; ?></a>
             <p>this message is white</p>
           </div>
         </div>
-        <textarea class="textarea"  placeholder="Write your message here"></textarea>
+        <form method="post" id="message-form">          
+          <textarea  class="textarea" name="message_text" id="message_text"  placeholder="Write your message here"></textarea>
+          <button id="send-message" name="send-message" class="btn btn-primary" type="submit">Send</button>
+        </form>        
       </div>
     </div>
   </div>
+<script src="jquery-3.4.1.min.js"></script>
+<script>
 
+// function check_in_db(){
+//   var user_name = document.getElementById("user_name").value;
+
+//   $.post("check_in_db.php",
+//   {
+//     user: user_name
+//   },
+
+//   function(data, status){
+//     alert(data);
+//     // if(data == '<option value="no user">'){
+//     //   document.querySelector("#send").disabled=true;
+//     // }else{
+//     //   document.querySelector("send").disabled=false;
+//     // }
+//   }
+//   );
+// }
+
+</script>
 </body>
 
 </html>

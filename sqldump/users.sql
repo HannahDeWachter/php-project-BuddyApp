@@ -58,12 +58,14 @@ INSERT INTO `users` (`id`, `firstname`, `lastname`, `email`, `password`, `imdYea
 COMMIT;
 
 DROP TABLE IF EXISTS `buddy`;
-CREATE TABLE IF NOT EXISTS `buddy` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user1` varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user2` varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL,
+CREATE TABLE `messages` (
+  `id` int(11) NOT NULL,
+  `sender_id` int(11) NOT NULL,
+  `reciever_ id` int(11) NOT NULL,
+  `message_text` text NOT NULL,
+  `date_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

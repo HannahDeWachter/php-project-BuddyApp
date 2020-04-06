@@ -118,15 +118,15 @@ if(isset($_POST["btnAccept"])){
                 <p>?php echo $match["travel"]; ?></p> -->
 
                 <strong><?php echo $buddy["name"]; ?></strong>
-                <!-- <p><php echo $buddy["location"]; ?></p>
-                <p>?php echo $buddy["interests"]; ?></p>
-                <p>?php echo $buddy["travel"]; ?></p> -->
+                <p><?php echo $buddy["location"]; ?></p>
+                <p><?php echo $buddy["interests"]; ?></p>
+                <p><?php echo $buddy["travel"]; ?></p>
             </div>
-            <a href="chat.php?id=<?php echo $match; ?>" <?php echo $buddy["id"];?> class="btn btn-primary">Accept</a>
+            <a href="chat.php?id=<?php echo $buddy["id"]; ?>" class="btn btn-primary" name="btnAccept">Accept</a>
         <?php endforeach; ?>
     <?php endif; ?>
 
-
+    <!-- href="forumdocument.php?rowid=".$row['ID']." -->
 
 
 </body>
