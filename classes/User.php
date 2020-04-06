@@ -9,6 +9,9 @@ class User
     private $email;
     private $password;
     private $imdYear;
+    private $profileImg;
+    private $bio;
+    
 
     private $location;
     private $music;
@@ -239,7 +242,7 @@ class User
     {
         $conn = Db::getConnection();
         $statement = $conn->prepare("SELECT * FROM users WHERE id = :id");
-        // $id = $this->getId();
+        $id = $this->getId();
 
         $statement->bindParam(":id", $id);
         $statement->execute();
@@ -277,7 +280,7 @@ class User
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['firstname'] = $user['firstname'];
         // var_dump($user);
-        header('location: index.php');
+        header('location: profile.php');
     }
 
 
@@ -394,4 +397,130 @@ class User
         //var_dump($result);
         return $result;
     }
-}
+
+    /**
+     * Get the value of profileImg
+     */ 
+    public function getProfileImg()
+    {
+        return $this->profileImg;
+    }
+
+    /**
+     * Set the value of profileImg
+     *
+     * @return  self
+     */ 
+    public function setProfileImg($profileImg)
+    {
+        $this->profileImg = $profileImg;
+
+        return $this;
+    }
+
+    
+
+    public static function uploadImg($fileImg){
+
+        $conn = Db::getConnection();
+        //insert query
+        // $statement = $conn->prepare("SELECT id FROM users WHERE email = '".$_SESSION['email']."'");
+        $statement = $conn->prepare("SELECT * FROM users WHERE id = :id");
+        $statement->bindParam(":id", $id);
+        $statement->execute();
+        $id = $statement->fetch(PDO::FETCH_COLUMN);
+
+        $statement = $conn->prepare("UPDATE users SET profileImg = :profileImg WHERE users.id = $id");
+        $statement->bindParam(":profileImg", $fileImg);
+
+        $result = $statement->execute();
+
+        header('location: profile.php');
+        echo "ik ben hier aan het saven";
+        return $result;
+
+    }
+    /**
+     * Get the value of bio
+     */ 
+    public function getBio()
+    {
+        return $this->bio;
+    }
+
+    /**
+     * Set the value of bio
+     *
+     * @return  self
+     */ 
+    public function setBio($bio)
+    {
+        $this->bio = $bio;
+
+        return $this;
+    }
+
+  
+    public static function uploadBio($text){
+
+        $conn = Db::getConnection();
+        
+            $statement = $conn->prepare("SELECT * FROM users WHERE id = :id");
+            $statement->bindParam(":id",$id);
+            $statement->execute();
+            $id = $statement->fetch(PDO::FETCH_COLUMN);
+        
+            $statement = $conn->prepare("UPDATE users SET bio = :bio WHERE users.id = $id");
+            $statement->bindParam(':bio', $text);             
+        
+            $result = $statement->execute();
+                
+            header('location: profile.php');
+            echo "ik ben hier aan het saven";
+            return $result;
+    }
+
+    public static function changePassword($newPassword){   
+
+    $conn = Db::getConnection();
+           
+    $statement = $conn->prepare("SELECT * FROM users WHERE id = :id");
+    $statement->bindParam(":id", $id);
+    $statement->execute();
+    $id = $statement->fetch(PDO::FETCH_COLUMN);
+                    
+
+    $statement = $conn->prepare("UPDATE users SET password = :password WHERE users.id = $id");
+    $statement->bindParam(':password', $newPassword);
+    $result = $statement->execute();
+
+    header('Location: profile.php');                   
+    echo"password has been updated";
+
+    return $result;
+                
+}   
+
+    public static function changeEmail($newEmail){
+
+        $conn = Db::getConnection();
+
+        $statement = $conn->prepare("SELECT * FROM users WHERE id = :id");
+        $statement->bindParam(":id", $id);
+        $statement->execute();
+        $id = $statement->fetch(PDO::FETCH_COLUMN);
+                        
+
+        $statement = $conn->prepare("UPDATE users SET email = :email WHERE users.id = $id");
+        $statement->bindParam(':email', $newEmail);
+        $result = $statement->execute();
+
+        header('Location: profile.php');                   
+        echo"password has been updated";
+
+        return $result;
+
+    }
+    
+} 
+

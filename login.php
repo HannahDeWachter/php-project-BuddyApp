@@ -9,6 +9,7 @@ if (!empty($_POST)) {
   $user = User::canLogin($email, $password);
   if ($user) {
     User::doLogin($user);
+  
   } else {
     $error = true;
   }
