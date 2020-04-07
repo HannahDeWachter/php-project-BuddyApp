@@ -13,10 +13,10 @@ if (is_null($allInformation['location']) || is_null($allInformation['music']) ||
     // als niet iets ingevuld -> $message = "You have not completed your profile yet."
     $messageComplete = "You have not completed your profile yet.";
 }
-if ($allInformation['imdYear'] === "1IMD") {
+if ($allInformation['imdYear'] === "buddyZoek") {
     $buddymes = "je zoekt een buddy!";
 }
-if ($allInformation['imdYear'] === "2IMD") {
+if ($allInformation['imdYear'] === "buddy") {
     $buddymes = "je bent een buddy!";
 }
 //if ($allInformation['imdYear'] === "3IMD") {

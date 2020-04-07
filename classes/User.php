@@ -215,6 +215,8 @@ class User
         // var_dump($result);
         return $result;
     }
+  
+    
 
     public function endsWith($email, $endString)
     {
