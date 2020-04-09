@@ -30,15 +30,18 @@ if (!empty($_POST['filter'])) {
 
 if(!empty($_POST)){
     $users = new User();
-    $users->setUser1($_POST('user1'));
-    $users->setUser2($_POST('user2'));
+    $user1->setUser1($_POST('user1'));
+    $user2->setUser2($_POST('user2'));
 
     $users->save();
     $success = "User Saved";
 
-}
 
-$user = User::matched();
+
+}
+  
+    $users = User::matched();
+
 
 ?>
 <!DOCTYPE html>
@@ -138,11 +141,12 @@ $user = User::matched();
   <?php endif; ?>
 
 
-<?php if (isset($results)) : ?>
+<p> <b> Buddies:</b></p>
+
 <?php foreach($users as $user): ?>
-    <h2><?php echo $users['user1'] ?></h2>
+    <p><?php echo $user['user1'] . " and " . $user['user2'] . " are now buddies."; ?></p>
 <?php endforeach;  ?>
-<?php endif; ?>
+
 </body>
 
 </html>

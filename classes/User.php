@@ -204,11 +204,17 @@ class User
         $password = $this->getPassword();
         $imdYear = $this->getImdYear();
 
+        $user1 = $this->getUser1();
+        $user2 = $this->getUser2();
+
         $statement->bindParam(":firstname", $firstname);
         $statement->bindParam(":lastname", $lastname);
         $statement->bindParam(":email", $email);
         $statement->bindParam(":password", $password);
         $statement->bindParam(":imdYear", $imdYear);
+
+        $statement->bindParam(":user1", $user1);
+        $statement->bindParam(":user2", $user2);
 
         $result = $statement->execute();
         header('location: login.php');
@@ -441,16 +447,7 @@ class User
 
         return $this;
     }   
-     public static function matched(){
 
-        $conn = Db::getConnection();
-        $statement = $conn->prepare("SELECT * FROM matched");
-        $statement->execute();
-
-        $users = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-        return $users;
-    }
 
     /**
      * Get the value of users
@@ -471,4 +468,16 @@ class User
 
         return $this;
     }
-}
+
+     public static function matched(){
+
+        $conn = Db::getConnection();
+        $statement = $conn->prepare("SELECT * FROM matched");
+        $statement->execute();
+
+        $users = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $users;
+
+        
+    }}
