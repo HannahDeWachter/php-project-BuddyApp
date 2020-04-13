@@ -13,6 +13,11 @@ if (is_null($allInformation['location']) || is_null($allInformation['music']) ||
     $messageComplete = "You have not completed your profile yet.";
 }
 
+// data andere users ophalen
+$arrayUsers = User::getAllUsers(null);
+$numberOfRegisteredUsers = count($arrayUsers);
+// echo $numberOfRegisteredUsers;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
