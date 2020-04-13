@@ -36,6 +36,8 @@ $numberOfRegisteredUsers = count($arrayUsers);
             <p><?php echo $messageComplete ?> Click <a href="profileDetails.php">here</a> to complete your profile.</p>
         </div>
     <?php endif; ?>
+
+    <p>There are <?php echo $numberOfRegisteredUsers ?> students registerd.</p>
 </body>
 
 </html>
