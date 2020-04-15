@@ -19,6 +19,10 @@ class User
     private $specialization;
     private $travel;
 
+    private $users;
+    private $user1;
+    private $user2;
+
 
     public function getId()
     {
@@ -203,11 +207,17 @@ class User
         $password = $this->getPassword();
         $imdYear = $this->getImdYear();
 
+        $user1 = $this->getUser1();
+        $user2 = $this->getUser2();
+
         $statement->bindParam(":firstname", $firstname);
         $statement->bindParam(":lastname", $lastname);
         $statement->bindParam(":email", $email);
         $statement->bindParam(":password", $password);
         $statement->bindParam(":imdYear", $imdYear);
+
+        $statement->bindParam(":user1", $user1);
+        $statement->bindParam(":user2", $user2);
 
         $result = $statement->execute();
         header('location: login.php');
@@ -417,6 +427,25 @@ class User
     {
         $this->profileImg = $profileImg;
 
+
+
+    /**
+     * Get the value of user1
+     */ 
+    public function getUser1()
+    {
+        return $this->user1;
+    }
+
+    /**
+     * Set the value of user1
+     *
+     * @return  self
+     */ 
+    public function setUser1($user1)
+    {
+        $this->user1 = $user1;
+
         return $this;
     }
 
@@ -541,3 +570,56 @@ class User
         return $result;
     }
 }
+    /**
+     * Get the value of user2
+     */ 
+    public function getUser2()
+    {
+        return $this->user2;
+    }
+
+    /**
+     * Set the value of user2
+     *
+     * @return  self
+     */ 
+    public function setUser2($user2)
+    {
+        $this->user2 = $user2;
+
+        return $this;
+    }   
+
+
+    /**
+     * Get the value of users
+     */ 
+    public function getUsers()
+    {
+        return $this->users;
+    }
+
+    /**
+     * Set the value of users
+     *
+     * @return  self
+     */ 
+    public function setUsers($users)
+    {
+        $this->users = $users;
+
+        return $this;
+    }
+
+     public static function matched(){
+
+        $conn = Db::getConnection();
+        $statement = $conn->prepare("SELECT * FROM matched");
+        $statement->execute();
+
+        $users = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $users;
+
+        
+    }}
