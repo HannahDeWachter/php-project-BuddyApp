@@ -225,8 +225,8 @@ class User
         // var_dump($result);
         return $result;
     }
-  
-    
+
+
 
     public function endsWith($email, $endString)
     {
@@ -254,7 +254,7 @@ class User
     {
         $conn = Db::getConnection();
         $statement = $conn->prepare("SELECT * FROM users WHERE id = :id");
-        
+
 
         $statement->bindParam(":id", $id);
         $statement->execute();
@@ -457,7 +457,7 @@ class User
         $conn = Db::getConnection();
         //insert query
         // $statement = $conn->prepare("SELECT id FROM users WHERE email = '".$_SESSION['email']."'");
-        $statement = $conn->prepare("SELECT * FROM users WHERE id = '".$_SESSION["user_id"]."'");
+        $statement = $conn->prepare("SELECT * FROM users WHERE id = '" . $_SESSION["user_id"] . "'");
         $statement->bindParam(":id", $id);
         $statement->execute();
         $id = $statement->fetch(PDO::FETCH_COLUMN);
@@ -513,49 +513,50 @@ class User
         return $result;
     }
 
-  
 
-    public static function bio(){
-        $conn=Db::getConnection();
 
-        $statement=$conn->prepare("SELECT id FROM users WHERE id='".$_SESSION["user_id"]."'");
+    public static function bio()
+    {
+        $conn = Db::getConnection();
+
+        $statement = $conn->prepare("SELECT id FROM users WHERE id='" . $_SESSION["user_id"] . "'");
         $statement->execute();
-        $id=$statement->fetch(PDO::FETCH_COLUMN);
+        $id = $statement->fetch(PDO::FETCH_COLUMN);
 
-        $statement=$conn->prepare("SELECT bio FROM users WHERE id = $id");
+        $statement = $conn->prepare("SELECT bio FROM users WHERE id = $id");
         $statement->bindParam(":id", $id);
         $statement->execute();
         $bio = $statement->fetch(PDO::FETCH_COLUMN);
 
         return $bio;
-
     }
 
-    public static function changePassword($newPassword){   
-
-    $conn = Db::getConnection();
-           
-    $statement = $conn->prepare("SELECT * FROM users WHERE id = '".$_SESSION["user_id"]."'");
-    $statement->execute();
-    $id = $statement->fetch(PDO::FETCH_COLUMN);
-                    
-
-    $statement = $conn->prepare("UPDATE users SET password = :password WHERE users.id = $id");
-    $statement->bindParam(':password', $newPassword);
-    $result = $statement->execute();
-
-    header('Location: profile.php');                   
-    echo"password has been updated";
-
-    return $result;
-                
-}   
-
-    public static function changeEmail($newEmail){
+    public static function changePassword($newPassword)
+    {
 
         $conn = Db::getConnection();
 
-        $statement = $conn->prepare("SELECT * FROM users WHERE id = '".$_SESSION["user_id"]."'");
+        $statement = $conn->prepare("SELECT * FROM users WHERE id = '" . $_SESSION["user_id"] . "'");
+        $statement->execute();
+        $id = $statement->fetch(PDO::FETCH_COLUMN);
+
+
+        $statement = $conn->prepare("UPDATE users SET password = :password WHERE users.id = $id");
+        $statement->bindParam(':password', $newPassword);
+        $result = $statement->execute();
+
+        header('Location: profile.php');
+        echo "password has been updated";
+
+        return $result;
+    }
+
+    public static function changeEmail($newEmail)
+    {
+
+        $conn = Db::getConnection();
+
+        $statement = $conn->prepare("SELECT * FROM users WHERE id = '" . $_SESSION["user_id"] . "'");
         $statement->execute();
         $id = $statement->fetch(PDO::FETCH_COLUMN);
 
@@ -568,6 +569,15 @@ class User
         echo "password has been updated";
 
         return $result;
+    }
+    public static function getAllMatches()
+    {
+        $conn = Db::getConnection();
+        $statement = $conn->prepare('select * from matched');
+        $statement->execute();
+        $matches = $statement->fetchAll(PDO::FETCH_ASSOC);
+        // var_dump($matches);
+        return $matches;
     }
 }
     /**
