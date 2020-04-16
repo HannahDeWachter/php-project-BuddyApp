@@ -28,6 +28,13 @@ if (!empty($_POST['filter'])) {
   $filters = $user->filter($music, $hobbies, $travel);
 }
 
+if ($allRequest['accepted'] === "true" ) {
+  $acceptmess = "verzoek aanvaard!";
+  $request->setAccepted(htmlspecialchars($_POST['accepted']));
+}
+if ($allRequest['accepted'] === "false") {
+  $acceptmess = "Verzoek geweigerd";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,6 +48,20 @@ if (!empty($_POST['filter'])) {
 </head>
 
 <body>
+  <!-- <?php //if($request===1): ?> !-->
+    <p> <?php echo $acceptmess; ?> </p>
+    <p> Verzoek </p>
+<div class="form btn"> 
+  <input type="submit" class="btn btn-primary" name="accept" id=true value="Accept"> 
+
+  </div>
+
+  <div class="form btn"> 
+  <input type="submit" class="btn btn-primary" name="accept"  id=false value="Denie"> 
+
+  </div>
+
+  <?php // endif; ?>
   <?php include_once(__DIR__ . "/includes/header.inc.php"); ?>
   <?php if (isset($messageComplete)) : ?>
     <div class="alert-info">
@@ -124,6 +145,9 @@ if (!empty($_POST['filter'])) {
       <p><?php echo $result['firstname'] . " " . $result['lastname'];  ?> </p> <!-- resultaat van searchpeop() moet hier komen !-->
     <?php endforeach; ?>
   <?php endif; ?>
+  
 </body>
 
-</html>
+
+
+</html> 

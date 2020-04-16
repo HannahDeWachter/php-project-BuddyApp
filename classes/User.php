@@ -12,6 +12,8 @@ class User
     private $profileImg;
     private $bio;
 
+    
+
 
     private $location;
     private $music;
@@ -19,6 +21,8 @@ class User
     private $specialization;
     private $travel;
 
+    private $request;
+    private $accepted;
 
     public function getId()
     {
@@ -549,5 +553,72 @@ class User
         $matches = $statement->fetchAll(PDO::FETCH_ASSOC);
         // var_dump($matches);
         return $matches;
+    }
+
+    /**
+     * Get the value of request
+     */
+    public function getRequest()
+    {
+        return $this->request;
+    }
+
+    /**
+     * Set the value of request
+     *
+     * @return  self
+     */
+    public function setRequest($request)
+    {
+        $this->request = $request;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of accepted
+     */
+    public function getAccept()
+    {
+        return $this->accept;
+    }
+
+    /**
+     * Set the value of accept
+     *
+     * @return  self
+     */
+    public function setAccept($accept)
+    {
+        $this->accept = $accept;
+
+        return $this;
+    }
+    public static  function getAllRequests($id)
+    {
+        $conn = Db::getConnection();
+        $statement = $conn->prepare("SELECT * FROM request WHERE id = :id");
+
+
+        $statement->bindParam(":id", $id);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result[0];
+    }
+    public function requestaccept($accept){
+        //conn
+        $conn = Db::getConnection();
+        //insert query
+        $statement = $conn->prepare("insert into request(accepted) values (:accepted)");
+        $accept = $this->getAccept();
+        
+
+        $statement->bindParam(":accepted", $accept);
+        
+
+        $result = $statement->execute();
+        header('location: index.php');
+      
+        return $result;
     }
 }
