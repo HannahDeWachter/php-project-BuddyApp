@@ -28,7 +28,9 @@ if (!empty($_POST['filter'])) {
   $filters = $user->filter($music, $hobbies, $travel);
 }
 
-if(!empty($_POST)){
+
+
+/*if(!empty($_POST)){
     $users = new User();
     $user1->setUser1($_POST('user1'));
     $user2->setUser2($_POST('user2'));
@@ -38,10 +40,11 @@ if(!empty($_POST)){
 
 
 
-}
+}*/
   
     $users = User::matched();
 
+   
 
 ?>
 <!DOCTYPE html>

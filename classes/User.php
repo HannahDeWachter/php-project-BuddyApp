@@ -624,10 +624,15 @@ class User
      public static function matched(){
 
         $conn = Db::getConnection();
-        $statement = $conn->prepare("SELECT * FROM matched");
+        $statement = $conn->prepare("SELECT u1.firstname as user1 , u2.firstname as user2
+        FROM matched AS m
+        JOIN users AS u1 ON u1.id = m.user1
+        JOIN users AS u2 ON u2.id = m.user2");
         $statement->execute();
 
         $users = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+
 
         return $users;
 
