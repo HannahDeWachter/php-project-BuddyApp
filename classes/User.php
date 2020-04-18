@@ -555,76 +555,140 @@ class User
         return $matches;
     }
 
-    /**
-     * Get the value of request
-     */
-    public function getRequest()
+    
+  
+    public function senderReq($myId, $friendId)
     {
-        return $this->request;
+        try {
+            $conn = Db::getInstance();
+            $statement = $conn->prepare("SELECT * FROM request WHERE sender = :myId AND receiver = :friendId");
+            $statement->bindParam(":myId", $myId);
+            $statement->bindParam(":friendId", $friendId);
+            $statement->execute();
+
+            if ($statement->rowCount() === 1) {
+                /* i am sender */ 
+                return true;
+            } else {
+                /*not sender
+                 */
+                return false;
+            }
+        } catch (Throwable $t) {
+            throw new Exception($t->getMessage());
+        }
     }
 
-    /**
-     * Set the value of request
-     *
-     * @return  self
-     */
-    public function setRequest($request)
+    public function receiverReq($myId, $friendId)
     {
-        $this->request = $request;
+        try {
+            $conn = Db::getInstance();
+            $statement = $conn->prepare("SELECT * FROM request WHERE sender = :friendId AND receiver = :myId");
+            $statement->bindParam(":myId", $myId);
+            $statement->bindParam(":friendId", $friendId);
+            $statement->execute();
 
-        return $this;
+            if ($statement->rowCount() === 1) {
+                /* i am receiver
+                 */
+                return true;
+            } else {
+                /**
+                 * i am not receiver
+                 */
+                return false;
+            }
+        } catch (Throwable $t) {
+            throw new Exception($t->getMessage());
+        }
     }
 
-    /**
-     * Get the value of accepted
-     */
-    public function getAccept()
+    public function checkRequestSent($myId, $friendId)
     {
-        return $this->accept;
+        try {
+            $conn = Db::getInstance();
+            $statement = $conn->prepare("SELECT * FROM request WHERE (sender = :myId AND receiver = :friendId) OR (sender = :friendId AND receiver = :myId)");
+            $statement->bindParam(":myId", $myId);
+            $statement->bindParam(":friendId", $friendId);
+            $statement->execute();
+
+            if ($statement->rowCount() === 1) {
+                /**
+                 * Request is already sent
+                 */
+                return true;
+            } else {
+                /**
+                 * Request is not sent yet
+                 */
+                return false;
+            }
+        } catch (Throwable $t) {
+            throw new Exception($t->getMessage());
+        }
     }
 
-    /**
-     * Set the value of accept
-     *
-     * @return  self
-     */
-    public function setAccept($accept)
+    public function sendRequest($myId, $friendId)
     {
-        $this->accept = $accept;
-
-        return $this;
+        try {
+            $conn = Db::getInstance();
+            $statement = $conn->prepare("INSERT INTO request(sender, receiver) VALUES (?,?)");
+            $statement->execute([$myId, $friendId]);
+            header('Location: user?id=' . $friendId);
+        } catch (Throwable $t) {
+            throw new Exception($t->getMessage());
+        }
     }
-    public static  function getAllRequests($id)
+
+    public function denieRequest($myId, $friendId)
     {
-        /**
-         * getAllRequest summons all the requests that you got from others
-         * so the query should look like SELECT * FROM request WHERE receiver = myId (I think)
-         * Guessing you have a page where you can see all your incoming requests
-         */
-        $conn = Db::getConnection();
-        $statement = $conn->prepare("SELECT * FROM request WHERE id = :id");
-
-
-        $statement->bindParam(":id", $id);
-        $statement->execute();
-        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        try {
+            $conn = Db::getInstance();
+            $statement = $conn->prepare("DELETE FROM request WHERE (sender = :myId AND receiver = :friendId) OR (sender = :friendId AND receiver = :myId)");
+            $statement->bindParam(":myId", $myId);
+            $statement->bindParam(":friendId", $friendId);
+            $statement->execute();
+            header('Location: user?id=' . $friendId);
+        } catch (Throwable $t) {
+            throw new Exception($t->getMessage());
+        }
     }
 
-    public function acceptRequest($accept){
-        //conn
-        $conn = Db::getConnection();
-        //insert query
-        $statement = $conn->prepare("insert into request(accepted) values (:accept)");
-        $accept = $this->getAccept();
-        
+    public function acceptRequest($myId, $friendId)
+    {
+        try {
+            $conn = Db::getInstance();
+            $delete_statement = $conn->prepare("DELETE FROM request WHERE (sender = :myId AND receiver = :friendId) OR (sender = :friendId AND receiver = :myId)");
+            $delete_statement->bindParam(":myId", $myId);
+            $delete_statement->bindparam(":friendId", $friendId);
+            $delete_statement->execute();
 
-        $statement->bindParam(":accept", $accept);
-        
-
-        $result = $statement->execute();
-        header('location: index.php');
-      
-        return $result;
+            if ($delete_statement->execute()) {
+                $statement = $conn->prepare("INSERT INTO friends (user_one, user_two) VALUES (?, ?)");
+                $statement->execute([$myId, $friendId]);
+                header('Location: user?id=' . $friendId);
+            }
+        } catch (Throwable $t) {
+            throw new Exception($t->getMessage());
+        }
     }
+
+    public function notificationRequest($myId, $sendData)
+    {
+        try {
+            $conn = Db::getInstance();
+            $statement = $conn->prepare("SELECT * FROM request JOIN users ON request.sender = users.id WHERE receiver = ?");
+
+            $statement->execute([$myId]);
+
+            if ($sendData) {
+                return $statement->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return $statement->rowCount();
+            }
+        } catch (throwable $t) {
+            throw new Exception($t->getMessage());
+        }
+    }
+
 }

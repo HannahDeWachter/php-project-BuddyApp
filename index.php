@@ -28,13 +28,18 @@ if (!empty($_POST['filter'])) {
   $filters = $user->filter($music, $hobbies, $travel);
 }
 
-if ($allRequest['accepted'] === "true" ) {
+/*if ($allRequest['accepted'] === "true" ) {
   $acceptmess = "verzoek aanvaard!";
   $request->setAccepted(htmlspecialchars($_POST['accepted']));
 }
 if ($allRequest['accepted'] === "false") {
   $acceptmess = "Verzoek geweigerd";
-}
+}*/
+$getnotification = $friend->notificationRequest($id, false);
+$checkRequestSender = $friend->senderReq($user->getId(), $userProfile->getId());
+$checkRequestReceiver = $friend->receiverReq($user->getId(), $userProfile->getId());
+$getrequestnot = $friend->notificationRequest($user->getId(), false);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,9 +53,28 @@ if ($allRequest['accepted'] === "false") {
 </head>
 
 <body>
-  <!-- <?php //if($request===1): ?> !-->
-    <p> <?php echo $acceptmess; ?> </p>
-    <p> Verzoek </p>
+<div class="col-md-2">
+                <!-- Use the functions for handling a request
+                    with every state of relationship you get a different button
+                    matching the relationship you both have at the moment
+                    SEND REQUEST|ACCEPT|IGNORE|CANCEL REQUEST|UNFRIEND
+            -->
+                <?php
+               if ($checkRequestSender) {
+                    echo '<button><a href="functions.php?action=cancel_req&id=' . $userProfile->getId() . '">Cancel request</a></button>';
+                } elseif ($checkRequestReceiver) {
+                    echo '<button><a href="functions.php?action=ignore_req&id=' . $userProfile->getId() . '">Ignore</a></button>&nbsp;
+                    <button><a href="functions.php?action=accept_req&id=' . $userProfile->getId() . '">Accept</a></button>';
+                } else {
+                    echo '<button><a href="functions.php?action=send_req&id=' . $userProfile->getId() . '">Send Request</a></button>';
+                } ?>
+            </div>
+
+
+
+
+
+
 <div class="form btn"> 
   <input type="submit" class="btn btn-primary" name="accept" id=true value="Accept"> 
 
