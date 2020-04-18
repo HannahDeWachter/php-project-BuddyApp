@@ -596,6 +596,11 @@ class User
     }
     public static  function getAllRequests($id)
     {
+        /**
+         * getAllRequest summons all the requests that you got from others
+         * so the query should look like SELECT * FROM request WHERE receiver = myId (I think)
+         * Guessing you have a page where you can see all your incoming requests
+         */
         $conn = Db::getConnection();
         $statement = $conn->prepare("SELECT * FROM request WHERE id = :id");
 
@@ -603,17 +608,18 @@ class User
         $statement->bindParam(":id", $id);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-        return $result[0];
+        return $result;
     }
-    public function requestaccept($accept){
+
+    public function acceptRequest($accept){
         //conn
         $conn = Db::getConnection();
         //insert query
-        $statement = $conn->prepare("insert into request(accepted) values (:accepted)");
+        $statement = $conn->prepare("insert into request(accepted) values (:accept)");
         $accept = $this->getAccept();
         
 
-        $statement->bindParam(":accepted", $accept);
+        $statement->bindParam(":accept", $accept);
         
 
         $result = $statement->execute();
