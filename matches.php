@@ -80,6 +80,11 @@ for ($x = 0; $x < count($matches); $x++) {
 }
 // var_dump($showedMatches);
 
+$getnotification = $friend->notificationRequest($id, false);
+$checkRequestSender = $friend->senderReq($dataUser->getId(), $matches->getId());
+$checkRequestReceiver = $friend->receiverReq($dataUser->getId(), $userProfile->getId());
+$getrequestnot = $friend->notificationRequest($dataUser->getId(), false); 
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -116,8 +121,15 @@ for ($x = 0; $x < count($matches); $x++) {
                 <?php endif; ?>
 
                 <div class="card-group">
-                    <a href="" class="card-link">Accept</a>
-                    <a href="" class="card-link">Decline</a>
+                    <!-- <a href="" class="card-link">Accept</a>
+                    <a href="" class="card-link">Decline</a> -->
+                    <?php
+               if ($checkRequestReceiver) {
+                    echo '<button><a href="functions.php?action=ignore_req&id=' . $match->getId() . '">Deny</a></button>&nbsp;
+                    <button><a href="functions.php?action=accept_req&id=' . $match->getId() . '">Accept</a></button>';
+                } else {
+                    echo '<button><a href="functions.php?action=send_req&id=' . $match->getId() . '">Send Request</a></button>';
+                } ?> 
                 </div>
             </div>
         <?php endforeach; ?>
