@@ -45,6 +45,22 @@ if ($allInformation['state'] === "accept") {
 }
 
 
+
+
+/*if(!empty($_POST)){
+    $users = new User();
+    $user1->setUser1($_POST('user1'));
+    $user2->setUser2($_POST('user2'));
+
+    $users->save();
+    $success = "User Saved";
+
+
+
+}*/
+
+$users = User::buddies();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -164,6 +180,14 @@ if ($allInformation['state'] === "accept") {
     <?php endforeach; ?>
   <?php endif; ?>
   
+
+
+  <p> <b> Buddies:</b></p>
+
+  <?php foreach ($users as $user) : ?>
+    <p><?php echo $user['user1'] . " and " . $user['user2'] . " are now buddies."; ?></p>
+  <?php endforeach;  ?>
+
 </body>
 
 

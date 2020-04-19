@@ -130,6 +130,8 @@ $getrequestnot = $friend->notificationRequest($dataUser->getId(), false);
                 } else {
                     echo '<button><a href="functions.php?action=send_req&id=' . $match->getId() . '">Send Request</a></button>';
                 } ?> 
+                    <a href="chat.php/?id=<?php echo $match['id'] ?>" class="card-link">Accept</a>
+                    <a href="" class="card-link">Decline</a>
                 </div>
             </div>
         <?php endforeach; ?>
