@@ -21,9 +21,8 @@ class User
     private $hobbies;
     private $specialization;
     private $travel;
-private $accept;
-private $deny;
-    
+
+    private $deny_reason;
 
     private $users;
     private $user1;
@@ -382,6 +381,7 @@ private $deny;
         // var_dump($users);
         return $users;
     }
+    
     public  function filter($music, $hobbies, $travel)
     {
 
@@ -691,9 +691,41 @@ private $deny;
     }
 
     
-  
+    public function deny(){
+        $conn = Db::getConnection();
+        $statement = $conn->prepare("insert into matched(deny_reason) values (:deny_reason)");
+        $deny_reason = $this->getDeny_reason();
+
+        $statement->bindParam(":deny_reason", $deny_reason);
+
+        $result = $statement->execute();
+        header('location: index.php');
+        // echo "ik ben hier aan het saven";
+        // var_dump($result);
+        return $result;
+    }
     
 
 
 
+
+    /**
+     * Get the value of deny_reason
+     */ 
+    public function getDeny_reason()
+    {
+        return $this->deny_reason;
+    }
+
+    /**
+     * Set the value of deny_reason
+     *
+     * @return  self
+     */ 
+    public function setDeny_reason($deny_reason)
+    {
+        $this->deny_reason = $deny_reason;
+
+        return $this;
+    }
 }
