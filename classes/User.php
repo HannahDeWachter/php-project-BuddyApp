@@ -20,9 +20,9 @@ class User
     private $hobbies;
     private $specialization;
     private $travel;
-
-    private $request;
-    private $accepted;
+private $accept;
+private $deny;
+    
 
     public function getId()
     {
@@ -558,5 +558,7 @@ class User
     
   
     
+
+
 
 }

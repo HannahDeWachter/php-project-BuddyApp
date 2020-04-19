@@ -28,6 +28,21 @@ if (!empty($_POST['filter'])) {
   $filters = $user->filter($music, $hobbies, $travel);
 }
 
+if(!empty($_POST['denyreason'])){
+ // $denyreason = htmlspecialchars($_POST['denyreason']);
+  $denyreason->setdenyReason(htmlspecialchars($_POST['denyreason']));
+  //$request->deny();
+
+}
+if ($allInformation['state'] === "request") {
+  $request = true;
+}
+if ($allInformation['state'] === "deny") {
+  $request->deny();
+}
+if ($allInformation['state'] === "accept") {
+  $request->accept();
+}
 
 
 ?>
@@ -43,9 +58,27 @@ if (!empty($_POST['filter'])) {
 </head>
 
 <body>
+<?php if(isset($request)) : ?>
+  <form action="" method="post">
+<p> Je hebt een verzoek ontvangen! </p> 
+<div class="form btn">
+      <input type="submit" class="btn btn-primary" name="accept" value="accept">
+    </div>
+<div class="form btn">
+      <input type="submit" class="btn btn-primary" name="deny" value="deny">
+    </div>
+    </form>
+<?php  endif;  ?>
 
-
-
+   <?php if($_POST['deny']) : ?>
+    <div class="form-group">
+                <label for="deny">Reason</label>
+                <input type="text" class="form-control" id="denyreason" name="denyreason" placeholder="type text">
+            </div>
+            <div class="form btn">
+      <input type="submit" class="btn btn-primary" name="denyreasonsubmit" value="submit">
+    </div>
+   <?php endif; ?>
   
   <?php include_once(__DIR__ . "/includes/header.inc.php"); ?>
   <?php if (isset($messageComplete)) : ?>
