@@ -28,13 +28,13 @@ if (!empty($_POST['filter'])) {
   $filters = $user->filter($music, $hobbies, $travel);
 }
 
-if(!empty($_POST['denyreason'])){
+if(!empty($_POST['deny_reason'])){
  // $denyreason = htmlspecialchars($_POST['denyreason']);
-  $denyreason->setdenyReason(htmlspecialchars($_POST['denyreason']));
+  $denyreason->setdenyReason(htmlspecialchars($_POST['deny_reason']));
   //$request->deny();
 
 }
-if ($allInformation['state'] === "request") {
+if ($allInformation['state'] === "verzoek") {
   $request = true;
 }
 if ($allInformation['state'] === "deny") {
@@ -44,9 +44,6 @@ if ($allInformation['state'] === "accept") {
   $request->accept();
 }
 
-
-
-
 /*if(!empty($_POST)){
     $users = new User();
     $user1->setUser1($_POST('user1'));
@@ -54,9 +51,6 @@ if ($allInformation['state'] === "accept") {
 
     $users->save();
     $success = "User Saved";
-
-
-
 }*/
 
 $users = User::buddies();
@@ -89,10 +83,10 @@ $users = User::buddies();
    <?php if($_POST['deny']) : ?>
     <div class="form-group">
                 <label for="deny">Reason</label>
-                <input type="text" class="form-control" id="denyreason" name="denyreason" placeholder="type text">
+                <input type="text" class="form-control" id="deny_reason" name="deny_reason" placeholder="type text">
             </div>
             <div class="form btn">
-      <input type="submit" class="btn btn-primary" name="denyreasonsubmit" value="submit">
+      <input type="submit" class="btn btn-primary" name="deny_reasonsubmit" value="submit">
     </div>
    <?php endif; ?>
   
