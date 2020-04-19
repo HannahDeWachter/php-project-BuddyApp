@@ -19,7 +19,6 @@ $numberOfRegisteredUsers = count($arrayUsers);
 // echo $numberOfRegisteredUsers;
 $numberOfBuddies = User::getAllBuddies();
 
-User::sendRequestMail();
 ?>
 <!DOCTYPE html>
 <html lang="en">

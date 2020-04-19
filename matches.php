@@ -116,7 +116,7 @@ for ($x = 0; $x < count($matches); $x++) {
                 <?php endif; ?>
 
                 <div class="card-group">
-                    <a href="" class="card-link">Accept</a>
+                    <a href="chat.php/?id=<?php echo $match['id'] ?>" class="card-link">Accept</a>
                     <a href="" class="card-link">Decline</a>
                 </div>
             </div>

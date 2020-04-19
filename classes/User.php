@@ -217,8 +217,6 @@ class User
         return $result;
     }
 
-
-
     public function endsWith($email, $endString)
     {
         $len = strlen($endString);
@@ -246,11 +244,14 @@ class User
         $conn = Db::getConnection();
         $statement = $conn->prepare("SELECT * FROM users WHERE id = :id");
 
-
         $statement->bindParam(":id", $id);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-        return $result[0];
+        if (count($result) > 0) {
+            return $result[0];
+        } else {
+            return null;
+        }
     }
 
     public  function canLogin($email, $password)
@@ -285,9 +286,6 @@ class User
         // var_dump($user);
         header('location: index.php');
     }
-
-
-
 
     public static function findMatches($arrayUsers, $dataUser)
     {
@@ -561,11 +559,11 @@ class User
         // var_dump($buddies);
         return $buddies;
     }
-    public static function sendRequestMail()
+    public static function sendRequestMail($email, $name)
     {
         $email = "dewachterhannah@gmail.com";
-        $name = "Hannah DW";
-        $body = "You have a new buddy request!";
+        // $name = "Hannah DW";
+        $body = "You have a new buddy request! Go to the app to see it.</a>";
         $subject = "Buddy Request";
 
         $headers = array(
@@ -584,7 +582,7 @@ class User
                 )
             ),
             "from" => array(
-                "email" => $email
+                "email" => "r0738008@student.thomasmore.be"
             ),
             "subject" => $subject,
             "content" => array(
