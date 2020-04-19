@@ -1,5 +1,6 @@
 <?php
 include_once(__DIR__ . "/Db.php");
+require_once __DIR__ . '/../vendor/autoload.php';
 
 class User
 {
@@ -226,8 +227,6 @@ class User
         return $result;
     }
 
-
-
     public function endsWith($email, $endString)
     {
         $len = strlen($endString);
@@ -255,11 +254,14 @@ class User
         $conn = Db::getConnection();
         $statement = $conn->prepare("SELECT * FROM users WHERE id = :id");
 
-
         $statement->bindParam(":id", $id);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-        return $result[0];
+        if (count($result) > 0) {
+            return $result[0];
+        } else {
+            return null;
+        }
     }
 
     public  function canLogin($email, $password)
@@ -294,9 +296,6 @@ class User
         // var_dump($user);
         header('location: index.php');
     }
-
-
-
 
     public static function findMatches($arrayUsers, $dataUser)
     {
@@ -570,14 +569,69 @@ class User
 
         return $result;
     }
-    public static function getAllMatches()
+    public static function getAllBuddies()
     {
         $conn = Db::getConnection();
         $statement = $conn->prepare('select * from matched');
         $statement->execute();
         $matches = $statement->fetchAll(PDO::FETCH_ASSOC);
-        // var_dump($matches);
-        return $matches;
+
+        foreach ($matches as $i => $subarray) {
+            $value = $subarray['status'];
+        }
+        $buddies = 0;
+        if ($value === "buddies") {
+            foreach ($matches as $i => $subarray) {
+                $buddies += ($subarray['status'] == $value);
+            }
+        }
+        // var_dump($buddies);
+        return $buddies;
+    }
+    public static function sendRequestMail($email, $name)
+    {
+        $email = "dewachterhannah@gmail.com";
+        // $name = "Hannah DW";
+        $body = "You have a new buddy request! Go to the app to see it.</a>";
+        $subject = "Buddy Request";
+
+        $headers = array(
+            'Authorization: Bearer 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',
+            'Content-Type: application/json'
+        );
+        $data = array(
+            "personalizations" => array(
+                array(
+                    "to" => array(
+                        array(
+                            "email" => $email,
+                            "name" => $name
+                        )
+                    )
+                )
+            ),
+            "from" => array(
+                "email" => "r0738008@student.thomasmore.be"
+            ),
+            "subject" => $subject,
+            "content" => array(
+                array(
+                    "type" => "text/html",
+                    "value" => $body
+                )
+            )
+        );
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://api.sendgrid.com/v3/mail/send");
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        echo $response;
     }
 }
     /**
