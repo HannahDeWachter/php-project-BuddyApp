@@ -425,12 +425,10 @@ class User
     public function setProfileImg($profileImg)
     {
         $this->profileImg = $profileImg;
-
-
-
+    }
     /**
      * Get the value of user1
-     */ 
+     */
     public function getUser1()
     {
         return $this->user1;
@@ -440,15 +438,13 @@ class User
      * Set the value of user1
      *
      * @return  self
-     */ 
+     */
     public function setUser1($user1)
     {
         $this->user1 = $user1;
 
         return $this;
     }
-
-
 
     public static function uploadImg($fileImg)
     {
@@ -633,10 +629,9 @@ class User
         curl_close($ch);
         echo $response;
     }
-}
     /**
      * Get the value of user2
-     */ 
+     */
     public function getUser2()
     {
         return $this->user2;
@@ -646,18 +641,18 @@ class User
      * Set the value of user2
      *
      * @return  self
-     */ 
+     */
     public function setUser2($user2)
     {
         $this->user2 = $user2;
 
         return $this;
-    }   
+    }
 
 
     /**
      * Get the value of users
-     */ 
+     */
     public function getUsers()
     {
         return $this->users;
@@ -667,7 +662,7 @@ class User
      * Set the value of users
      *
      * @return  self
-     */ 
+     */
     public function setUsers($users)
     {
         $this->users = $users;
@@ -675,20 +670,18 @@ class User
         return $this;
     }
 
-     public static function matched(){
-
+    public static function buddies()
+    {
         $conn = Db::getConnection();
         $statement = $conn->prepare("SELECT u1.firstname as user1 , u2.firstname as user2
         FROM matched AS m
-        JOIN users AS u1 ON u1.id = m.user1
-        JOIN users AS u2 ON u2.id = m.user2");
+        JOIN users AS u1 ON u1.id = m.user1_id
+        JOIN users AS u2 ON u2.id = m.user2_id
+        WHERE m.status = 'buddies'");
         $statement->execute();
 
         $users = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-
-
         return $users;
-
-        
-    }}
+    }
+}

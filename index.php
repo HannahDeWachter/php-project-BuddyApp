@@ -41,10 +41,8 @@ if (!empty($_POST['filter'])) {
 
 
 }*/
-  
-    $users = User::matched();
 
-   
+$users = User::buddies();
 
 ?>
 <!DOCTYPE html>
@@ -144,11 +142,11 @@ if (!empty($_POST['filter'])) {
   <?php endif; ?>
 
 
-<p> <b> Buddies:</b></p>
+  <p> <b> Buddies:</b></p>
 
-<?php foreach($users as $user): ?>
+  <?php foreach ($users as $user) : ?>
     <p><?php echo $user['user1'] . " and " . $user['user2'] . " are now buddies."; ?></p>
-<?php endforeach;  ?>
+  <?php endforeach;  ?>
 
 </body>
 
