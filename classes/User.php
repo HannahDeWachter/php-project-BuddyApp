@@ -23,6 +23,8 @@ class User
     private $travel;
 
     private $deny_reason;
+    private $accept;
+    private $request;
 
     private $users;
     private $user1;
@@ -221,8 +223,8 @@ class User
         $statement->bindParam(":password", $password);
         $statement->bindParam(":imdYear", $imdYear);
 
-        $statement->bindParam(":user1", $user1);
-        $statement->bindParam(":user2", $user2);
+        // $statement->bindParam(":user1", $user1);
+        // $statement->bindParam(":user2", $user2);
 
         $result = $statement->execute();
         header('location: login.php');
@@ -691,23 +693,77 @@ class User
     }
 
     
-    public function deny(){
+    public function denyreason($myId, $friendId, $deny_reason){
         $conn = Db::getConnection();
-        $statement = $conn->prepare("insert into matched(deny_reason) values (:deny_reason)");
-        $deny_reason = $this->getDeny_reason();
+
+        // als er deny is geklikt dan moet de reason in de kolom reason komen
+        $statement = $conn->prepare("UPDATE matched SET deny_reason = :deny_reason WHERE user1_id = :myId AND user2_id = :friendId OR user1_id = :friendId AND user2_id = :myId");
+        // UPDATE matched SET reason = "no reason" WHERE user1_id = 3 AND user2_id = 4 OR user1_id = 4 AND user2_id = 3;
+        //insert into matched(deny_reason) values (:deny_reason)
+
+        $statement->bindParam(":myId", $myId);
+        $statement->bindParam(":friendId", $friendId);
+        $statement->bindParam(":deny_reason", $deny_reason);
+    
+        $result = $statement->execute();
+        header('location: index.php');
+      
+        return $result;
+    }
+
+    /**
+     * 
+     * Geef de ingevoerde waarde mee met je functie, zodat deze hem kan inlezen in de query en updaten
+     * 
+     * PAS OP: hardcoded user_id's dus verander deze via variabelen naar je eigen id en de andere persoon of vice versa
+     * public function denyreason($deny_reason)
+    {
+        $conn = Db::getConnection();
+        // als er deny is geklikt dan moet de reason in de kolom reason komen
+        $statement = $conn->prepare("UPDATE matched SET deny_reason = :deny_reason WHERE user1_id = '3' AND user2_id = '4' OR user1_id = '4' AND user2_id = '3';");
+        // UPDATE matched SET reason = "no reason" WHERE user1_id = 3 AND user2_id = 4 OR user1_id = 4 AND user2_id = 3;
+        //insert into matched(deny_reason) values (:deny_reason)
 
         $statement->bindParam(":deny_reason", $deny_reason);
-
         $result = $statement->execute();
         header('location: index.php');
         // echo "ik ben hier aan het saven";
         // var_dump($result);
         return $result;
     }
-    
+     */
 
+    public function accept($myId, $friendId, $status)
+    {
 
+        $status = $this->getAccept();
+        $conn = Db::getConnection();
+        //als er accept wordt geklikt, moet er een update gebeuren van de status kolom van verzoek naar buddies
+        $statement = $conn->prepare("UPDATE matched SET status = :status WHERE user1_id = :myId AND user2_id = :friendId OR user1_id = :friendId AND user2_id = :myId");
 
+        $statement->bindParam(":myId", $myId);
+        $statement->bindParam(":friendId", $friendId);
+        $statement->bindParam(":status", $status);
+        $result = $statement->execute();
+        header('location: index.php');
+        // echo "ik ben hier aan het saven";
+        // var_dump($result);
+        return $result;
+    }
+    public static  function getAllRequest($id)
+    {
+        $conn = Db::getConnection();
+        $statement = $conn->prepare("SELECT * FROM matched WHERE $id = :id");
+
+        $statement->bindParam(":id", $id);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        if (count($result) > 0) {
+            return $result[0];
+        } else {
+            return null;
+        }
+    }
 
     /**
      * Get the value of deny_reason
@@ -725,6 +781,46 @@ class User
     public function setDeny_reason($deny_reason)
     {
         $this->deny_reason = $deny_reason;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of request
+     */ 
+    public function getRequest()
+    {
+        return $this->request;
+    }
+
+    /**
+     * Set the value of request
+     *
+     * @return  self
+     */ 
+    public function setRequest($request)
+    {
+        $this->request = $request;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of accept
+     */ 
+    public function getAccept()
+    {
+        return $this->accept;
+    }
+
+    /**
+     * Set the value of accept
+     *
+     * @return  self
+     */ 
+    public function setAccept($accept)
+    {
+        $this->accept = $accept;
 
         return $this;
     }
