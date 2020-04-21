@@ -749,9 +749,11 @@ class User
         $statement->bindParam(":status", $status);
         $result = $statement->execute();
         header('location: index.php');
-        // echo "ik ben hier aan het saven";
+        echo "ik ben hier aan het saven";
         // var_dump($result);
         return $result;
+
+        
     }
     public static  function getAllRequest($id)
     {
@@ -826,5 +828,7 @@ class User
         $this->accept = $accept;
 
         return $this;
+
+        
     }
 }

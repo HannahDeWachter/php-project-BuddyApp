@@ -51,14 +51,20 @@ if (!empty($_POST['deny_reason'])) {
 
 if ($allrequest['status'] === "verzoek") {
   $request = true;
+  
 }
 if ($allrequest['status'] === "deny") {
   $request->denyreason();
+ 
 }
 if (isset($_POST['accept'])) {
 
   $status = $user->setAccept('buddies');
+   
   $user->accept($_SESSION['user_id'], 1, $status);
+
+
+  
   /**
    * 1 is the output of the $friend->getId(); or something that needs to come here.
    * Sort of like this
@@ -127,6 +133,11 @@ $users = User::buddies();
         </div>
       </form>
     <?php endif; ?>
+
+    <?php if (isset($_POST['accept'])) : ?>
+        <p>Jullie zijn nu een match!</p>
+    <?php endif; ?>
+
 
     <?php include_once(__DIR__ . "/includes/header.inc.php"); ?>
     <?php if (isset($messageComplete)) : ?>
