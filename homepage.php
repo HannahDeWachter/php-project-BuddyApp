@@ -17,9 +17,8 @@ if (is_null($allInformation['location']) || is_null($allInformation['music']) ||
 $arrayUsers = User::getAllUsers(null);
 $numberOfRegisteredUsers = count($arrayUsers);
 // echo $numberOfRegisteredUsers;
-$arrayMatches = User::getAllMatches();
-$numberOfMatches = count($arrayMatches);
-// echo $numberOfMatches;
+$numberOfBuddies = User::getAllBuddies();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +39,11 @@ $numberOfMatches = count($arrayMatches);
     <?php endif; ?>
 
     <p>There are <?php echo $numberOfRegisteredUsers; ?> students registerd.</p>
-    <p>There are <?php echo $numberOfMatches; ?> buddy matches.</p>
+    <?php if ($numberOfBuddies === 1) : ?>
+        <p>There is <?php echo $numberOfBuddies; ?> buddy match.</p>
+    <?php else : ?>
+        <p>There are <?php echo $numberOfBuddies; ?> buddy matches.</p>
+    <?php endif; ?>
 </body>
 
 </html>

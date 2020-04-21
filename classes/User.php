@@ -1,5 +1,6 @@
 <?php
 include_once(__DIR__ . "/Db.php");
+require_once __DIR__ . '/../vendor/autoload.php';
 
 class User
 {
@@ -12,12 +13,18 @@ class User
     private $profileImg;
     private $bio;
 
+    
+
 
     private $location;
     private $music;
     private $hobbies;
     private $specialization;
     private $travel;
+
+    private $deny_reason;
+    private $accept;
+    private $request;
 
     private $users;
     private $user1;
@@ -216,8 +223,8 @@ class User
         $statement->bindParam(":password", $password);
         $statement->bindParam(":imdYear", $imdYear);
 
-        $statement->bindParam(":user1", $user1);
-        $statement->bindParam(":user2", $user2);
+        // $statement->bindParam(":user1", $user1);
+        // $statement->bindParam(":user2", $user2);
 
         $result = $statement->execute();
         header('location: login.php');
@@ -225,8 +232,6 @@ class User
         // var_dump($result);
         return $result;
     }
-
-
 
     public function endsWith($email, $endString)
     {
@@ -255,11 +260,14 @@ class User
         $conn = Db::getConnection();
         $statement = $conn->prepare("SELECT * FROM users WHERE id = :id");
 
-
         $statement->bindParam(":id", $id);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-        return $result[0];
+        if (count($result) > 0) {
+            return $result[0];
+        } else {
+            return null;
+        }
     }
 
     public  function canLogin($email, $password)
@@ -294,9 +302,6 @@ class User
         // var_dump($user);
         header('location: index.php');
     }
-
-
-
 
     public static function findMatches($arrayUsers, $dataUser)
     {
@@ -378,6 +383,7 @@ class User
         // var_dump($users);
         return $users;
     }
+    
     public  function filter($music, $hobbies, $travel)
     {
 
@@ -431,7 +437,7 @@ class User
 
     /**
      * Get the value of user1
-     */ 
+     */
     public function getUser1()
     {
         return $this->user1;
@@ -441,15 +447,13 @@ class User
      * Set the value of user1
      *
      * @return  self
-     */ 
+     */
     public function setUser1($user1)
     {
         $this->user1 = $user1;
 
         return $this;
     }
-
-
 
     public static function uploadImg($fileImg)
     {
@@ -570,19 +574,74 @@ class User
 
         return $result;
     }
-    public static function getAllMatches()
+    public static function getAllBuddies()
     {
         $conn = Db::getConnection();
         $statement = $conn->prepare('select * from matched');
         $statement->execute();
         $matches = $statement->fetchAll(PDO::FETCH_ASSOC);
-        // var_dump($matches);
-        return $matches;
+
+        foreach ($matches as $i => $subarray) {
+            $value = $subarray['status'];
+        }
+        $buddies = 0;
+        if ($value === "buddies") {
+            foreach ($matches as $i => $subarray) {
+                $buddies += ($subarray['status'] == $value);
+            }
+        }
+        // var_dump($buddies);
+        return $buddies;
+    }
+    public static function sendRequestMail($email, $name)
+    {
+        $email = "dewachterhannah@gmail.com";
+        // $name = "Hannah DW";
+        $body = "You have a new buddy request! Go to the app to see it.</a>";
+        $subject = "Buddy Request";
+
+        $headers = array(
+            'Authorization: Bearer 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',
+            'Content-Type: application/json'
+        );
+        $data = array(
+            "personalizations" => array(
+                array(
+                    "to" => array(
+                        array(
+                            "email" => $email,
+                            "name" => $name
+                        )
+                    )
+                )
+            ),
+            "from" => array(
+                "email" => "r0738008@student.thomasmore.be"
+            ),
+            "subject" => $subject,
+            "content" => array(
+                array(
+                    "type" => "text/html",
+                    "value" => $body
+                )
+            )
+        );
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://api.sendgrid.com/v3/mail/send");
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        echo $response;
     }
 
     /**
      * Get the value of user2
-     */ 
+     */
     public function getUser2()
     {
         return $this->user2;
@@ -592,18 +651,18 @@ class User
      * Set the value of user2
      *
      * @return  self
-     */ 
+     */
     public function setUser2($user2)
     {
         $this->user2 = $user2;
 
         return $this;
-    }   
+    }
 
 
     /**
      * Get the value of users
-     */ 
+     */
     public function getUsers()
     {
         return $this->users;
@@ -613,7 +672,7 @@ class User
      * Set the value of users
      *
      * @return  self
-     */ 
+     */
     public function setUsers($users)
     {
         $this->users = $users;
@@ -621,20 +680,151 @@ class User
         return $this;
     }
 
-     public static function matched(){
-
+    public static function buddies()
+    {
         $conn = Db::getConnection();
         $statement = $conn->prepare("SELECT u1.firstname as user1 , u2.firstname as user2
         FROM matched AS m
-        JOIN users AS u1 ON u1.id = m.user1
-        JOIN users AS u2 ON u2.id = m.user2");
+        JOIN users AS u1 ON u1.id = m.user1_id
+        JOIN users AS u2 ON u2.id = m.user2_id
+        WHERE m.status = 'buddies'");
         $statement->execute();
 
         $users = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-
-
         return $users;
+    }
 
-        
-    }}
+    
+    public function denyreason($myId, $friendId, $deny_reason){
+        $conn = Db::getConnection();
+
+        // als er deny is geklikt dan moet de reason in de kolom reason komen
+        $statement = $conn->prepare("UPDATE matched SET deny_reason = :deny_reason WHERE user1_id = :myId AND user2_id = :friendId OR user1_id = :friendId AND user2_id = :myId");
+        // UPDATE matched SET reason = "no reason" WHERE user1_id = 3 AND user2_id = 4 OR user1_id = 4 AND user2_id = 3;
+        //insert into matched(deny_reason) values (:deny_reason)
+
+        $statement->bindParam(":myId", $myId);
+        $statement->bindParam(":friendId", $friendId);
+        $statement->bindParam(":deny_reason", $deny_reason);
+    
+        $result = $statement->execute();
+        header('location: index.php');
+      
+        return $result;
+    }
+
+    /**
+     * 
+     * Geef de ingevoerde waarde mee met je functie, zodat deze hem kan inlezen in de query en updaten
+     * 
+     * PAS OP: hardcoded user_id's dus verander deze via variabelen naar je eigen id en de andere persoon of vice versa
+     * public function denyreason($deny_reason)
+    {
+        $conn = Db::getConnection();
+        // als er deny is geklikt dan moet de reason in de kolom reason komen
+        $statement = $conn->prepare("UPDATE matched SET deny_reason = :deny_reason WHERE user1_id = '3' AND user2_id = '4' OR user1_id = '4' AND user2_id = '3';");
+        // UPDATE matched SET reason = "no reason" WHERE user1_id = 3 AND user2_id = 4 OR user1_id = 4 AND user2_id = 3;
+        //insert into matched(deny_reason) values (:deny_reason)
+
+        $statement->bindParam(":deny_reason", $deny_reason);
+        $result = $statement->execute();
+        header('location: index.php');
+        // echo "ik ben hier aan het saven";
+        // var_dump($result);
+        return $result;
+    }
+     */
+
+    public function accept($myId, $friendId, $status)
+    {
+
+        $status = $this->getAccept();
+        $conn = Db::getConnection();
+        //als er accept wordt geklikt, moet er een update gebeuren van de status kolom van verzoek naar buddies
+        $statement = $conn->prepare("UPDATE matched SET status = :status WHERE user1_id = :myId AND user2_id = :friendId OR user1_id = :friendId AND user2_id = :myId");
+
+        $statement->bindParam(":myId", $myId);
+        $statement->bindParam(":friendId", $friendId);
+        $statement->bindParam(":status", $status);
+        $result = $statement->execute();
+        header('location: index.php');
+        // echo "ik ben hier aan het saven";
+        // var_dump($result);
+        return $result;
+    }
+    public static  function getAllRequest($id)
+    {
+        $conn = Db::getConnection();
+        $statement = $conn->prepare("SELECT * FROM matched WHERE $id = :id");
+
+        $statement->bindParam(":id", $id);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        if (count($result) > 0) {
+            return $result[0];
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Get the value of deny_reason
+     */ 
+    public function getDeny_reason()
+    {
+        return $this->deny_reason;
+    }
+
+    /**
+     * Set the value of deny_reason
+     *
+     * @return  self
+     */ 
+    public function setDeny_reason($deny_reason)
+    {
+        $this->deny_reason = $deny_reason;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of request
+     */ 
+    public function getRequest()
+    {
+        return $this->request;
+    }
+
+    /**
+     * Set the value of request
+     *
+     * @return  self
+     */ 
+    public function setRequest($request)
+    {
+        $this->request = $request;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of accept
+     */ 
+    public function getAccept()
+    {
+        return $this->accept;
+    }
+
+    /**
+     * Set the value of accept
+     *
+     * @return  self
+     */ 
+    public function setAccept($accept)
+    {
+        $this->accept = $accept;
+
+        return $this;
+    }
+}
