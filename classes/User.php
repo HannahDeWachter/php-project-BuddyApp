@@ -426,8 +426,8 @@ class User
     public function setProfileImg($profileImg)
     {
         $this->profileImg = $profileImg;
-
-
+    }
+    
 
     /**
      * Get the value of user1
@@ -579,7 +579,7 @@ class User
         // var_dump($matches);
         return $matches;
     }
-}
+
     /**
      * Get the value of user2
      */ 
