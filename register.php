@@ -7,7 +7,7 @@ if (!empty($_POST)) {
     try {
         $user = new User();
         if ($user->availableEmail($_POST['email'])) {
-            if ($user->endsWith($_POST['email'], "@student.thomasmore.be") === "@student.thomasmore.be") {
+            if ($user->endsWith($_POST['email'], "@student.thomasmore.be")) {
                 // $error = "klopt!";
             } else {
                 $error = "email has to end with @student.thomasmore.be";

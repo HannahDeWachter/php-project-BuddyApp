@@ -118,7 +118,7 @@ $users = User::buddies();
         </div>
       </form>
     <?php endif; ?>
-
+      <a href="./homepage.php">Home</a>
     <?php include_once(__DIR__ . "/includes/header.inc.php"); ?>
     <?php if (isset($messageComplete)) : ?>
       <div class="alert-info">

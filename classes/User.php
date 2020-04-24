@@ -238,25 +238,28 @@ class User
     public function endsWith($email, $endString)
     {
         $len = strlen($endString);
-        return (substr($email, -$len, $len));
-        // echo "emailtje";
+        if (substr($email, -$len) === $endString) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function availableEmail($email)
     {
         $conn = Db::getConnection();
-        $statement = $conn->prepare("SELECT * FROM users WHERE email = :email ");
+        $statement = $conn->prepare("SELECT * FROM users WHERE email = :email LIMIT 1");
         $statement->bindParam(":email", $email);
         $statement->execute();
-        $result = $statement->fetchAll(PDO::FETCH_ASSOC); //fetchAll geeft array, fetch geeft true/false
-        return empty($result); //is hetzelfde als if else hieronder
-        /*if (empty($result)) {
-            // echo "gestuurd";
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+        if ($result == false) {
+            // Email available
             return true;
         } else {
-            // echo "niet gestuurd";
+            // Email not available
             return false;
-        }*/
+        }
     }
 
     public static  function getAllInformation($id)
