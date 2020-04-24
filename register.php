@@ -59,6 +59,7 @@ if (!empty($_POST)) {
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="text" class="form-control" id="email" name="email" placeholder="Email">
+                <div id="emailCheck"></div>
             </div>
             <div class="form-group">
                 <label for="firstname">Firstname</label>
