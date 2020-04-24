@@ -7,6 +7,7 @@ class User
     private $id;
     private $firstname;
     private $lastname;
+    private $username;
     private $email;
     private $password;
     private $imdYear;
@@ -175,6 +176,7 @@ class User
 
         return $this;
     }
+     
 
     public function updateUser()
     {
@@ -208,6 +210,7 @@ class User
         $statement = $conn->prepare("insert into users(firstname,lastname,email,password,imdYear) values (:firstname, :lastname, :email, :password, :imdYear)");
         $firstname = $this->getFirstName();
         $lastname = $this->getLastName();
+        
         $email = $this->getEmail();
         $password = $this->getPassword();
         $imdYear = $this->getImdYear();
@@ -217,6 +220,7 @@ class User
 
         $statement->bindParam(":firstname", $firstname);
         $statement->bindParam(":lastname", $lastname);
+        
         $statement->bindParam(":email", $email);
         $statement->bindParam(":password", $password);
         $statement->bindParam(":imdYear", $imdYear);
@@ -234,25 +238,28 @@ class User
     public function endsWith($email, $endString)
     {
         $len = strlen($endString);
-        return (substr($email, -$len, $len));
-        // echo "emailtje";
+        if (substr($email, -$len) === $endString) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function availableEmail($email)
     {
         $conn = Db::getConnection();
-        $statement = $conn->prepare("SELECT * FROM users WHERE email = :email ");
+        $statement = $conn->prepare("SELECT * FROM users WHERE email = :email LIMIT 1");
         $statement->bindParam(":email", $email);
         $statement->execute();
-        $result = $statement->fetchAll(PDO::FETCH_ASSOC); //fetchAll geeft array, fetch geeft true/false
-        return empty($result); //is hetzelfde als if else hieronder
-        /*if (empty($result)) {
-            // echo "gestuurd";
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+        if ($result == false) {
+            // Email available
             return true;
         } else {
-            // echo "niet gestuurd";
+            // Email not available
             return false;
-        }*/
+        }
     }
 
     public static  function getAllInformation($id)
@@ -750,6 +757,7 @@ class User
         return $this;
     }
 
+<<<<<<< HEAD
     public static function getMatchedData($user1, $user2)
     {
         $conn = Db::getConnection();
@@ -761,4 +769,7 @@ class User
         // var_dump($data);
         return $data[0];
     }
+=======
+  
+>>>>>>> feature15
 }

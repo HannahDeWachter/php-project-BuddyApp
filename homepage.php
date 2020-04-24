@@ -31,6 +31,7 @@ $numberOfBuddies = User::getAllBuddies();
 </head>
 
 <body>
+    
     <?php include_once(__DIR__ . "/includes/header.inc.php"); ?>
     <?php if (isset($messageComplete)) : ?>
         <div class="alert-info">
