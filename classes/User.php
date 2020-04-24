@@ -7,6 +7,7 @@ class User
     private $id;
     private $firstname;
     private $lastname;
+    private $username;
     private $email;
     private $password;
     private $imdYear;
@@ -175,6 +176,7 @@ class User
 
         return $this;
     }
+     
 
     public function updateUser()
     {
@@ -205,9 +207,10 @@ class User
         //conn
         $conn = Db::getConnection();
         //insert query
-        $statement = $conn->prepare("insert into users(firstname,lastname,email,password,imdYear) values (:firstname, :lastname, :email, :password, :imdYear)");
+        $statement = $conn->prepare("insert into users(firstname,lastname,username,email,password,imdYear) values (:firstname, :lastname,:username, :email, :password, :imdYear)");
         $firstname = $this->getFirstName();
         $lastname = $this->getLastName();
+        
         $email = $this->getEmail();
         $password = $this->getPassword();
         $imdYear = $this->getImdYear();
@@ -217,6 +220,7 @@ class User
 
         $statement->bindParam(":firstname", $firstname);
         $statement->bindParam(":lastname", $lastname);
+        
         $statement->bindParam(":email", $email);
         $statement->bindParam(":password", $password);
         $statement->bindParam(":imdYear", $imdYear);
@@ -749,4 +753,6 @@ class User
 
         return $this;
     }
+
+  
 }
