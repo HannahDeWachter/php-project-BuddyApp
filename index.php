@@ -40,13 +40,13 @@ if (!empty($_POST['deny_reason'])) {
 
 
 
-if ($allrequest['status'] === "verzoek") { 
+if ($allrequest['status'] === "verzoek") {
   $request = true;
 }
 if ($allrequest['status'] === "deny") {
   $request->denyreason();
 }
-if ($_POST['accept']) {
+if (isset($_POST['accept'])) {
 
   $status = $user->setAccept('buddies');
   $user->accept($_SESSION['user_id'], 1, $status);
@@ -90,132 +90,132 @@ $users = User::buddies();
 
 <body>
   <div class="container">
-    
-  <?php //if(isset($request)) : 
-  ?>
-  <!-- als een verzoek bestaat => status in matched is verzoek  dus request moet verzoek zijn van db !-->
-  <form action="" method="post">
-    <p> Je hebt een verzoek ontvangen! </p>
-    <div class="form btn">
-      <input type="submit" class="btn btn-primary" name="accept" value="accept">
-    </div>
-    <div class="form btn">
-      <input type="submit" class="btn btn-primary" name="deny" value="deny">
-    </div>
-  </form>
-  <?php  //endif;  
-  ?>
 
-  <?php if ($_POST['deny']) : ?>
-    <!-- als er op de knop deny wordt gedrukt, komt deze input text te voorschijn !-->
+    <?php //if(isset($request)) : 
+    ?>
+    <!-- als een verzoek bestaat => status in matched is verzoek  dus request moet verzoek zijn van db !-->
     <form action="" method="post">
-      <div class="form-group">
-        <label for="deny">Reason</label>
-        <input type="text" class="form-control" id="deny_reason" name="deny_reason" placeholder="type text">
+      <p> Je hebt een verzoek ontvangen! </p>
+      <div class="form btn">
+        <input type="submit" class="btn btn-primary" name="accept" value="accept">
       </div>
       <div class="form btn">
-        <input type="submit" class="btn btn-primary" name="deny_reasonsubmit" value="submit"> <!-- als er gesubmit wordt moet de text in de kolom deny_reason komen !-->
+        <input type="submit" class="btn btn-primary" name="deny" value="deny">
       </div>
     </form>
-  <?php endif; ?>
+    <?php  //endif;  
+    ?>
 
-  <?php include_once(__DIR__ . "/includes/header.inc.php"); ?>
-  <?php if (isset($messageComplete)) : ?>
-    <div class="alert-info">
-      <p><?php echo $messageComplete ?> Click <a href="profileDetails.php">here</a> to complete your profile.</p>
-    </div>
-  <?php endif; ?>
-  <form action="" method="post">
-    <div class="form-group ">
-      <h1> Filters </h1>
-    </div>
-    <div class="form-group">
-      <label for="music" class="">Music</label><br>
-      <select id="music" name="music">
-        <option value=""> -- Select an item -- </option>
-        <option value="pop"> Pop </option>
-        <option value="rock">Rock</option>
-        <option value="disco">Disco</option>
-        <option value="rap">Rap</option>
-        <option value="techno">Techno</option>
-        <option value="dnb">Dnb</option>
-        <option value="indie">Indie</option>
-        <option value="jazz">Jazz</option>
-        <option value="rnb">Rnb</option>
-      </select>
-    </div>
-
-
-    <div class="form-group">
-      <label for="hobbies" class="">Hobbies</label><br>
-      <select id="hobbies" name="hobbies">
-        <option value=""> -- Select an item -- </option>
-        <option value="paint"> Paint </option>
-        <option value="sport">Sport</option>
-        <option value="party">Party</option>
-        <option value="instrument">Play an instrument</option>
-        <option value="read">Read books</option>
-      </select>
-      <br>
-      <br>
-      <div class="form-group">
-        <label for="travel" class="">Travel</label><br>
-        <select id="travel" name="travel">
-          <option value=""> -- Select an item -- </option>
-          <option value="africa"> Africa </option>
-          <option value="america">America</option>
-          <option value="asia">Asia</option>
-          <option value="europe">Europe</option>
-          <option value="oceania">Oceania</option>
-        </select> <br> <br>
-        <div class="form btn">
-          <input type="submit" class="btn btn-primary" name="filter" value="Search">
+    <?php if (isset($_POST['deny'])) : ?>
+      <!-- als er op de knop deny wordt gedrukt, komt deze input text te voorschijn !-->
+      <form action="" method="post">
+        <div class="form-group">
+          <label for="deny">Reason</label>
+          <input type="text" class="form-control" id="deny_reason" name="deny_reason" placeholder="type text">
         </div>
+        <div class="form btn">
+          <input type="submit" class="btn btn-primary" name="deny_reasonsubmit" value="submit"> <!-- als er gesubmit wordt moet de text in de kolom deny_reason komen !-->
+        </div>
+      </form>
+    <?php endif; ?>
+
+    <?php include_once(__DIR__ . "/includes/header.inc.php"); ?>
+    <?php if (isset($messageComplete)) : ?>
+      <div class="alert-info">
+        <p><?php echo $messageComplete ?> Click <a href="profileDetails.php">here</a> to complete your profile.</p>
+      </div>
+    <?php endif; ?>
+    <form action="" method="post">
+      <div class="form-group ">
+        <h1> Filters </h1>
+      </div>
+      <div class="form-group">
+        <label for="music" class="">Music</label><br>
+        <select id="music" name="music">
+          <option value=""> -- Select an item -- </option>
+          <option value="pop"> Pop </option>
+          <option value="rock">Rock</option>
+          <option value="disco">Disco</option>
+          <option value="rap">Rap</option>
+          <option value="techno">Techno</option>
+          <option value="dnb">Dnb</option>
+          <option value="indie">Indie</option>
+          <option value="jazz">Jazz</option>
+          <option value="rnb">Rnb</option>
+        </select>
+      </div>
+
+
+      <div class="form-group">
+        <label for="hobbies" class="">Hobbies</label><br>
+        <select id="hobbies" name="hobbies">
+          <option value=""> -- Select an item -- </option>
+          <option value="paint"> Paint </option>
+          <option value="sport">Sport</option>
+          <option value="party">Party</option>
+          <option value="instrument">Play an instrument</option>
+          <option value="read">Read books</option>
+        </select>
         <br>
+        <br>
+        <div class="form-group">
+          <label for="travel" class="">Travel</label><br>
+          <select id="travel" name="travel">
+            <option value=""> -- Select an item -- </option>
+            <option value="africa"> Africa </option>
+            <option value="america">America</option>
+            <option value="asia">Asia</option>
+            <option value="europe">Europe</option>
+            <option value="oceania">Oceania</option>
+          </select> <br> <br>
+          <div class="form btn">
+            <input type="submit" class="btn btn-primary" name="filter" value="Search">
+          </div>
+          <br>
 
-  </form>
-  <p> <b> Results: </b> </p>
-  <?php if (isset($filters)) : ?>
-    <?php foreach ($filters as $filter) : ?>
-      <p><?php echo $filter['firstname'] . " " . $filter['lastname'];  ?> </p> <!-- resultaat van searchfilter() moet hier komen !-->
-    <?php endforeach; ?>
-  <?php endif; ?>
-  <hr>
-  </hr>
-  <!-- dit is de namesearch div !-->
-  <h1> Filter op naam </h1>
-  <br>
-  <form action="" method="post">
-    <div class="form-group">
-      <label for="namesearch" class=""> Search name </label>
-      <input type="text" name="namesearch" id="namesearch" placeholder="name">
-    </div> <br>
-    <div class="form btn">
-      <input type="submit" class="btn btn-primary" name="name" value="searchname">
-    </div>
-  </form>
-  <br>
+    </form>
+    <p> <b> Results: </b> </p>
+    <?php if (isset($filters)) : ?>
+      <?php foreach ($filters as $filter) : ?>
+        <p><?php echo $filter['firstname'] . " " . $filter['lastname'];  ?> </p> <!-- resultaat van searchfilter() moet hier komen !-->
+      <?php endforeach; ?>
+    <?php endif; ?>
+    <hr>
+    </hr>
+    <!-- dit is de namesearch div !-->
+    <h1> Filter op naam </h1>
+    <br>
+    <form action="" method="post">
+      <div class="form-group">
+        <label for="namesearch" class=""> Search name </label>
+        <input type="text" name="namesearch" id="namesearch" placeholder="name">
+      </div> <br>
+      <div class="form btn">
+        <input type="submit" class="btn btn-primary" name="name" value="searchname">
+      </div>
+    </form>
+    <br>
 
-  <p> <b> Results: </b> </p>
-  <?php if (isset($results)) : ?>
-    <?php foreach ($results as $result) : ?>
-      <p><?php echo $result['firstname'] . " " . $result['lastname'];  ?> </p> <!-- resultaat van searchpeop() moet hier komen !-->
-    <?php endforeach; ?>
-  <?php endif; ?>
+    <p> <b> Results: </b> </p>
+    <?php if (isset($results)) : ?>
+      <?php foreach ($results as $result) : ?>
+        <p><?php echo $result['firstname'] . " " . $result['lastname'];  ?> </p> <!-- resultaat van searchpeop() moet hier komen !-->
+      <?php endforeach; ?>
+    <?php endif; ?>
 
 
 
-  <p> <b> Buddies:</b></p>
+    <p> <b> Buddies:</b></p>
 
-  <?php foreach ($users as $user) : ?>
-    <p><?php echo $user['user1'] . " and " . $user['user2'] . " are now buddies."; ?></p>
-  <?php endforeach;  ?>
+    <?php foreach ($users as $user) : ?>
+      <p><?php echo $user['user1'] . " and " . $user['user2'] . " are now buddies."; ?></p>
+    <?php endforeach;  ?>
 
   </div>
 
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 
 
