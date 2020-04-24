@@ -749,4 +749,16 @@ class User
 
         return $this;
     }
+
+    public static function getMatchedData($user1, $user2)
+    {
+        $conn = Db::getConnection();
+        $statement = $conn->prepare('select * from matched where user1_id = :user1 and user2_id = :user2 or user1_id = :user2 and user2_id = :user1');
+        $statement->bindParam(":user1", $user1);
+        $statement->bindParam(":user2", $user2);
+        $statement->execute();
+        $data = $statement->fetchAll(PDO::FETCH_ASSOC);
+        // var_dump($data);
+        return $data[0];
+    }
 }
