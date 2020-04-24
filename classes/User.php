@@ -207,7 +207,7 @@ class User
         //conn
         $conn = Db::getConnection();
         //insert query
-        $statement = $conn->prepare("insert into users(firstname,lastname,username,email,password,imdYear) values (:firstname, :lastname,:username, :email, :password, :imdYear)");
+        $statement = $conn->prepare("insert into users(firstname,lastname,email,password,imdYear) values (:firstname, :lastname, :email, :password, :imdYear)");
         $firstname = $this->getFirstName();
         $lastname = $this->getLastName();
         
