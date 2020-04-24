@@ -31,6 +31,8 @@ if (isset($_POST['request'])) {
   // echo "email is sent!";
 }
 
+$matchedData = User::getMatchedData($user1_id, $user2_id);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -75,13 +77,11 @@ if (isset($_POST['request'])) {
         <div class="grey-back">
           <img src="images/<?php echo $user2["profileImg"] ?>" class="chatImage" alt="profileImage" />
           <strong><?php echo $user2["firstname"] . " " . $user2["lastname"]; ?></strong>
-          <?php //if(status === "chat"): 
-          ?>
-          <form action="" method="POST">
-            <input type="submit" class="btn btn-primary" name="request" value="Send buddy request">
-          </form>
-          <?php //endif; 
-          ?>
+          <?php if ($matchedData['status'] === "chat") : ?>
+            <form action="" method="POST">
+              <input type="submit" class="btn btn-primary" name="request" value="Send buddy request">
+            </form>
+          <?php endif; ?>
           <!-- <br>
             <br>
             <br> -->

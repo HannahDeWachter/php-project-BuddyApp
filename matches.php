@@ -134,6 +134,9 @@ $getrequestnot = $friend->notificationRequest($dataUser->getId(), false); */
                     <a href="chat.php/?id=<?php echo $match['id'] ?>" class="card-link">Accept</a>
                     <a href="" class="card-link">Decline</a>
                 </div>
+                <form action="" method="POST" class="card-group">
+                    <input type="submit" class="btn btn-primary" name="request" value="Send buddy request">
+                </form>
             </div>
         <?php endforeach; ?>
     <?php endif; ?>
