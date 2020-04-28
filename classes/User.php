@@ -757,7 +757,6 @@ class User
         return $this;
     }
 
-<<<<<<< HEAD
     public static function getMatchedData($user1, $user2)
     {
         $conn = Db::getConnection();
@@ -769,7 +768,5 @@ class User
         // var_dump($data);
         return $data[0];
     }
-=======
   
->>>>>>> feature15
 }

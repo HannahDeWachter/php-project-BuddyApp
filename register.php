@@ -44,10 +44,11 @@ if (!empty($_POST)) {
 </head>
 
 <body>
+<?php include_once(__DIR__ . "/includes/header.inc.php"); ?>
     <div class="container">
         <form action="" method="post" class="form">
             <div class="header">
-                <h2>BUDDY APP</h2>
+                
                 <?php if (isset($error)) : ?>
                     <div class="error" style="color:red;">
                         <?php echo $error; ?>

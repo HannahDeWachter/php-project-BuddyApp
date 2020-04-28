@@ -2,11 +2,9 @@
 
 body{
     background-color: #EFAB4A;
-    width:350px;
-    margin-left:auto;
-    margin-right:auto;
+   margin:0 0;
 }
-#logo{
+.logo{
     width:350px;
     padding-bottom:0;
     padding-top:25px;

@@ -1,4 +1,5 @@
 <nav class="navbar navbar-nav">
+<img class="logo" src="./images/buddy-logo.svg">
 <a href="./homepage.php"> Home </a>
     <a href="./index.php"> Filter </a>
     <a href="./matches.php"> Match </a>

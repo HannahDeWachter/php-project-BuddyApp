@@ -89,6 +89,7 @@ $users = User::buddies();
 </head>
 
 <body>
+<?php include_once(__DIR__ . "/includes/header.inc.php"); ?>
   <div class="container">
 
     <?php //if(isset($request)) : 
@@ -119,7 +120,7 @@ $users = User::buddies();
       </form>
     <?php endif; ?>
       <a href="./homepage.php">Home</a>
-    <?php include_once(__DIR__ . "/includes/header.inc.php"); ?>
+    
     <?php if (isset($messageComplete)) : ?>
       <div class="alert-info">
         <p><?php echo $messageComplete ?> Click <a href="profileDetails.php">here</a> to complete your profile.</p>
