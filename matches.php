@@ -107,17 +107,18 @@ $getrequestnot = $friend->notificationRequest($dataUser->getId(), false); */
     <?php endif; ?>
     <?php if (!empty($showedMatches)) : ?>
         <?php foreach ($showedMatches as $match) : ?>
-            <div class="input-group-text card">
-                <strong class="card-title"><?php echo $match["name"]; ?></strong>
+
+            <div class="cardmatch">
+                <strong class="title"><?php echo htmlspecialchars($match["name"]); ?></strong>
 
                 <?php if ($match['location'] != "") : ?>
-                    <p class="card-text"><?php echo $match["location"]; ?></p>
+                    <p class="text"><?php echo htmlspecialchars($match["location"]); ?></p>
                 <?php endif; ?>
                 <?php if ($match['interests'] != "") : ?>
-                    <p class="card-text"><?php echo $match["interests"]; ?></p>
+                    <p class="text"><?php echo htmlspecialchars($match["interests"]); ?></p>
                 <?php endif; ?>
                 <?php if ($match['travel'] != "") : ?>
-                    <p class="card-text"><?php echo $match["travel"]; ?></p>
+                    <p class="text"><?php echo htmlspecialchars($match["travel"]); ?></p>
                 <?php endif; ?>
 
                 <div class="card-group">
@@ -131,11 +132,11 @@ $getrequestnot = $friend->notificationRequest($dataUser->getId(), false); */
                     // echo '<button><a href="functions.php?action=send_req&id=' . $match->getId() . '">Send Request</a></button>';
                     // } 
                     ?>
-                    <a href="chat.php/?id=<?php echo $match['id'] ?>" class="card-link">Accept</a>
-                    <a href="" class="card-link">Decline</a>
+                    <a href="chat.php/?id=<?php echo htmlspecialchars($match['id']); ?>" class="cardlink">Accept</a>
+                    <a href="" class="cardlink">Decline</a>
                 </div>
                 <form action="" method="POST" class="card-group">
-                    <input type="submit" class="btn btn-primary" name="request" value="Send buddy request">
+                    <input type="submit" class="submit2" name="request" value="Send buddy request">
                 </form>
             </div>
         <?php endforeach; ?>

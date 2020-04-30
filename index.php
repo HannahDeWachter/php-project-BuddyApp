@@ -95,6 +95,7 @@ $users = User::buddies();
 </head>
 
 <body>
+<?php include_once(__DIR__ . "/includes/header.inc.php"); ?>
   <div class="container">
 
     <?php //if(isset($request)) : 
@@ -130,16 +131,18 @@ $users = User::buddies();
     <?php endif; ?>
 
 
-      <a href="./homepage.php">Home</a>
+     
     <?php include_once(__DIR__ . "/includes/header.inc.php"); ?>
+      
+    
     <?php if (isset($messageComplete)) : ?>
       <div class="alert-info">
-        <p><?php echo $messageComplete ?> Click <a href="profileDetails.php">here</a> to complete your profile.</p>
+        <p><?php echo $messageComplete ?> Click<a class="here" href="profileDetails.php">here</a> to complete your profile.</p>
       </div>
     <?php endif; ?>
-    <form action="" method="post">
+    <form action="" method="post" class="form">
       <div class="form-group ">
-        <h1> Filters </h1>
+        <h4 id="filter"> Filters </h4>
       </div>
       <div class="form-group">
         <label for="music" class="">Music</label><br>
@@ -168,20 +171,21 @@ $users = User::buddies();
           <option value="instrument">Play an instrument</option>
           <option value="read">Read books</option>
         </select>
-        <br>
-        <br>
-        <div class="form-group">
-          <label for="travel" class="">Travel</label><br>
-          <select id="travel" name="travel">
+    </div>
+        
+      <div class="form-group">
+        <label for="travel" class="">Travel</label><br>
+        <select id="travel" name="travel">
             <option value=""> -- Select an item -- </option>
             <option value="africa"> Africa </option>
             <option value="america">America</option>
             <option value="asia">Asia</option>
             <option value="europe">Europe</option>
             <option value="oceania">Oceania</option>
-          </select> <br> <br>
-          <div class="form btn">
-            <input type="submit" class="btn btn-primary" name="filter" value="Search">
+          </select> </div> 
+
+          <div>
+            <input type="submit" class="submit" name="filter" value="Search">
           </div>
           <br>
 
@@ -189,21 +193,30 @@ $users = User::buddies();
     <p> <b> Results: </b> </p>
     <?php if (isset($filters)) : ?>
       <?php foreach ($filters as $filter) : ?>
-        <p><?php echo $filter['firstname'] . " " . $filter['lastname'];  ?> </p> <!-- resultaat van searchfilter() moet hier komen !-->
+        <div class="card">
+         <img src="" alt="John" style="width:100%">
+        <br>
+         <h3><?php echo htmlspecialchars($filter['firstname']) . " " . htmlspecialchars($filter['lastname']);  ?> <!-- resultaat van searchfilter() moet hier komen !--></h3>
+         <p class="title">Full Stack Web Developer</p>
+         <p>InfancyIT</p>
+          
+  <p><a href="profile.php" class="button">Profile</a></p>
+</div>
+        <p>
       <?php endforeach; ?>
     <?php endif; ?>
     <hr>
     </hr>
     <!-- dit is de namesearch div !-->
-    <h1> Filter op naam </h1>
+    <h4 id="filternaam"> Filter op naam </h4>
     <br>
-    <form action="" method="post">
-      <div class="form-group">
+    <form action="" method="post" class="form">
+      <div id="naamsearch">
         <label for="namesearch" class=""> Search name </label>
         <input type="text" name="namesearch" id="namesearch" placeholder="name">
       </div> <br>
-      <div class="form btn">
-        <input type="submit" class="btn btn-primary" name="name" value="searchname">
+      <div>
+        <input type="submit" class="submit" name="name" value="searchname">
       </div>
     </form>
     <br>
@@ -211,7 +224,17 @@ $users = User::buddies();
     <p> <b> Results: </b> </p>
     <?php if (isset($results)) : ?>
       <?php foreach ($results as $result) : ?>
-        <p><?php echo $result['firstname'] . " " . $result['lastname'];  ?> </p> <!-- resultaat van searchpeop() moet hier komen !-->
+        <div class="card">
+         <img src="" alt="John" style="width:100%">
+        <br>
+         <h3><?php echo htmlspecialchars($result['firstname']) . " " . htmlspecialchars($result['lastname']);  ?></h3>
+         <p class="title">Full Stack Web Developer</p>
+         <p>InfancyIT</p>
+          
+  <p><a href="profile.php" class="button">Profile</a></p>
+</div>
+        
+        <!-- profiel moet afgeprint worden dus first last name, image en miss bio + knop bekijk profiel !-->
       <?php endforeach; ?>
     <?php endif; ?>
 
@@ -220,7 +243,8 @@ $users = User::buddies();
     <p> <b> Buddies:</b></p>
 
     <?php foreach ($users as $user) : ?>
-      <p><?php echo $user['user1'] . " and " . $user['user2'] . " are now buddies."; ?></p>
+      
+      <p><?php echo htmlspecialchars($user['user1']) . " and " . htmlspecialchars($user['user2']) . " are now buddies."; ?></p>
     <?php endforeach;  ?>
 
   </div>

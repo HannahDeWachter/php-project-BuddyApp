@@ -7,7 +7,7 @@ class User
     private $id;
     private $firstname;
     private $lastname;
-    private $username;
+    
     private $email;
     private $password;
     private $imdYear;
@@ -307,7 +307,7 @@ class User
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['firstname'] = $user['firstname'];
         // var_dump($user);
-        header('location: index.php');
+        header('location: homepage.php');
     }
 
     public static function findMatches($arrayUsers, $dataUser)
@@ -461,7 +461,7 @@ class User
 
         $result = $statement->execute();
 
-        header('location: profile.php');
+        header('location: editProfile.php');
         // echo "ik ben hier aan het saven";
         return $result;
     }
@@ -492,7 +492,7 @@ class User
 
         $result = $statement->execute();
 
-        header('location: profile.php');
+        header('location: editProfile.php');
         echo "ik ben hier aan het saven";
         return $result;
     }
@@ -527,7 +527,7 @@ class User
         $statement->bindParam(':password', $newPassword);
         $result = $statement->execute();
 
-        header('Location: profile.php');
+        header('Location: editProfile.php');
         echo "password has been updated";
 
         return $result;
@@ -547,7 +547,7 @@ class User
         $statement->bindParam(':email', $newEmail);
         $result = $statement->execute();
 
-        header('Location: profile.php');
+        header('Location: editProfile.php');
         echo "password has been updated";
 
         return $result;
@@ -678,27 +678,7 @@ class User
         return $result;
     }
 
-    /**
-     * 
-     * Geef de ingevoerde waarde mee met je functie, zodat deze hem kan inlezen in de query en updaten
-     * 
-     * PAS OP: hardcoded user_id's dus verander deze via variabelen naar je eigen id en de andere persoon of vice versa
-     * public function denyreason($deny_reason)
-    {
-        $conn = Db::getConnection();
-        // als er deny is geklikt dan moet de reason in de kolom reason komen
-        $statement = $conn->prepare("UPDATE matched SET deny_reason = :deny_reason WHERE user1_id = '3' AND user2_id = '4' OR user1_id = '4' AND user2_id = '3';");
-        // UPDATE matched SET reason = "no reason" WHERE user1_id = 3 AND user2_id = 4 OR user1_id = 4 AND user2_id = 3;
-        //insert into matched(deny_reason) values (:deny_reason)
-
-        $statement->bindParam(":deny_reason", $deny_reason);
-        $result = $statement->execute();
-        header('location: index.php');
-        // echo "ik ben hier aan het saven";
-        // var_dump($result);
-        return $result;
-    }
-     */
+    
 
     public function accept($myId, $friendId, $status)
     {

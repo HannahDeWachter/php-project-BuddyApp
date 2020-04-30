@@ -43,21 +43,23 @@ if (!empty($_POST)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
     <title>Buddy Profile</title>
 </head>
 
 <body>
     <?php include_once(__DIR__ . "/includes/header.inc.php"); ?>
 
-    <a href="profile.php">Go back to profile</a>
+    <a href="profile.php"id="backto">Go back to profile</a>
+    
 
     <div class="container">
 
         <form action="" method="post" class="form">
-            <h2 class="form__title">Complete your profile, <?php echo $dataUser['firstname']; ?></h2>
+            <h4 class="title">Complete your profile, <?php echo htmlspecialchars($dataUser['firstname']); ?></h4>
             <div class="form-group">
                 <label for="location">In what city do you live?</label><br>
-                <input type="text" class="form-control" name="location" id="location" placeholder="City" value="<?php echo $dataUser['location']; ?>">
+                <input type="text" class="form-control" name="location" id="location" placeholder="City" value="<?php echo htmlspecialchars($dataUser['location']); ?>">
             </div>
             <div class="form-group">
                 <label for="specialization">Design or Development?</label><br>
@@ -163,7 +165,7 @@ if (!empty($_POST)) {
                                                                                                 echo "checked";
                                                                                             } ?> value="oceania">Oceania
             </div>
-            <input type="submit" class="btn btn-primary" value="Save">
+            <input type="submit" class="submit" value="Save">
         </form>
     </div>
 </body>

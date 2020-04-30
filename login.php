@@ -24,19 +24,20 @@ if (!empty($_POST)) {
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Login</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"> !-->
   <!-- CSS Files -->
   <link href="css/style.css" rel="stylesheet" />
 </head>
 
 <body>
-
+<!--<?php //include_once(__DIR__ . "/includes/header.inc.php"); ?> !-->
+<img class="logo1" src="./images/buddy-logo.svg">
   <div class="container">
 
     <form class="form" method="post" action="">
 
       <div class="header">
-        <h2>BUDDY APP</h2>
+        
         <?php if (isset($error)) : ?>
           <div class="form alert-danger">
             <p>
@@ -61,7 +62,7 @@ if (!empty($_POST)) {
       </div>
 
 
-      <input type="submit" value="Sign in" class="btn btn-primary">
+      <input type="submit" value="Sign in" class="submit">
 
     </form>
 

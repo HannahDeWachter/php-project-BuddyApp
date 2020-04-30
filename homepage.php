@@ -27,6 +27,7 @@ $numberOfBuddies = User::getAllBuddies();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
     <title>Home</title>
 </head>
 
@@ -35,15 +36,15 @@ $numberOfBuddies = User::getAllBuddies();
     <?php include_once(__DIR__ . "/includes/header.inc.php"); ?>
     <?php if (isset($messageComplete)) : ?>
         <div class="alert-info">
-            <p><?php echo $messageComplete ?> Click <a href="profileDetails.php">here</a> to complete your profile.</p>
+            <p class="homepage"><?php echo $messageComplete ?> Click <a href="profileDetails.php">here</a> to complete your profile.</p>
         </div>
     <?php endif; ?>
 
-    <p>There are <?php echo $numberOfRegisteredUsers; ?> students registerd.</p>
+    <p class="homepage">There are <?php echo $numberOfRegisteredUsers; ?> students registerd.</p>
     <?php if ($numberOfBuddies === 1) : ?>
-        <p>There is <?php echo $numberOfBuddies; ?> buddy match.</p>
+        <p class="homepage">There is <?php echo $numberOfBuddies; ?> buddy match.</p>
     <?php else : ?>
-        <p>There are <?php echo $numberOfBuddies; ?> buddy matches.</p>
+        <p class="homepage">There are <?php echo $numberOfBuddies; ?> buddy matches.</p>
     <?php endif; ?>
 </body>
 
