@@ -1,8 +1,21 @@
 @import url('https://fonts.googleapis.com/css?family=Oswald&display=swap');
 
 body{
-    background-color: #EFAB4A;
-   margin:0 0;
+background-color: #EFAB4A;
+height: 100%;
+overflow: hidden;
+padding: 0px;
+margin: 0px;
+}
+.navbar-nav {
+    display: -ms-flexbox;
+    display: flex;
+    /* width: 350px; */
+   
+    /* flex-direction: column; */
+    /* padding-left: 0; */
+    margin-bottom: 0;
+    /* list-style: none; */
 }
 .logo{
     width:350px;

@@ -36,7 +36,7 @@ if (!empty($_POST)) {
     <form class="form" method="post" action="">
 
       <div class="header">
-        <h2>BUDDY APP</h2>
+        
         <?php if (isset($error)) : ?>
           <div class="form alert-danger">
             <p>

@@ -18,11 +18,11 @@ if (!empty($_POST)) {
 
         if (!isset($error)) {
             $user = new User();
-            $user->setEmail(htmlspecialchars($_POST['email']));
-            $user->setFirstName(htmlspecialchars($_POST['firstname']));
-            $user->setLastName(htmlspecialchars($_POST['lastname']));
-            $user->setPassword(htmlspecialchars($_POST['password']));
-            $user->setImdYear(htmlspecialchars($_POST['imdYear']));
+            $user->setEmail($_POST['email']);
+            $user->setFirstName($_POST['firstname']);
+            $user->setLastName($_POST['lastname']);
+            $user->setPassword($_POST['password']);
+            $user->setImdYear($_POST['imdYear']);
             $user->save();
         }
     } catch (Throwable $th) {
@@ -37,7 +37,9 @@ if (!empty($_POST)) {
 <html lang="en">
 
 <head>
-
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Register</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
     <link rel="stylesheet" href="css/style.css">

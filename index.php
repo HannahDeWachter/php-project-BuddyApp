@@ -178,7 +178,7 @@ $users = User::buddies();
     <p> <b> Results: </b> </p>
     <?php if (isset($filters)) : ?>
       <?php foreach ($filters as $filter) : ?>
-        <p><?php echo $filter['firstname'] . " " . $filter['lastname'];  ?> </p> <!-- resultaat van searchfilter() moet hier komen !-->
+        <p><?php echo htmlspecialchars($filter['firstname'] . " " . $filter['lastname']);  ?> </p> <!-- resultaat van searchfilter() moet hier komen !-->
       <?php endforeach; ?>
     <?php endif; ?>
     <hr>
@@ -200,7 +200,7 @@ $users = User::buddies();
     <p> <b> Results: </b> </p>
     <?php if (isset($results)) : ?>
       <?php foreach ($results as $result) : ?>
-        <p><?php echo $result['firstname'] . " " . $result['lastname'];  ?> </p> <!-- resultaat van searchpeop() moet hier komen !-->
+        <p><?php echo htmlspecialchars($result['firstname'] . " " . $result['lastname']);  ?> </p> <!-- resultaat van searchpeop() moet hier komen !-->
       <?php endforeach; ?>
     <?php endif; ?>
 
@@ -209,7 +209,7 @@ $users = User::buddies();
     <p> <b> Buddies:</b></p>
 
     <?php foreach ($users as $user) : ?>
-      <p><?php echo $user['user1'] . " and " . $user['user2'] . " are now buddies."; ?></p>
+      <p><?php echo htmlspecialchars($user['user1'] . " and " . $user['user2'] . " are now buddies."); ?></p>
     <?php endforeach;  ?>
 
   </div>

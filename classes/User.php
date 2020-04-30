@@ -7,7 +7,7 @@ class User
     private $id;
     private $firstname;
     private $lastname;
-    private $username;
+    
     private $email;
     private $password;
     private $imdYear;

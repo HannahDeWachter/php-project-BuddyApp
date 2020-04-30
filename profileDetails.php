@@ -55,10 +55,10 @@ if (!empty($_POST)) {
     <div class="container">
 
         <form action="" method="post" class="form">
-            <h2 class="form__title">Complete your profile, <?php echo $dataUser['firstname']; ?></h2>
+            <h2 class="form__title">Complete your profile, <?php echo htmlspecialchars($dataUser['firstname']); ?></h2>
             <div class="form-group">
                 <label for="location">In what city do you live?</label><br>
-                <input type="text" class="form-control" name="location" id="location" placeholder="City" value="<?php echo $dataUser['location']; ?>">
+                <input type="text" class="form-control" name="location" id="location" placeholder="City" value="<?php echo htmlspecialchars($dataUser['location']); ?>">
             </div>
             <div class="form-group">
                 <label for="specialization">Design or Development?</label><br>
