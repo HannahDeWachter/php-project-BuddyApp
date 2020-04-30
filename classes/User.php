@@ -456,7 +456,7 @@ class User
 
         $result = $statement->execute();
 
-        header('location: profile.php');
+        header('location: editProfile.php');
         // echo "ik ben hier aan het saven";
         return $result;
     }
@@ -487,7 +487,7 @@ class User
 
         $result = $statement->execute();
 
-        header('location: profile.php');
+        header('location: editProfile.php');
         echo "ik ben hier aan het saven";
         return $result;
     }
@@ -522,7 +522,7 @@ class User
         $statement->bindParam(':password', $newPassword);
         $result = $statement->execute();
 
-        header('Location: profile.php');
+        header('Location: editProfile.php');
         echo "password has been updated";
 
         return $result;
@@ -542,7 +542,7 @@ class User
         $statement->bindParam(':email', $newEmail);
         $result = $statement->execute();
 
-        header('Location: profile.php');
+        header('Location: editProfile.php');
         echo "password has been updated";
 
         return $result;
