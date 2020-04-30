@@ -158,7 +158,7 @@ if(isset($_POST["submitEmail"])){
     <?php include_once(__DIR__ . "/includes/header.inc.php"); ?>
 
 
-    
+    <a href="profile.php" id="backto"> Back to profile </a>
  <!-- <p> ?php echo $buddymes; ?> </p> -->
     <img src="" alt="" id="profilePic">
     <strong id="name"></strong>
@@ -178,28 +178,28 @@ if(isset($_POST["submitEmail"])){
 <div class="proimg">
 <img src="images/<?php echo htmlspecialchars($fileImg); ?>" alt="profileImage" class="profile-image" height="100px" width="100px">
     <form action="" method="POST" enctype="multipart/form-data">
-        <div class="form-group">
+        <div class="form-group1">
             <label for="profilImg" class="label">Upload profile image</label>
             <input type="file" class="form-control-file" id="profileImg" name="file" >            
         </div>
-        <button type="submit" name="submitProfileImg" class="btn btn-primary">Upload</button>
+        <button type="submit" name="submitProfileImg" class="submit3">Upload</button>
     </form>
 </div>
 
 <div class="containerBio">
     <p><?php echo htmlspecialchars($bio);?></p>
     <form method="POST">    
-    <div class="form-group">
+    <div class="form-group1">
         <label for="bio" class="label">Write something nice about yourself</label>
         <textarea class="form-control" id="bio" name="text" value="text" rows="3"></textarea>
     </div>
-    <button type="submit" name="submitBio" class="submit">Upload</button>
+    <button type="submit" name="submitBio" class="submit3">Upload</button>
     </form>
 </div>
 
 <div class="containerChange">
     <form method="POST">
-        <div class="form-group">
+        <div class="form-group1">
             <label for="oldPassword" class="label">Old password</label>
             <input type="password" class="form-control" name="oldPassword" id="oldPassword">
         </div>
@@ -207,10 +207,10 @@ if(isset($_POST["submitEmail"])){
             <label for="newPassword" class="label">New password</label>
             <input type="password" class="form-control" name="newPassword" id="newPassword">
         </div>
-        <button type="submit" name="submitPassword" class="btn btn-primary">Submit</button>
+        <button type="submit" name="submitPassword" class="submit3">Submit</button>
     </form>
     <form method="POST">
-        <div class="form-group">
+        <div class="form-group1">
             <label for="oldEmail" class="label">Old email</label>
             <input type="email" class="form-control" name="oldEmail" id="oldEmail">
         </div>
@@ -218,7 +218,7 @@ if(isset($_POST["submitEmail"])){
             <label for="newEmail" class="label">New email</label>
             <input type="email" class="form-control" name="newEmail" id="newEmail">
         </div>
-        <button type="submit" name="submitEmail" class="btn btn-primary">Submit</button>
+        <button type="submit" name="submitEmail" class="submit3">Submit</button>
     </form>
 </div>
 </body>
