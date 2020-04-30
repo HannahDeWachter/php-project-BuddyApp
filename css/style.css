@@ -2,60 +2,83 @@
 
 body{
 background-color: #EFAB4A;
-height: 100%;
-overflow: hidden;
+
+/*overflow: hidden;*/
 padding: 0px;
 margin: 0px;
 }
-.navbar-nav {
+.nav {
     display: -ms-flexbox;
     display: flex;
-    /* width: 350px; */
-   
-    /* flex-direction: column; */
-    /* padding-left: 0; */
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding-left: 0;
     margin-bottom: 0;
-    /* list-style: none; */
+    width: 350px;
+    margin-left: auto;
+    list-style: none;
+    margin-right: auto;
 }
 .logo{
-    width:350px;
-    padding-bottom:0;
-    padding-top:25px;
-    /*Margin-left:280px;
-    Margin-right:auto;*/
+    width: 311px;
+    padding-bottom: 0;
+    margin-left: auto;
+    padding-top: 25px;
+    margin-right: auto;
 }
+.nava{
+    margin-left:auto;
+    margin-right: auto;
+    padding-right:5px;
+    padding-left:5px;
+    text-decoration: underline;
+}
+a:active {
+    color: rgb(0, 255, 221);
+  } 
 .form{
-    width:300px;
+    
     margin-left:auto;
     margin-right:auto;
     
 }
 .form-group{
-    font-size:34px;
+    font-size:20px;
     font-family:'Oswald', sans-serif;
     color:#F5D77D;
     text-align:left;
     margin-top:15px;
-    
+    margin-left: 75px;
+    margin-right: auto;   
     
 }
 h4{
-    font-size:45px;
-    font-family:'Oswald', sans-serif;
-    color:#E01093;
+    font-size: 45px;
+    font-family: 'Oswald', sans-serif;
+    color: #E01093;
+    margin-left: 100px;
+    padding-top: 50px;
+    padding-bottom: 5px;
+    margin-right: auto;
     
+}
+#create{
+    font-size: 45px;
+    margin-left: 15px;
+    margin-right: auto;
 }
 .link{
-    margin-left:auto;
-    margin-right:auto;
-    width:350px;
-    padding-top:20px;
+    margin-left: 55px;
+    margin-right: auto;
+    width: 350px;
+    /* padding-top: 20px; */
+    padding-bottom: 20px;
     
 }
-a{
-    color:#E01093;
-    font-size:20px;
+a{color: #E01093;
+    font-size: 16px;
     font-family: 'Oswald', sans-serif;
+    margin-left: 57px;
 }
 .form-control{
     width:135px;
@@ -73,16 +96,23 @@ a{
     
 }
 .submit{
-    width:200px;
-    height:60px;
-    margin-top:25px;
-    background-color:#39CFA9;
-    color:#E01093;
-    font-size:26px;
-    font-family:'Oswald', sans-serif;
-    padding-bottom:5px;
+    width: 150px;
+    height: 40px;
+    margin-top: 20px;
+    background-color: #39CFA9;
+    color: #E01093;
+    margin-bottom: 10px;
+    padding-top: 0px;
+    font-size: 24px;
+    margin-left: 75px;
+    font-family: 'Oswald', sans-serif;
+    padding-bottom: -71px;
+    margin-right: auto;
 
     
+}
+.label{
+    font-size:22px;
 }
 .submit1{
     width:150px;

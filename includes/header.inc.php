@@ -14,14 +14,14 @@
 
 
 
-<nav class="navbar navbar-nav">
+<nav class="nav">
 <img class="logo" src="./images/buddy-logo.svg">
-<a href="./homepage.php"> Home </a>
-    <a href="./index.php"> Filter </a>
-    <a href="./matches.php"> Match </a>
-    <a href="./chat.php"> Chat </a>
-    <a href="./profile.php"> My profile </a> 
-<a href="./logout.php" class="nav-link nav-tabs nav-item navbar-text">Logout</a>
+<a href="./homepage.php" class="nava"> Home </a>
+    <a href="./index.php" class="nava"> Filter </a>
+    <a href="./matches.php" class="nava"> Match </a>
+    <a href="./chat.php" class="nava"> Chat </a>
+    <a href="./profile.php" class="nava"> My profile </a> 
+<a href="./logout.php" class="nava">Logout</a>
     
 
     
