@@ -155,3 +155,67 @@ p{
     color:white;
 }
 
+/*
+*
+*
+* matches pagina */
+.cardmatch{
+    background-color:#EFAB4A;
+    margin-top: 20px;
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+
+    background-clip: border-box;
+    border: 2px solid rgba(250, 179, 72, 0.125);
+    border-radius: .25rem;
+    margin-left:auto;
+    margin-right:auto;
+    
+}
+.title{
+    margin-left:auto;
+    margin-right:auto;
+}
+.submit2{
+    width: 150px;
+    height: 40px;
+    margin-top: 20px;
+    background-color: #39CFA9;
+    color: #E01093;
+    margin-bottom: 10px;
+    padding-top: 0px;
+    font-size: 16px;
+    margin-left: 95px;
+    font-family: 'Oswald', sans-serif;
+    padding-bottom: -71px;
+    margin-right: auto;
+}
+.text{
+    margin-left:auto;
+    margin-right:auto;
+}
+.cardlink{
+    width: 150px;
+    height: 40px;
+    margin-top: 20px;
+    background-color: #F5D77D;
+    color: #E01093;
+    margin-bottom: 18px;
+    padding-top: 1px;
+    font-size: 16px;
+    margin-left: 80px;
+    
+    padding-left: 5px;
+    padding-right: 5px;
+    font-family: 'Oswald', sans-serif;
+    margin-right: auto;
+}
+/* my profile */
+
+
+
