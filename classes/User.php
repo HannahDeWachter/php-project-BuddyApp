@@ -7,13 +7,12 @@ class User
     private $id;
     private $firstname;
     private $lastname;
+    private $username;
     private $email;
     private $password;
     private $imdYear;
     private $profileImg;
     private $bio;
-
-    
 
 
     private $location;
@@ -177,6 +176,7 @@ class User
 
         return $this;
     }
+     
 
     public function updateUser()
     {
@@ -210,6 +210,7 @@ class User
         $statement = $conn->prepare("insert into users(firstname,lastname,email,password,imdYear) values (:firstname, :lastname, :email, :password, :imdYear)");
         $firstname = $this->getFirstName();
         $lastname = $this->getLastName();
+        
         $email = $this->getEmail();
         $password = $this->getPassword();
         $imdYear = $this->getImdYear();
@@ -219,6 +220,7 @@ class User
 
         $statement->bindParam(":firstname", $firstname);
         $statement->bindParam(":lastname", $lastname);
+        
         $statement->bindParam(":email", $email);
         $statement->bindParam(":password", $password);
         $statement->bindParam(":imdYear", $imdYear);
@@ -236,25 +238,30 @@ class User
     public function endsWith($email, $endString)
     {
         $len = strlen($endString);
-        return (substr($email, -$len, $len));
-        // echo "emailtje";
+        if (substr($email, -$len) === $endString) {
+            return true;
+        } else {
+            return false;
+        }
     }
+
     public function availableEmail($email)
     {
         $conn = Db::getConnection();
-        $statement = $conn->prepare("SELECT * FROM users WHERE email = :email ");
+        $statement = $conn->prepare("SELECT * FROM users WHERE email = :email LIMIT 1");
         $statement->bindParam(":email", $email);
         $statement->execute();
-        $result = $statement->fetchAll(PDO::FETCH_ASSOC); //fetchAll geeft array, fetch geeft true/false
-        return empty($result); //is hetzelfde als if else hieronder
-        /*if (empty($result)) {
-            // echo "gestuurd";
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+        if ($result == false) {
+            // Email available
             return true;
         } else {
-            // echo "niet gestuurd";
+            // Email not available
             return false;
-        }*/
+        }
     }
+
     public static  function getAllInformation($id)
     {
         $conn = Db::getConnection();
@@ -383,10 +390,9 @@ class User
         // var_dump($users);
         return $users;
     }
-    
+
     public  function filter($music, $hobbies, $travel)
     {
-
         $conn = Db::getConnection();
         $statement = $conn->prepare("SELECT * from users where music
         LIKE concat('%', :music, '%') or travel
@@ -400,10 +406,8 @@ class User
         return $result;
     }
 
-
     public  function searchpeop($namesearch)
     {
-
         $conn = Db::getConnection();
 
         $statement = $conn->prepare("SELECT * from users where firstname = :namesearch");
@@ -416,19 +420,10 @@ class User
         return $result;
     }
 
-    /**
-     * Get the value of profileImg
-     */
     public function getProfileImg()
     {
         return $this->profileImg;
     }
-
-    /**
-     * Set the value of profileImg
-     *
-     * @return  self
-     */
     public function setProfileImg($profileImg)
     {
         $this->profileImg = $profileImg;
@@ -438,16 +433,11 @@ class User
     /**
      * Get the value of user1
      */
+
     public function getUser1()
     {
         return $this->user1;
     }
-
-    /**
-     * Set the value of user1
-     *
-     * @return  self
-     */
     public function setUser1($user1)
     {
         $this->user1 = $user1;
@@ -472,30 +462,20 @@ class User
         $result = $statement->execute();
 
         header('location: profile.php');
-        echo "ik ben hier aan het saven";
+        // echo "ik ben hier aan het saven";
         return $result;
     }
 
-    /**
-     * Get the value of bio
-     */
     public function getBio()
     {
         return $this->bio;
     }
-
-    /**
-     * Set the value of bio
-     *
-     * @return  self
-     */
     public function setBio($bio)
     {
         $this->bio = $bio;
 
         return $this;
     }
-
 
     public static function uploadBio($text)
     {
@@ -516,8 +496,6 @@ class User
         echo "ik ben hier aan het saven";
         return $result;
     }
-
-
 
     public static function bio()
     {
@@ -574,6 +552,7 @@ class User
 
         return $result;
     }
+
     public static function getAllBuddies()
     {
         $conn = Db::getConnection();
@@ -593,6 +572,7 @@ class User
         // var_dump($buddies);
         return $buddies;
     }
+
     public static function sendRequestMail($email, $name)
     {
         $email = "dewachterhannah@gmail.com";
@@ -646,12 +626,6 @@ class User
     {
         return $this->user2;
     }
-
-    /**
-     * Set the value of user2
-     *
-     * @return  self
-     */
     public function setUser2($user2)
     {
         $this->user2 = $user2;
@@ -659,20 +633,10 @@ class User
         return $this;
     }
 
-
-    /**
-     * Get the value of users
-     */
     public function getUsers()
     {
         return $this->users;
     }
-
-    /**
-     * Set the value of users
-     *
-     * @return  self
-     */
     public function setUsers($users)
     {
         $this->users = $users;
@@ -695,8 +659,8 @@ class User
         return $users;
     }
 
-    
-    public function denyreason($myId, $friendId, $deny_reason){
+    public function denyreason($myId, $friendId, $deny_reason)
+    {
         $conn = Db::getConnection();
 
         // als er deny is geklikt dan moet de reason in de kolom reason komen
@@ -707,10 +671,10 @@ class User
         $statement->bindParam(":myId", $myId);
         $statement->bindParam(":friendId", $friendId);
         $statement->bindParam(":deny_reason", $deny_reason);
-    
+
         $result = $statement->execute();
         header('location: index.php');
-      
+
         return $result;
     }
 
@@ -770,19 +734,10 @@ class User
         }
     }
 
-    /**
-     * Get the value of deny_reason
-     */ 
     public function getDeny_reason()
     {
         return $this->deny_reason;
     }
-
-    /**
-     * Set the value of deny_reason
-     *
-     * @return  self
-     */ 
     public function setDeny_reason($deny_reason)
     {
         $this->deny_reason = $deny_reason;
@@ -790,19 +745,10 @@ class User
         return $this;
     }
 
-    /**
-     * Get the value of request
-     */ 
     public function getRequest()
     {
         return $this->request;
     }
-
-    /**
-     * Set the value of request
-     *
-     * @return  self
-     */ 
     public function setRequest($request)
     {
         $this->request = $request;
@@ -810,19 +756,10 @@ class User
         return $this;
     }
 
-    /**
-     * Get the value of accept
-     */ 
     public function getAccept()
     {
         return $this->accept;
     }
-
-    /**
-     * Set the value of accept
-     *
-     * @return  self
-     */ 
     public function setAccept($accept)
     {
         $this->accept = $accept;
@@ -831,4 +768,17 @@ class User
 
         
     }
+
+    public static function getMatchedData($user1, $user2)
+    {
+        $conn = Db::getConnection();
+        $statement = $conn->prepare('select * from matched where user1_id = :user1 and user2_id = :user2 or user1_id = :user2 and user2_id = :user1');
+        $statement->bindParam(":user1", $user1);
+        $statement->bindParam(":user2", $user2);
+        $statement->execute();
+        $data = $statement->fetchAll(PDO::FETCH_ASSOC);
+        // var_dump($data);
+        return $data[0];
+    }
+  
 }

@@ -80,10 +80,10 @@ for ($x = 0; $x < count($matches); $x++) {
 }
 // var_dump($showedMatches);
 
-$getnotification = $friend->notificationRequest($id, false);
+/*$getnotification = $friend->notificationRequest($id, false);
 $checkRequestSender = $friend->senderReq($dataUser->getId(), $matches->getId());
 $checkRequestReceiver = $friend->receiverReq($dataUser->getId(), $userProfile->getId());
-$getrequestnot = $friend->notificationRequest($dataUser->getId(), false); 
+$getrequestnot = $friend->notificationRequest($dataUser->getId(), false); */
 
 ?>
 <!DOCTYPE html>
@@ -124,15 +124,19 @@ $getrequestnot = $friend->notificationRequest($dataUser->getId(), false);
                     <!-- <a href="" class="card-link">Accept</a>
                     <a href="" class="card-link">Decline</a> -->
                     <?php
-               if ($checkRequestReceiver) {
-                    echo '<button><a href="functions.php?action=ignore_req&id=' . $match->getId() . '">Deny</a></button>&nbsp;
-                    <button><a href="functions.php?action=accept_req&id=' . $match->getId() . '">Accept</a></button>';
-                } else {
-                    echo '<button><a href="functions.php?action=send_req&id=' . $match->getId() . '">Send Request</a></button>';
-                } ?> 
+                    // if ($checkRequestReceiver) {
+                    // echo '<button><a href="functions.php?action=ignore_req&id=' . $match->getId() . '">Deny</a></button>&nbsp;
+                    // <button><a href="functions.php?action=accept_req&id=' . $match->getId() . '">Accept</a></button>';
+                    // } else {
+                    // echo '<button><a href="functions.php?action=send_req&id=' . $match->getId() . '">Send Request</a></button>';
+                    // } 
+                    ?>
                     <a href="chat.php/?id=<?php echo $match['id'] ?>" class="card-link">Accept</a>
                     <a href="" class="card-link">Decline</a>
                 </div>
+                <form action="" method="POST" class="card-group">
+                    <input type="submit" class="btn btn-primary" name="request" value="Send buddy request">
+                </form>
             </div>
         <?php endforeach; ?>
     <?php endif; ?>

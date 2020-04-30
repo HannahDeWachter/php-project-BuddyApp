@@ -38,16 +38,7 @@ if (!empty($_POST['deny_reason'])) {
   $user->denyreason($_SESSION['user_id'], 1, $deny_reason);
 }
 
-/**
- * Nergens heb je gezegd dat wat effectief ingegeven wordt, ook via een setter naar deze waarde moet komen: anders zal hij altijd NULL doorgeven -> hieronder de juiste code
- * 
- * if (!empty($_POST['deny_reason'])) {
-  $deny_reason = htmlspecialchars($_POST['deny_reason']);
-  $reason = $user->setDeny_reason($deny_reason);
-  $user->denyreason($deny_reason);
 
-}
- */
 
 if ($allrequest['status'] === "verzoek") {
   $request = true;
@@ -139,6 +130,7 @@ $users = User::buddies();
     <?php endif; ?>
 
 
+      <a href="./homepage.php">Home</a>
     <?php include_once(__DIR__ . "/includes/header.inc.php"); ?>
     <?php if (isset($messageComplete)) : ?>
       <div class="alert-info">

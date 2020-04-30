@@ -7,7 +7,7 @@ if (!empty($_POST)) {
     try {
         $user = new User();
         if ($user->availableEmail($_POST['email'])) {
-            if ($user->endsWith($_POST['email'], "@student.thomasmore.be") === "@student.thomasmore.be") {
+            if ($user->endsWith($_POST['email'], "@student.thomasmore.be")) {
                 // $error = "klopt!";
             } else {
                 $error = "email has to end with @student.thomasmore.be";
@@ -39,7 +39,8 @@ if (!empty($_POST)) {
 <head>
 
     <title>Register</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -58,6 +59,7 @@ if (!empty($_POST)) {
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="text" class="form-control" id="email" name="email" placeholder="Email">
+                <div id="emailCheck"></div>
             </div>
             <div class="form-group">
                 <label for="firstname">Firstname</label>
@@ -67,6 +69,7 @@ if (!empty($_POST)) {
                 <label for="lastname">Lastname</label>
                 <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Lastname">
             </div>
+           
             <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="Password">
@@ -82,6 +85,8 @@ if (!empty($_POST)) {
             <a href="login.php">Back to login</a>
         </div>
     </div>
+
+    <script src="./js/app.js"></script>
 </body>
 
 </html>
