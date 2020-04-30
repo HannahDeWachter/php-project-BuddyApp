@@ -176,7 +176,7 @@ if(isset($_POST["submitEmail"])){
     <?php endif; ?>
 
 <div class="proimg">
-<img src="images/<?php echo $fileImg; ?>" alt="profileImage" class="profile-image" height="100px" width="100px">
+<img src="images/<?php echo htmlspecialchars($fileImg); ?>" alt="profileImage" class="profile-image" height="100px" width="100px">
     <form action="" method="POST" enctype="multipart/form-data">
         <div class="form-group">
             <label for="profilImg" class="label">Upload profile image</label>
@@ -187,13 +187,13 @@ if(isset($_POST["submitEmail"])){
 </div>
 
 <div class="containerBio">
-    <p><?php echo $bio;?></p>
+    <p><?php echo htmlspecialchars($bio);?></p>
     <form method="POST">    
     <div class="form-group">
         <label for="bio" class="label">Write something nice about yourself</label>
         <textarea class="form-control" id="bio" name="text" value="text" rows="3"></textarea>
     </div>
-    <button type="submit" name="submitBio" class="btn btn-primary">Upload</button>
+    <button type="submit" name="submitBio" class="submit">Upload</button>
     </form>
 </div>
 
