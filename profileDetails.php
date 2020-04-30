@@ -56,7 +56,7 @@ if (!empty($_POST)) {
     <div class="container">
 
         <form action="" method="post" class="form">
-            <h2 class="form__title">Complete your profile, <?php echo htmlspecialchars($dataUser['firstname']); ?></h2>
+            <h4 class="title">Complete your profile, <?php echo htmlspecialchars($dataUser['firstname']); ?></h4>
             <div class="form-group">
                 <label for="location">In what city do you live?</label><br>
                 <input type="text" class="form-control" name="location" id="location" placeholder="City" value="<?php echo htmlspecialchars($dataUser['location']); ?>">
@@ -165,7 +165,7 @@ if (!empty($_POST)) {
                                                                                                 echo "checked";
                                                                                             } ?> value="oceania">Oceania
             </div>
-            <input type="submit" class="btn btn-primary" value="Save">
+            <input type="submit" class="submit" value="Save">
         </form>
     </div>
 </body>

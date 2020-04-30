@@ -179,7 +179,16 @@ $users = User::buddies();
     <p> <b> Results: </b> </p>
     <?php if (isset($filters)) : ?>
       <?php foreach ($filters as $filter) : ?>
-        <p><?php echo htmlspecialchars($filter['firstname']) . " " . htmlspecialchars($filter['lastname']);  ?> </p> <!-- resultaat van searchfilter() moet hier komen !-->
+        <div class="card">
+         <img src="" alt="John" style="width:100%">
+        <br>
+         <h3><?php echo htmlspecialchars($filter['firstname']) . " " . htmlspecialchars($filter['lastname']);  ?> <!-- resultaat van searchfilter() moet hier komen !--></h3>
+         <p class="title">Full Stack Web Developer</p>
+         <p>InfancyIT</p>
+          
+  <p><a href="profile.php" class="button">Profile</a></p>
+</div>
+        <p>
       <?php endforeach; ?>
     <?php endif; ?>
     <hr>
@@ -204,12 +213,10 @@ $users = User::buddies();
         <div class="card">
          <img src="" alt="John" style="width:100%">
         <br>
-         <h3><b><?php echo htmlspecialchars($result['firstname']) . " " . htmlspecialchars($result['lastname']);  ?></b></h3>
+         <h3><?php echo htmlspecialchars($result['firstname']) . " " . htmlspecialchars($result['lastname']);  ?></h3>
          <p class="title">Full Stack Web Developer</p>
          <p>InfancyIT</p>
-          <div style="margin: 24px 0;">
-   
-  </div>
+          
   <p><a href="profile.php" class="button">Profile</a></p>
 </div>
         
@@ -222,6 +229,7 @@ $users = User::buddies();
     <p> <b> Buddies:</b></p>
 
     <?php foreach ($users as $user) : ?>
+      
       <p><?php echo htmlspecialchars($user['user1']) . " and " . htmlspecialchars($user['user2']) . " are now buddies."; ?></p>
     <?php endforeach;  ?>
 
