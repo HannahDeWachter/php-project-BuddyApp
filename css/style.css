@@ -40,6 +40,7 @@ a:active {
     
     margin-left:auto;
     margin-right:auto;
+    width:350px;
     
 }
 .form-group{
@@ -67,6 +68,12 @@ h4{
     margin-left: 15px;
     margin-right: auto;
 }
+#filter{
+    margin-left:0px;
+}
+#filternaam{
+    margin-left:0px; 
+}
 .link{
     margin-left: 55px;
     margin-right: auto;
@@ -88,8 +95,9 @@ a{color: #E01093;
     border-color: #F5D77D;
     padding-left: 5px;
     background-color:#EFAB4A;
-    margin-left:5px;
+    margin-left:5px; 
 }
+
 .radio{
     width:30px;
     height:25px;
