@@ -164,7 +164,7 @@ if(isset($_POST["submitEmail"])){
     <strong id="name"></strong>
     <?php if (isset($messageComplete)) : ?>
         <div class="alert-info">
-            <p><?php echo $messageComplete ?> Click <a href="profileDetails.php">here</a> to complete your profile.</p>
+            <p><?php echo $messageComplete ?> Click <a href="profileDetails.php" class="here">here</a> to complete your profile.</p>
         </div>
     <?php endif; ?>
 

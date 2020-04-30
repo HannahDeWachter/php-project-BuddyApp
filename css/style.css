@@ -70,9 +70,19 @@ h4{
 }
 #filter{
     margin-left:0px;
+    padding-top:0px;
 }
 #filternaam{
-    margin-left:0px; 
+    margin-left:50px; 
+}
+#naamsearch{
+    font-size:20px;
+    font-family:'Oswald', sans-serif;
+    color:#F5D77D;
+    text-align:left;
+    margin-top:15px;
+   margin-left:0px;
+    margin-right: auto;  
 }
 .link{
     margin-left: 55px;
@@ -136,6 +146,12 @@ a{color: #E01093;
 }
 .alert-info{
     background-color:#EF266A;
+    color:white;
+}
+p{
+    color:#606060;
+}
+.here{
     color:white;
 }
 

@@ -123,7 +123,7 @@ $users = User::buddies();
     
     <?php if (isset($messageComplete)) : ?>
       <div class="alert-info">
-        <p><?php echo $messageComplete ?> Click <a href="profileDetails.php">here</a> to complete your profile.</p>
+        <p><?php echo $messageComplete ?> Click<a class="here" href="profileDetails.php">here</a> to complete your profile.</p>
       </div>
     <?php endif; ?>
     <form action="" method="post" class="form">
@@ -157,8 +157,8 @@ $users = User::buddies();
           <option value="instrument">Play an instrument</option>
           <option value="read">Read books</option>
         </select>
-        <br>
-        <br>
+    </div>
+        
       <div class="form-group">
         <label for="travel" class="">Travel</label><br>
         <select id="travel" name="travel">
@@ -168,9 +168,9 @@ $users = User::buddies();
             <option value="asia">Asia</option>
             <option value="europe">Europe</option>
             <option value="oceania">Oceania</option>
-          </select> <br> <br>
+          </select> </div> 
 
-          <div class="form btn">
+          <div>
             <input type="submit" class="submit" name="filter" value="Search">
           </div>
           <br>
@@ -188,11 +188,11 @@ $users = User::buddies();
     <h4 id="filternaam"> Filter op naam </h4>
     <br>
     <form action="" method="post" class="form">
-      <div class="form-group">
+      <div id="naamsearch">
         <label for="namesearch" class=""> Search name </label>
         <input type="text" name="namesearch" id="namesearch" placeholder="name">
       </div> <br>
-      <div class="form btn">
+      <div>
         <input type="submit" class="submit" name="name" value="searchname">
       </div>
     </form>
@@ -202,6 +202,7 @@ $users = User::buddies();
     <?php if (isset($results)) : ?>
       <?php foreach ($results as $result) : ?>
         <p><?php echo htmlspecialchars($result['firstname']) . " " . htmlspecialchars($result['lastname']);  ?> </p> <!-- resultaat van searchpeop() moet hier komen !-->
+        <!-- profiel moet afgeprint worden dus first last name, image en miss bio + knop bekijk profiel !-->
       <?php endforeach; ?>
     <?php endif; ?>
 
