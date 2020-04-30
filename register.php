@@ -46,7 +46,9 @@ if (!empty($_POST)) {
 </head>
 
 <body>
-<?php include_once(__DIR__ . "/includes/header.inc.php"); ?>
+<!--<?php // include_once(__DIR__ . "/includes/header.inc.php"); ?> !-->
+<img class="logo1" src="./images/buddy-logo.svg">
+
     <div class="container">
         <form action="" method="post" class="form">
             <div class="header">

@@ -36,15 +36,15 @@ $numberOfBuddies = User::getAllBuddies();
     <?php include_once(__DIR__ . "/includes/header.inc.php"); ?>
     <?php if (isset($messageComplete)) : ?>
         <div class="alert-info">
-            <p><?php echo $messageComplete ?> Click <a href="profileDetails.php">here</a> to complete your profile.</p>
+            <p class="homepage"><?php echo $messageComplete ?> Click <a href="profileDetails.php">here</a> to complete your profile.</p>
         </div>
     <?php endif; ?>
 
-    <p>There are <?php echo $numberOfRegisteredUsers; ?> students registerd.</p>
+    <p class="homepage">There are <?php echo $numberOfRegisteredUsers; ?> students registerd.</p>
     <?php if ($numberOfBuddies === 1) : ?>
-        <p>There is <?php echo $numberOfBuddies; ?> buddy match.</p>
+        <p class="homepage">There is <?php echo $numberOfBuddies; ?> buddy match.</p>
     <?php else : ?>
-        <p>There are <?php echo $numberOfBuddies; ?> buddy matches.</p>
+        <p class="homepage">There are <?php echo $numberOfBuddies; ?> buddy matches.</p>
     <?php endif; ?>
 </body>
 

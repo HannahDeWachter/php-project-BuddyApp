@@ -201,7 +201,18 @@ $users = User::buddies();
     <p> <b> Results: </b> </p>
     <?php if (isset($results)) : ?>
       <?php foreach ($results as $result) : ?>
-        <p><?php echo htmlspecialchars($result['firstname']) . " " . htmlspecialchars($result['lastname']);  ?> </p> <!-- resultaat van searchpeop() moet hier komen !-->
+        <div class="card">
+         <img src="" alt="John" style="width:100%">
+        <br>
+         <h3><b><?php echo htmlspecialchars($result['firstname']) . " " . htmlspecialchars($result['lastname']);  ?></b></h3>
+         <p class="title">Full Stack Web Developer</p>
+         <p>InfancyIT</p>
+          <div style="margin: 24px 0;">
+   
+  </div>
+  <p><a href="profile.php" class="button">Profile</a></p>
+</div>
+        
         <!-- profiel moet afgeprint worden dus first last name, image en miss bio + knop bekijk profiel !-->
       <?php endforeach; ?>
     <?php endif; ?>

@@ -50,7 +50,8 @@ if (!empty($_POST)) {
 <body>
     <?php include_once(__DIR__ . "/includes/header.inc.php"); ?>
 
-    <a href="profile.php">Go back to profile</a>
+    <a href="profile.php"id="backto">Go back to profile</a>
+    
 
     <div class="container">
 
