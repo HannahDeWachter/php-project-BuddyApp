@@ -1,6 +1,10 @@
 <?php
-  // $userProfile = new User();
-   // $userProfile -> getUserById($_GET['id']);
+  
+include_once(__DIR__."/classes/User.php");
+include_once(__DIR."/includes/header.inc.php");
+
+$userProfile = new User();
+$userProfile -> $userProfile->getUser($_GET["id"]);
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -26,7 +30,7 @@
                     <div class="col-md-6">
                         <div class="profile-head">
                                     <h5>
-                                      <!-- <?php // echo htmlspecialchars($userProfile -> getFirstName()) . " " . htmlspecialchars($userProfile -> getLastName()); //hier komt de firstname en lastname   ?>  !--> Kshiti Ghelani
+                                      <!-- <?php echo htmlspecialchars($otherUser['firstname']) . " " . htmlspecialchars($otherUser['lastname'] ); //hier komt de firstname en lastname   ?>  !--> Kshiti Ghelani
                                     </h5>
                                     <h6 >
                                        <!-- print design or development hier !--> Web Developer and Designer
