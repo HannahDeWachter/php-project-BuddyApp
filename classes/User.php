@@ -760,5 +760,12 @@ class User
         // var_dump($data);
         return $data[0];
     }
-  
+  public static function getUser($id){
+      $conn = Db::getconnection();
+      $statement = $conn->prepare('select * from users where id= :id');
+      $statement->bindParam(":id", $id);
+      $statement-> execute();
+      $users = $statement->fetch(PDO::FETCH_ASSOC);
+      return $users;
+  }
 }

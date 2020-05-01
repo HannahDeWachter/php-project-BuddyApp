@@ -194,13 +194,14 @@ $users = User::buddies();
     <?php if (isset($filters)) : ?>
       <?php foreach ($filters as $filter) : ?>
         <div class="card">
+          <?php //echo htmlspecialchars($filter['profileimg']), ?> <!-- geen image in db !-->
          <img src="" alt="John" style="width:100%">
         <br>
          <h3><?php echo htmlspecialchars($filter['firstname']) . " " . htmlspecialchars($filter['lastname']);  ?> <!-- resultaat van searchfilter() moet hier komen !--></h3>
-         <p class="title">Full Stack Web Developer</p>
-         <p>InfancyIT</p>
+         <p class="title"><?php echo htmlspecialchars($filter['specialization']); ?> </p> 
+        
           
-  <p><a href="profile.php" class="button">Profile</a></p>
+  <p><a href="profile.php" class="submit">Profile</a></p>
 </div>
         <p>
       <?php endforeach; ?>
@@ -226,12 +227,13 @@ $users = User::buddies();
       <?php foreach ($results as $result) : ?>
         <div class="card">
          <img src="" alt="John" style="width:100%">
+         <?php //echo htmlspecialchars($filter['profileimg']), ?> <!-- geen image in db !-->
         <br>
          <h3><?php echo htmlspecialchars($result['firstname']) . " " . htmlspecialchars($result['lastname']);  ?></h3>
-         <p class="title">Full Stack Web Developer</p>
-         <p>InfancyIT</p>
+         <p class="title"><?php echo htmlspecialchars($result['specialization']); ?></p>
+         
           
-  <p><a href="profile.php" class="button">Profile</a></p>
+  <p><a href="profile.php" class="submit">Profile</a></p>
 </div>
         
         <!-- profiel moet afgeprint worden dus first last name, image en miss bio + knop bekijk profiel !-->
