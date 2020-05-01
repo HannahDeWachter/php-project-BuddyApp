@@ -201,7 +201,7 @@ $users = User::buddies();
          <p class="title"><?php echo htmlspecialchars($filter['specialization']); ?> </p> 
         
           
-  <p><a href="profile.php" class="submit">Profile</a></p>
+         <p><a href="profile.php?id=<?php echo $filter['id']; ?>" class="submit">Profile</a></p>
 </div>
         <p>
       <?php endforeach; ?>
@@ -233,7 +233,7 @@ $users = User::buddies();
          <p class="title"><?php echo htmlspecialchars($result['specialization']); ?></p>
          
           
-  <p><a href="profile.php" class="submit">Profile</a></p>
+         <p><a href="profile.php?id=<?php echo $result['id']; ?>" class="submit">Profile</a></p>
 </div>
         
         <!-- profiel moet afgeprint worden dus first last name, image en miss bio + knop bekijk profiel !-->

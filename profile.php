@@ -1,10 +1,13 @@
 <?php
   
 include_once(__DIR__."/classes/User.php");
-include_once(__DIR."/includes/header.inc.php");
+include_once(__DIR__."/includes/header.inc.php");
+session_start();
+$id = $_SESSION['user_id'];
 
+var_dump($id);
 $userProfile = new User();
-$userProfile -> $userProfile->getUser($_GET["id"]);
+$otherUser = $userProfile->getUser($id);
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -30,12 +33,13 @@ $userProfile -> $userProfile->getUser($_GET["id"]);
                     <div class="col-md-6">
                         <div class="profile-head">
                                     <h5>
-                                      <!-- <?php echo htmlspecialchars($otherUser['firstname']) . " " . htmlspecialchars($otherUser['lastname'] ); //hier komt de firstname en lastname   ?>  !--> Kshiti Ghelani
+                                      <?php echo htmlspecialchars($otherUser['firstname']) . " " . htmlspecialchars($otherUser['lastname'] ); //hier komt de firstname en lastname   ?>  !
                                     </h5>
                                     <h6 >
                                        <!-- print design or development hier !--> Web Developer and Designer
+                                       <?php echo htmlspecialchars($otherUser['specialization']); ?>
                                     </h6>
-                                    <h6> Hier komt de imdyear wat je hebt ingevuld buddy of buddyzoek</h6>
+                                    <h6> <?php echo htmlspecialchars($otherUser['imdYear']); ?>Hier komt de imdyear wat je hebt ingevuld buddy of buddyzoek</h6>
                                     <p> bio komt hier </p>
                            
                         </div>
