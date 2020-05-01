@@ -36,7 +36,7 @@ $otherUser = $userProfile->getUser($id);
                                       <?php echo htmlspecialchars($otherUser['firstname']) . " " . htmlspecialchars($otherUser['lastname'] ); //hier komt de firstname en lastname   ?>  !
                                     </h5>
                                     <h6 >
-                                       <!-- print design or development hier !--> Web Developer and Designer
+                                       <!-- print design or development hier !--> 
                                        <?php echo htmlspecialchars($otherUser['specialization']); ?>
                                     </h6>
                                     <h6> <?php echo htmlspecialchars($otherUser['imdYear']); ?>Hier komt de imdyear wat je hebt ingevuld buddy of buddyzoek</h6>
