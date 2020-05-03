@@ -78,7 +78,9 @@ for ($x = 0; $x < count($matches); $x++) {
         $x = count($matches); // array is gesorteerd op score, dus als er een kleiner is dan 25 moet de rest niet meer bekeken worden
     }
 }
-// var_dump($showedMatches);
+ var_dump($showedMatches);
+
+
 
 ?>
 <!DOCTYPE html>
@@ -100,6 +102,7 @@ for ($x = 0; $x < count($matches); $x++) {
             <p><?php echo $message ?> Click <a href="profileDetails.php">here</a> to complete your profile.</p>
         </div>
     <?php endif; ?>
+    <h2>Matches</h2>
     <?php if (!empty($showedMatches)) : ?>
         <?php foreach ($showedMatches as $match => $buddy) : ?>
             <div class="input-group-text card">
@@ -119,7 +122,13 @@ for ($x = 0; $x < count($matches); $x++) {
                     <a href="chat.php?id=<?php echo $buddy["id"];?>" class="card-link">Accept</a>
                     <a href="" class="card-link">Decline</a>
                 </div>
+            <div class="table">
+                <strong><?php echo $match["name"]; ?></strong>
+                <p><?php echo $match["location"]; ?></p>
+                <p><?php echo $match["interests"]; ?></p>
+                <p><?php echo $match["travel"]; ?></p>
             </div>
+            <a href="chat.php?id=<?php echo $match;?>">Accept</a>
         <?php endforeach; ?>
     <?php endif; ?>
 </body>
