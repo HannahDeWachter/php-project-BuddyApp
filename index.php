@@ -232,12 +232,12 @@ $users = User::buddies();
   </form>
   <br>
 
-  <p> <b> Results: </b> </p>
-  <?php if (isset($results)) : ?>
-    <?php foreach ($results as $result) : ?>
-      <p><?php echo $result['firstname'] . " " . $result['lastname'];  ?> </p> <!-- resultaat van searchpeop() moet hier komen !-->
-    <?php endforeach; ?>
-  <?php endif; ?>
+  <!-- <p> <b> Results: </b> </p>
+  ?php if (isset($results)) : ?>
+    ?php foreach ($results as $result) : ?>
+      <p>?php echo $result['firstname'] . " " . $result['lastname'];  ?> </p> <!-- resultaat van searchpeop() moet hier komen 
+    ?php endforeach; ?>
+  ?php endif; ?> -->
 
   
  
