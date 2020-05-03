@@ -1,8 +1,8 @@
 <?php
-  
+session_start();
+
 include_once(__DIR__."/classes/User.php");
 include_once(__DIR__."/includes/header.inc.php");
-session_start();
 $id = $_SESSION['user_id'];
 
 var_dump($id);

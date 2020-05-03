@@ -1,8 +1,9 @@
 <?php
+session_start();
 
 include_once(__DIR__ . "/classes/User.php");
+include_once(__DIR__ . "/classes/Comment.php");
 include_once(__DIR__ . "/includes/header.inc.php");
-session_start();
 $id = $_SESSION['user_id'];
 $allInformation = User::getAllInformation($id);
 // var_dump($allInformation);
@@ -18,6 +19,7 @@ $arrayUsers = User::getAllUsers(null);
 $numberOfRegisteredUsers = count($arrayUsers);
 // echo $numberOfRegisteredUsers;
 $numberOfBuddies = User::getAllBuddies();
+$allBuddys = User::AllBuddys($id);
 
 ?>
 <!DOCTYPE html>
@@ -46,6 +48,31 @@ $numberOfBuddies = User::getAllBuddies();
     <?php else : ?>
         <p class="homepage">There are <?php echo $numberOfBuddies; ?> buddy matches.</p>
     <?php endif; ?>
+
+    <table class="table table-bordered table-striped" style=" width: 70%; height: 50px; margin: 0 auto;">
+  <tr>
+        <th>Username</th>
+        <th>Unread</th>
+        <th>Action</th>
+    </tr>
+    <?php foreach($allBuddys as $b => $row): ?>
+        <?php $Name = User::getAllInformation($row["user2_id"]);  ?>
+        <div class="table">
+        <tr>
+            <td><?php echo $Name["firstname"]; ?></td>
+            <td><?php 
+            $output = "";
+            $count = Comment::unseenMessage($id, $row["user2_id"]);
+            if( $count>0){
+                $output = '<span class="label label-succes">'.$count.'</span>';
+            }
+            echo $output;
+            ?></td>
+            <td><a href="chat.php?id=<?php echo $row["user2_id"];?>" class="btn btn-primary" name="btnAccept">Chat</a></td>
+        </tr>
+        </div>
+    <?php endforeach; ?>
+  </table>
 </body>
 
 </html>
