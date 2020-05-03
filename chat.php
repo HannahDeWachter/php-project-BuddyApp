@@ -1,10 +1,10 @@
 <?php
+session_start();
 
 include_once(__DIR__ . "/classes/User.php");
 include_once(__DIR__ . "/classes/Comment.php");
 include_once(__DIR__ . "/includes/header.inc.php");
 
-session_start();
 $id = $_SESSION['user_id'];
 $user1 = User::getAllInformation($id);
 //var_dump($user1);
@@ -38,7 +38,7 @@ if (isset($_POST['request'])) {
 
 
 $buddyId = $_GET['id'];
-var_dump($id, $buddyId);
+// var_dump($id, $buddyId);
 $buddyInfo = User::getAllInformation($buddyId);
 User::buddy($id, $buddyId);
 

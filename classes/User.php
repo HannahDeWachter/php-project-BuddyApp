@@ -661,13 +661,13 @@ class User
         $result = $statement->fetchAll(PDO::FETCH_ASSOC); //fetchAll geeft array, fetch geeft true/false
         //is hetzelfde als if else hieronder
         if (empty($result)) {
-            var_dump("nieuw");
+            // var_dump("nieuw");
             $statement = $conn->prepare("INSERT INTO buddy ( user1_id, user2_id) VALUES ( :user1_id, :user2_id)");
             $statement->bindParam(":user1_id", $id);
             $statement->bindParam(":user2_id", $buddyId);
             $statement->execute();
         } else {
-            var_dump("bestaand");
+            // var_dump("bestaand");
         }
 
 
