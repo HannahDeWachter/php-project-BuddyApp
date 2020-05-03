@@ -364,6 +364,7 @@ class User
     }
 
 
+
     /**
      * Get the value of user1
      */ 
@@ -404,43 +405,43 @@ class User
         return $this;
     }  
 
-    public static function buddy( $user1_id, $user2_id){
+    public static function buddy( $id, $buddyId){
+
+        $conn=Db::getConnection();
+        // $statement = $conn->prepare("SELECT * FROM buddy WHERE (user1_id = :user1_id AND user2_id = :user2_id) OR (user1_id = :user2_id AND user2_id = :user1_id)");
+        
+        $statement = $conn->prepare("SELECT * FROM buddy WHERE user1_id = :user1_id AND user2_id = :user2_id ");
+        $statement->bindParam(":user1_id", $id);
+        $statement->bindParam(":user2_id", $buddyId);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC); //fetchAll geeft array, fetch geeft true/false
+        //is hetzelfde als if else hieronder
+        if (empty($result)) {
+            var_dump("nieuw");
+            $statement = $conn->prepare("INSERT INTO buddy ( user1_id, user2_id) VALUES ( :user1_id, :user2_id)");
+            $statement->bindParam(":user1_id", $id);
+            $statement->bindParam(":user2_id", $buddyId);
+            $statement->execute();
+        } else {
+            var_dump("bestaand");
+        }
+
+
+    }
+
+    public static function AllBuddys( $id){
 
         $conn=Db::getConnection();
 
-        $statement = $conn->prepare("INSERT INTO buddy ( user1_id, user2_id) VALUES ( :user1_id, :user2_id)");
-        $statement->bindParam(":user1_id", $user1_id);
-        $statement->bindParam(":user2_id", $user2_id);
-
+        $statement = $conn->prepare("SELECT user2_id FROM buddy WHERE user1_id = $id");
+        
         $statement->execute();
+
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
       
         // var_dump($statement);
     }
-
-    public static function reciever($user2_id){
-        $conn=Db::getConnection();
-
-        $statement = $conn->prepare("SELECT * FROM users where id=$user2_id");
-        $statement->execute();
-        $result = $statement->fetch(PDO::FETCH_ASSOC);
-
-        return $result;
-    }
-
-    public static function message($senderid, $recieverid, $message, $date){
-
-        $conn=Db::getConnection();
-        
-        $statement = $conn->prepare("INSERT INTO messages ( sender_id, reciever_id, message_text, date_time) VALUES ( :sender_id, :reciever_id, message_text, date_time)");
-        $statement->bindParam(":sender_id", $senderid);
-        $statement->bindParam(":reciever_id", $recieverid);
-        $statement->bindParam(":message_text", $message);
-        $statement->bindParam(":date_time", $date);
-
-        $result = $statement->execute();
-        header("location: chat.php?user=$recieverid");
-        return $result;
-    }
-
 
 }
