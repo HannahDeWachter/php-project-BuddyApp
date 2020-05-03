@@ -215,29 +215,7 @@ $users = User::buddies();
         <p>
       <?php endforeach; ?>
     <?php endif; ?>
-    <hr>
-    </hr>
-    <!-- dit is de namesearch div !-->
-    <h4 id="filternaam"> Filter op naam </h4>
-    <br>
-    <form action="" method="post" class="form">
-      <div id="naamsearch">
-        <label for="namesearch" class=""> Search name </label>
-        <input type="text" name="namesearch" id="namesearch" placeholder="name">
-      </div> <br>
-      <div>
-        <input type="submit" class="submit" name="name" value="searchname">
-      </div>
-    </form>
-    <br>
 
-  </form>
-  <p> <b> Results: </b> </p>
-  <?php if (isset($filters)) : ?>
-    <?php foreach ($filters as $filter) : ?>
-      <p><?php echo $filter['firstname'] . " " . $filter['lastname'];  ?> </p> <!-- resultaat van searchfilter() moet hier komen !-->
-    <?php endforeach; ?>
-  <?php endif; ?>
   <hr>
   </hr>
   <!-- dit is de namesearch div !-->
