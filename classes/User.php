@@ -418,7 +418,7 @@ class User
     {
         $this->profileImg = $profileImg;
 
-
+    }
     /**
      * Get the value of user1
      */ 
