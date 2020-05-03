@@ -1,0 +1,303 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald&display=swap');
+
+body{
+background-color: #EFAB4A;
+
+/*overflow: hidden;*/
+padding: 0px;
+margin: 0px;
+}
+.nav {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    width: 350px;
+    margin-left: auto;
+    list-style: none;
+    margin-right: auto;
+}
+.logo{
+    width: 311px;
+    padding-bottom: 0;
+    margin-left: auto;
+    padding-top: 25px;
+    margin-right: auto;
+}
+.logo1{
+    width: 311px;
+    padding-bottom: 0;
+    margin-left: 20px;
+    padding-top: 25px;
+    margin-right: auto;
+}
+.nava{
+    margin-left:auto;
+    margin-right: auto;
+    padding-right:5px;
+    padding-left:5px;
+    text-decoration: underline;
+}
+a:active {
+    color: rgb(0, 255, 221);
+  } 
+.form{
+    
+    margin-left:auto;
+    margin-right:auto;
+    width:350px;
+    
+}
+.form-group{
+    font-size:20px;
+    font-family:'Oswald', sans-serif;
+    color:#F5D77D;
+    text-align:left;
+    margin-top:15px;
+    margin-left: 75px;
+    margin-right: auto;   
+    
+}
+h4{
+    font-size: 45px;
+    font-family: 'Oswald', sans-serif;
+    color: #E01093;
+    margin-left: 100px;
+    padding-top: 50px;
+    padding-bottom: 5px;
+    margin-right: auto;
+    
+}
+#create{
+    font-size: 45px;
+    margin-left: 15px;
+    margin-right: auto;
+}
+#filter{
+    margin-left:0px;
+    padding-top:0px;
+}
+#filternaam{
+    margin-left:50px; 
+}
+#naamsearch{
+    font-size:20px;
+    font-family:'Oswald', sans-serif;
+    color:#F5D77D;
+    text-align:left;
+    margin-top:15px;
+   margin-left:0px;
+    margin-right: auto;  
+}
+.link{
+    margin-left: 55px;
+    margin-right: auto;
+    width: 350px;
+    /* padding-top: 20px; */
+    padding-bottom: 20px;
+    
+}
+a{color: #E01093;
+    font-size: 16px;
+    font-family: 'Oswald', sans-serif;
+    margin-left: 57px;
+}
+.form-control{
+    width:135px;
+    font-size:18px;
+    height:35px;
+    color:#F5D77D;
+    border-color: #F5D77D;
+    padding-left: 5px;
+    background-color:#EFAB4A;
+    margin-left:5px; 
+}
+
+.radio{
+    width:30px;
+    height:25px;
+    
+}
+.submit{
+    width: 150px;
+    height: 40px;
+    margin-top: 20px;
+    background-color: #39CFA9;
+    color: #E01093;
+    margin-bottom: 10px;
+    padding-top: 0px;
+    font-size: 24px;
+    margin-left: 75px;
+    font-family: 'Oswald', sans-serif;
+    padding-bottom: -71px;
+    margin-right: auto;
+
+    
+}
+.label{
+    font-size:22px;
+}
+.submit1{
+    width:150px;
+    height:60px;
+    margin-top:25px;
+    background-color:#39CFA9;
+    color:#E01093;
+    font-size:20px;
+    font-family:'Oswald', sans-serif;
+    padding-bottom:5px;
+    display:inline-block;
+    
+}
+.alert-info{
+    background-color:#EF266A;
+    color:white;
+}
+p{
+    color:#606060;
+}
+.here{
+    color:white;
+}
+
+/*
+*
+*
+* matches pagina */
+.cardmatch{
+    background-color:#EFAB4A;
+    margin-top: 20px;
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+
+    background-clip: border-box;
+    border: 2px solid rgba(250, 179, 72, 0.125);
+    border-radius: .25rem;
+    margin-left:auto;
+    margin-right:auto;
+    
+}
+.title{
+    margin-left:auto;
+    margin-right:auto;
+}
+.submit2{
+    width: 150px;
+    height: 40px;
+    margin-top: 20px;
+    background-color: #39CFA9;
+    color: #E01093;
+    margin-bottom: 10px;
+    padding-top: 0px;
+    font-size: 16px;
+    margin-left: 95px;
+    font-family: 'Oswald', sans-serif;
+    padding-bottom: -71px;
+    margin-right: auto;
+}
+.text{
+    margin-left:auto;
+    margin-right:auto;
+}
+.cardlink{
+    width: 150px;
+    height: 40px;
+    margin-top: 20px;
+    background-color: #F5D77D;
+    color: #E01093;
+    margin-bottom: 18px;
+    padding-top: 1px;
+    font-size: 16px;
+    margin-left: 80px;
+    
+    padding-left: 5px;
+    padding-right: 5px;
+    font-family: 'Oswald', sans-serif;
+    margin-right: auto;
+}
+/* edit profile */
+.proimg{
+    Margin-left:auto;
+    margin-right:auto;
+
+}
+.form-group1{
+    font-size: 16px;
+    font-family: 'Oswald', sans-serif;
+    color: #F5D77D;
+    text-align: left;
+    margin-top: 15px;
+    margin-left: 75px;
+    margin-right: auto;
+} 
+.submit3{
+width: 150px;
+height: 40px;
+margin-top: 20px;
+background-color: #39CFA9;
+color: #E01093;
+margin-bottom: 10px;
+padding-top: 0px;
+font-size: 24px;
+margin-left: 95px;
+font-family: 'Oswald', sans-serif;
+
+margin-right: auto; 
+}
+#backto{
+    float: right;
+    color: #E0F663;
+    padding-top: 11px;
+    margin-left: auto;
+    margin-right: 20px;
+}
+/* my profile */
+.profileContainer{
+   margin-top:45px;
+    width: 350px;
+    margin-left: 34px;
+    margin-right: auto;
+}
+h5{
+    font-family: 'Oswald', sans-serif;
+    color: #EF266A;
+    font-size: 21px;
+    padding-left: 4px;
+}
+h6{
+    color: #606060;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    padding-left: 4px;
+    margin-top: -17px;
+}
+h3{
+    font-family: 'Oswald', sans-serif;
+    color: #EF266A;
+    font-size: 18px;
+    padding-left: 4px;
+
+}
+.row{
+    margin-left:35px;
+    margin-right:auto;
+    width: 350px;
+}
+/* homepage */
+.homepage{
+    padding-top: 20px;
+    margin-left: 10px;
+}
+/* profile details */
+.title1{
+    font-size:24px;
+}
+
+

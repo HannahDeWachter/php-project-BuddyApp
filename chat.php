@@ -6,89 +6,32 @@ include_once(__DIR__ . "/includes/header.inc.php");
 
 session_start();
 $id = $_SESSION['user_id'];
-$allInformation = User::getAllInformation($id);
-//var_dump($allInformation);
+$user1 = User::getAllInformation($id);
+//var_dump($user1);
 
 // checken of velden (location, music, travel, specialization, hobbies) allemaal zijn ingevuld
-if (is_null($allInformation['location']) || is_null($allInformation['music']) || is_null($allInformation['travel']) || is_null($allInformation['specialization']) || is_null($allInformation['hobbies'])) {
-    // als niet iets ingevuld -> $message = "You have not completed your profile yet."
-    $message = "You cannot have matches if your profile is not completed.";
+if (is_null($user1['location']) || is_null($user1['music']) || is_null($user1['travel']) || is_null($user1['specialization']) || is_null($user1['hobbies'])) {
+  // als niet iets ingevuld -> $message = "You have not completed your profile yet."
+  $message = "You cannot have chats if your profile is not completed.";
 }
 
-// data andere users ophalen
-$arrayUsers = User::getAllUsers($id);
-// andere users vergelijken met jezelf
-$matches = User::findMatches($arrayUsers, $allInformation);
-// var_dump($matches);
-// goede match? (score >= 25) => weergeven
-$showedMatches = [];
-for ($x = 0; $x < count($matches); $x++) {
-    $matchInterestsReason = "";
-    $matchLocationReason = "";
-    $matchTravelReason = "";
-    $travelString = "";
-    $interestString = "";
-    if ($matches[$x]['score'] >= 25) {
-        // echo "Match!";
-        $matchId = $matches[$x]["id"];
-        $key = array_search($matchId, array_column($arrayUsers, 'id'));
-        $matchName = $arrayUsers[$key]['firstname'] . " " . $arrayUsers[$key]['lastname'];
-        // weergeven waarom goede match ("jullie vinden beiden ... leuk")
-        if ($matches[$x]['location'] != "") {
-            $matchLocationReason = "You both live in " . $matches[$x]['location'] . ".";
-        }
-        if ($matches[$x]['interests'] != "") {
-            $interestsArray = (explode(",", $matches[$x]['interests']));
-            $i = count($interestsArray) - 2; // er staat nog komma achter de laatste waarde dus '' is de laatste waarde in array. Nu is $i gelijk aan de array index
-            while ($i >= 0) {
-                // echo $i;
-                if ($i === count($interestsArray) - 2) {
-                    $interestString = $interestsArray[$i] . ".";
-                } else {
-                    if ($i === count($interestsArray) - 3) {
-                        $interestString = $interestsArray[$i] . " and " . $interestString;
-                    } else {
-                        $interestString = $interestsArray[$i] . ", " . $interestString;
-                    }
-                }
-                $i--;
-            }
-
-            $matchInterestsReason = "You both like " . $interestString;
-        }
-        if ($matches[$x]['travel'] != "") {
-            $travelArray = (explode(",", $matches[$x]['travel']));
-            // var_dump($travelArray);
-            $i = count($travelArray) - 2; // er staat nog komma achter de laatste waarde dus '' is de laatste waarde in array
-            while ($i >= 0) {
-                // echo $i;
-                if ($i === count($travelArray) - 2) {
-                    $travelString = $travelArray[$i] . ".";
-                } else {
-                    if ($i === count($travelArray) - 3) {
-                        $travelString = $travelArray[$i] . " and " . $travelString;
-                    } else {
-                        $travelString = $travelArray[$i] . ", " . $travelString;
-                    }
-                }
-                $i--;
-            }
-            $matchTravelReason = "You have both travelled in " . $travelString;
-        }
-        $showedMatches[$x] = array("id" => $matchId, "name" => $matchName, "location" => $matchLocationReason, "interests" => $matchInterestsReason, "travel" => $matchTravelReason);
-    } else {
-        $x = count($matches); // array is gesorteerd op score, dus als er een kleiner is dan 25 moet de rest niet meer bekeken worden
-    }
+$user2 = NULL;
+if (isset($_GET["id"])) {
+  $user2_id = ($_GET["id"]);
+  $user1_id = $id;
+  $user2 = User::getAllInformation($user2_id);
+}
+// var_dump($user2);
+if ($user2 === null) {
+  echo "buddy not found";
 }
 
-if(isset($_GET["id"])){
-$user2_id = ($_GET["id"]);
-$user1_id = $id;
-$user2 = User::getAllInformation($user2_id);
-
-
+if (isset($_POST['request'])) {
+  $email = $user2['email'];
+  $name = $user2['firstname'];
+  User::sendRequestMail($email, $name);
+  // echo "email is sent!";
 }
-
 
 
 
@@ -101,6 +44,7 @@ User::buddy($id, $buddyId);
 
 $allComments = Comment::getAll($buddyId, $id);
 
+$matchedData = User::getMatchedData($user1_id, $user2_id);
 
 ?>
 <!DOCTYPE html>
@@ -113,7 +57,6 @@ $allComments = Comment::getAll($buddyId, $id);
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/styleChat.css">
-  
 
 </head>
 
@@ -198,6 +141,7 @@ $allComments = Comment::getAll($buddyId, $id);
     <a href="#" class="btn btn-primary"  class="btnSend" id="btnAddComment" data-buddyId="<?php echo $buddyId; ?>" >Add comment</a>
   </div> 
   </div>
+  <script src="jquery-3.4.1.min.js"></script>
 
 
 <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -209,7 +153,7 @@ $allComments = Comment::getAll($buddyId, $id);
 <script>
 
 
-</script>
+  </script>
 </body>
 
 

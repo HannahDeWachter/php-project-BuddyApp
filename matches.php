@@ -82,6 +82,11 @@ for ($x = 0; $x < count($matches); $x++) {
 
 
 
+/*$getnotification = $friend->notificationRequest($id, false);
+$checkRequestSender = $friend->senderReq($dataUser->getId(), $matches->getId());
+$checkRequestReceiver = $friend->receiverReq($dataUser->getId(), $userProfile->getId());
+$getrequestnot = $friend->notificationRequest($dataUser->getId(), false); */
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -104,29 +109,38 @@ for ($x = 0; $x < count($matches); $x++) {
     <?php endif; ?>
     <h2>Matches</h2>
     <?php if (!empty($showedMatches)) : ?>
-        <?php foreach ($showedMatches as $match => $buddy) : ?>
-            <div class="input-group-text card">
-                <strong class="card-title"><?php echo $buddy["name"]; ?></strong>
+        <?php foreach ($showedMatches as $match) : ?>
+
+            <div class="cardmatch">
+                <strong class="title"><?php echo htmlspecialchars($match["name"]); ?></strong>
 
                 <?php if ($match['location'] != "") : ?>
-                    <p class="card-text"><?php echo $buddy["location"]; ?></p>
+                    <p class="text"><?php echo htmlspecialchars($match["location"]); ?></p>
                 <?php endif; ?>
                 <?php if ($match['interests'] != "") : ?>
-                    <p class="card-text"><?php echo $buddy["interests"]; ?></p>
+                    <p class="text"><?php echo htmlspecialchars($match["interests"]); ?></p>
                 <?php endif; ?>
                 <?php if ($match['travel'] != "") : ?>
-                    <p class="card-text"><?php echo $buddy["travel"]; ?></p>
+                    <p class="text"><?php echo htmlspecialchars($match["travel"]); ?></p>
                 <?php endif; ?>
 
                 <div class="card-group">
-                    <a href="chat.php?id=<?php echo $buddy["id"];?>" class="card-link">Accept</a>
-                    <a href="" class="card-link">Decline</a>
+                    <!-- <a href="" class="card-link">Accept</a>
+                    <a href="" class="card-link">Decline</a> -->
+                    <?php
+                    // if ($checkRequestReceiver) {
+                    // echo '<button><a href="functions.php?action=ignore_req&id=' . $match->getId() . '">Deny</a></button>&nbsp;
+                    // <button><a href="functions.php?action=accept_req&id=' . $match->getId() . '">Accept</a></button>';
+                    // } else {
+                    // echo '<button><a href="functions.php?action=send_req&id=' . $match->getId() . '">Send Request</a></button>';
+                    // } 
+                    ?>
+                    <a href="chat.php/?id=<?php echo htmlspecialchars($match['id']); ?>" class="cardlink">Accept</a>
+                    <a href="" class="cardlink">Decline</a>
                 </div>
-            <div class="table">
-                <strong><?php echo $match["name"]; ?></strong>
-                <p><?php echo $match["location"]; ?></p>
-                <p><?php echo $match["interests"]; ?></p>
-                <p><?php echo $match["travel"]; ?></p>
+                <form action="" method="POST" class="card-group">
+                    <input type="submit" class="submit2" name="request" value="Send buddy request">
+                </form>
             </div>
             <a href="chat.php?id=<?php echo $match;?>">Accept</a>
         <?php endforeach; ?>
