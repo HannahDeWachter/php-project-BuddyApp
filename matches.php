@@ -78,7 +78,7 @@ for ($x = 0; $x < count($matches); $x++) {
         $x = count($matches); // array is gesorteerd op score, dus als er een kleiner is dan 25 moet de rest niet meer bekeken worden
     }
 }
- var_dump($showedMatches);
+//  var_dump($showedMatches);
 
 
 
@@ -135,14 +135,13 @@ $getrequestnot = $friend->notificationRequest($dataUser->getId(), false); */
                     // echo '<button><a href="functions.php?action=send_req&id=' . $match->getId() . '">Send Request</a></button>';
                     // } 
                     ?>
-                    <a href="chat.php/?id=<?php echo htmlspecialchars($match['id']); ?>" class="cardlink">Accept</a>
+                    <a href="chat.php?id=<?php echo htmlspecialchars($match['id']); ?>" class="cardlink">Accept</a>
                     <a href="" class="cardlink">Decline</a>
                 </div>
                 <form action="" method="POST" class="card-group">
                     <input type="submit" class="submit2" name="request" value="Send buddy request">
                 </form>
             </div>
-            <a href="chat.php?id=<?php echo $match;?>">Accept</a>
         <?php endforeach; ?>
     <?php endif; ?>
 </body>
