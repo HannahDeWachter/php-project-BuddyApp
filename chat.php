@@ -16,8 +16,8 @@ if (is_null($user1['location']) || is_null($user1['music']) || is_null($user1['t
 }
 
 $user2 = NULL;
-if (isset($_GET["id"])) {
-  $user2_id = ($_GET["id"]);
+if (isset($_GET['id'])) {
+  $user2_id = ($_GET['id']);
   $user1_id = $id;
   $user2 = User::getAllInformation($user2_id);
 }
@@ -33,16 +33,12 @@ if (isset($_POST['request'])) {
   // echo "email is sent!";
 }
 
-
-
-
-
 $buddyId = $_GET['id'];
 // var_dump($id, $buddyId);
 $buddyInfo = User::getAllInformation($buddyId);
 User::buddy($id, $buddyId);
 
-$allComments = Comment::getAll($buddyId, $id);
+$allComments = Chat::getAll($buddyId, $id);
 
 $matchedData = User::getMatchedData($user1_id, $user2_id);
 
@@ -62,99 +58,96 @@ $matchedData = User::getMatchedData($user1_id, $user2_id);
 
 <body>
   <?php include_once(__DIR__ . "/includes/header.inc.php"); ?>
-  
-  
 
   <style>
-  html, body{
-    height: 100%;
-    overflow: hidden;
-    padding: 0px;
-    margin: 0px;
-    
-}
+    html,
+    body {
+      height: 100%;
+      overflow: hidden;
+      padding: 0px;
+      margin: 0px;
+
+    }
 
 
-  #message{
-    border:1px solid black;
-    border-radius: 5px;
-    width: 96%;
-    padding: 5px;
-    margin:0px auto;
-    margin-top: 2px;
-    overflow: auto;
-  }
+    #message {
+      border: 1px solid black;
+      border-radius: 5px;
+      width: 96%;
+      padding: 5px;
+      margin: 0px auto;
+      margin-top: 2px;
+      overflow: auto;
+    }
 
-  .post__comments__list{
+    .post__comments__list {
 
-    list-style: none;
-    display: block;
-    height: 500px;
-    width: 50%;
-    overflow: auto;
-  }
+      list-style: none;
+      display: block;
+      height: 500px;
+      width: 50%;
+      overflow: auto;
+    }
 
-  #commentText{
-    width: 50%;
-    height: 10%;
-    
-  }
+    #commentText {
+      width: 50%;
+      height: 10%;
 
-  .btnSend{
+    }
 
-    /* position: absolute; */
-    overflow: auto;
-  }
-  
+    .btnSend {
+      /* position: absolute; */
+      overflow: auto;
+    }
   </style>
-</head>
-<body>
+  </head>
 
-<div class="post__comments">
-   
+  <body>
 
-  <ul class="post__comments__list">
-  <?php foreach($allComments as $c =>$row): ?>
-    <li>
-      <div id="message">
-        <?php 
-        if($row["from_user_id"] == $id){
-          $user_name ='<h7>YOU</h7>';
-        }else{
-          $user_name = '<h7>'. $allInformation["firstname"].'</h7>';
-        }    
-        echo $user_name;
-        ?>
-        <br>
-        <?php echo $row['chat_message']; ?>
-        <br>
-        <small><em><?php echo $row['timestamp'];?></em></small>
-        <br>
-        <small><em><?php echo $row['chat_message_id'];?></em></small>
-        <a href="#" id="btnLike" name="btnLike"  data-likeId="<?php echo $row["from_user_id"]; ?>">Like</a>
+    <div class="post__comments">
+
+      <ul class="post__comments__list">
+        <?php foreach ($allComments as $c => $row) : ?>
+          <li>
+            <div id="message">
+              <?php
+              if ($row["from_user_id"] == $id) {
+                $user_name = '<h7>YOU</h7>';
+              } else {
+                $user_name = '<h7>' . $allInformation["firstname"] . '</h7>';
+              }
+              echo $user_name;
+              ?>
+              <br>
+              <?php echo $row['chat_message']; ?>
+              <br>
+              <small><em><?php echo $row['timestamp']; ?></em></small>
+              <br>
+              <small><em><?php echo $row['chat_message_id']; ?></em></small>
+              <a href="#" id="btnLike" name="btnLike" data-likeId="<?php echo $row["from_user_id"]; ?>">Like</a>
+            </div>
+          </li>
+        <?php endforeach; ?>
+      </ul>
+      <div class="post__comments__form">
+        <input type="text" class="form-control" id="commentText" placeholder="What's on your mind">
+        <a href="#" class="btn btn-primary" class="btnSend" id="btnAddComment" data-buddyId="<?php echo $buddyId; ?>">Add comment</a>
       </div>
-  </li> 
-  <?php endforeach; ?> 
-  </ul>
-  <div class="post__comments__form">
-    <input type="text" class="form-control" id="commentText" placeholder="What's on your mind">
-    <a href="#" class="btn btn-primary"  class="btnSend" id="btnAddComment" data-buddyId="<?php echo $buddyId; ?>" >Add comment</a>
-  </div> 
-  </div>
-  <script src="jquery-3.4.1.min.js"></script>
+    </div>
+    <script src="jquery-3.4.1.min.js"></script>
 
 
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<script src="js/script.js"></script>
-<script src="js/like.js"></script>
-  <!-- jQuery for Reaction system -->
-<script type="text/javascript" src="js/reaction.js"></script>  
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/like.js"></script>
+    <!-- jQuery for Reaction system -->
+    <script type="text/javascript" src="js/reaction.js"></script>
 
-<script>
+    <script>
 
 
-  </script>
-</body>
+    </script>
+  </body>
 
 
 </html>
