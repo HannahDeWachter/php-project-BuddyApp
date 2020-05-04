@@ -28,7 +28,7 @@ $otherUser = $userProfile->getUser($id);
                 <div class="col-md-4">
                     <div class="profile-img">
                         <!-- hier moet foto komen !-->
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt="" />
+                        <img src="images/<?php echo htmlspecialchars($otherUser['profileImg']); ?>" alt="" class="profile-image" height="200px" width="200px" />
 
                     </div>
                 </div>
