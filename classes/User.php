@@ -484,11 +484,9 @@ class User
         return $this;
     }
 
-    public static function uploadBio($text)
+    public static function uploadBio($text, $id)
     {
-
         $conn = Db::getConnection();
-
         $statement = $conn->prepare("SELECT * FROM users WHERE id = :id");
         $statement->bindParam(":id", $id);
         $statement->execute();
@@ -815,7 +813,7 @@ class User
         $statement->execute();
         $data = $statement->fetchAll(PDO::FETCH_ASSOC);
         // var_dump($data);
-        return $data[0];
+        return $data;
     }
   public static function getUser($id){
       $conn = Db::getconnection();
