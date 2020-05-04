@@ -2,7 +2,7 @@
 session_start();
 
 include_once(__DIR__ . "/classes/User.php");
-include_once(__DIR__ . "/classes/Comment.php");
+include_once(__DIR__ . "/classes/Chat.php");
 include_once(__DIR__ . "/includes/header.inc.php");
 $id = $_SESSION['user_id'];
 $allInformation = User::getAllInformation($id);
@@ -62,7 +62,7 @@ $allBuddys = User::AllBuddys($id);
             <td><?php echo $Name["firstname"]; ?></td>
             <td><?php 
             $output = "";
-            $count = Comment::unseenMessage($id, $row["user2_id"]);
+            $count = Chat::unseenMessage($id, $row["user2_id"]);
             if( $count>0){
                 $output = '<span class="label label-succes">'.$count.'</span>';
             }

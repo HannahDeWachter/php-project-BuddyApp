@@ -62,7 +62,7 @@ if (!empty($_POST)) {
       </div>
 
 
-      <input type="submit" value="Sign in" class="submit">
+      <input class="btn btn-primary" type="submit" value="Sign in" class="submit">
 
     </form>
 
