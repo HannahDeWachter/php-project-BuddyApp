@@ -25,6 +25,8 @@ $otherUser = $userProfile->getUser($id);
                     <div class="col-md-4">
                         <div class="profile-img">
                             <!-- hier moet foto komen !-->
+                            <?php echo htmlspecialchars($otherUser['profileImg']); ?>
+    
                             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt=""/>
                             
                             </div>
@@ -50,11 +52,11 @@ $otherUser = $userProfile->getUser($id);
                     <div class="col-md-4">
                         <div class="profile-work">
                             <h3>Hobbies</h3>
-                                <p> hier komen de hobbies die ingegeven zijn </p>
+                                <p> <?php echo htmlspecialchars($otherUser['hobbies']); ?> </p>
                             <h3>Music</h3>
-                                <p> hier komen de muziekstijlen die ingegeven zijn </p>
+                                <p> <?php echo htmlspecialchars($otherUser['music']); ?> </p>
                             <h3>Travel</h3>
-                                <p> hier komen de travel die ingegeven zijn </p>
+                                <p><?php echo htmlspecialchars($otherUser['travel']); ?> </p>
                             
                         </div>
                     </div>
