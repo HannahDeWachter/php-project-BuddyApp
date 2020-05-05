@@ -1,8 +1,9 @@
 <?php
+session_start();
 
 include_once(__DIR__ . "/classes/User.php");
+include_once(__DIR__ . "/classes/Chat.php");
 include_once(__DIR__ . "/includes/header.inc.php");
-session_start();
 $id = $_SESSION['user_id'];
 $allInformation = User::getAllInformation($id);
 // var_dump($allInformation);
@@ -18,6 +19,7 @@ $arrayUsers = User::getAllUsers(null);
 $numberOfRegisteredUsers = count($arrayUsers);
 // echo $numberOfRegisteredUsers;
 $numberOfBuddies = User::getAllBuddies();
+$allBuddys = User::AllBuddys($id);
 
 ?>
 <!DOCTYPE html>
@@ -26,13 +28,14 @@ $numberOfBuddies = User::getAllBuddies();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <title>Home</title>
 </head>
 
 <body>
-    
+
     <?php include_once(__DIR__ . "/includes/header.inc.php"); ?>
     <?php if (isset($messageComplete)) : ?>
         <div class="alert-info">
@@ -46,6 +49,38 @@ $numberOfBuddies = User::getAllBuddies();
     <?php else : ?>
         <p class="homepage">There are <?php echo $numberOfBuddies; ?> buddy matches.</p>
     <?php endif; ?>
+
+    <table class="table table-bordered table-striped" style=" width: 70%; height: 50px; margin: 0 auto;">
+        <tr>
+            <td><?php echo $Name["firstname"]; ?></td>
+            <td><?php 
+            $output = "";
+            $count = Chat::unseenMessage($id, $row["user2_id"]);
+            if( $count>0){
+                $output = '<span class="label label-succes">'.$count.'</span>';
+            }
+            echo $output;
+            ?></td>
+            <td><a href="chat.php?id=<?php echo $row["user2_id"];?>" class="btn btn-primary" name="btnAccept">Chat</a></td>
+        </tr>
+        <?php foreach ($allBuddys as $b => $row) : ?>
+            <?php $Name = User::getAllInformation($row["user2_id"]);  ?>
+            <div class="table">
+                <tr>
+                    <td><?php echo $Name["firstname"]; ?></td>
+                    <td><?php
+                        $output = "";
+                        $count = Chat::unseenMessage($id, $row["user2_id"]);
+                        if ($count > 0) {
+                            $output = '<span class="label label-succes">' . $count . '</span>';
+                        }
+                        echo $output;
+                        ?></td>
+                    <td><a href="chat.php?id=<?php echo $row["user2_id"]; ?>" class="btn btn-primary" name="btnAccept">Chat</a></td>
+                </tr>
+            </div>
+        <?php endforeach; ?>
+    </table>
 </body>
 
 </html>

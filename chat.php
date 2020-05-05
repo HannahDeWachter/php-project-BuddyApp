@@ -1,8 +1,10 @@
 <?php
+session_start();
 
 include_once(__DIR__ . "/classes/User.php");
+include_once(__DIR__ . "/classes/Comment.php");
+include_once(__DIR__ . "/includes/header.inc.php");
 
-session_start();
 $id = $_SESSION['user_id'];
 $user1 = User::getAllInformation($id);
 //var_dump($user1);
@@ -14,8 +16,8 @@ if (is_null($user1['location']) || is_null($user1['music']) || is_null($user1['t
 }
 
 $user2 = NULL;
-if (isset($_GET["id"])) {
-  $user2_id = ($_GET["id"]);
+if (isset($_GET['id'])) {
+  $user2_id = ($_GET['id']);
   $user1_id = $id;
   $user2 = User::getAllInformation($user2_id);
 }
@@ -31,6 +33,13 @@ if (isset($_POST['request'])) {
   // echo "email is sent!";
 }
 
+$buddyId = $_GET['id'];
+// var_dump($id, $buddyId);
+$buddyInfo = User::getAllInformation($buddyId);
+User::buddy($id, $buddyId);
+
+$allComments = Chat::getAll($buddyId, $id);
+
 $matchedData = User::getMatchedData($user1_id, $user2_id);
 
 ?>
@@ -41,82 +50,105 @@ $matchedData = User::getMatchedData($user1_id, $user2_id);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Buddy App</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/styleChat.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  
 
 </head>
 
 <body>
   <?php include_once(__DIR__ . "/includes/header.inc.php"); ?>
 
-  <div id="new-message">
-    <p class="m-header">new message</p>
-    <p class="m-body">
-      <form method="post" id="form-message">
-        <input type="text" list="" onkeyup="check_in_db()" name="user_name" id="user_name" class="message-input" placeholder="user_name"><br><br>
-        <datalist id="user"></datalist>
-        <br><br>
-        <textarea class="message-input" placeholder="write your message"></textarea>
-        <input type="submit" value="send" name="send">
-        <button onclick="document.getElementById('new-message').style.display='none'">cancel</button>
-      </form>
-    </p>
-    <p class="m-footer">click send</p>
-  </div>
+  <style>
+    html,
+    body {
+      height: 100%;
+      overflow: hidden;
+      padding: 0px;
+      margin: 0px;
 
-  <div id="containerChat">
-    <div id="menuChat">
-      <?php echo $user1["firstname"] . " " . $user1["lastname"]; ?>
-    </div>
-    <div id="left-col">
-      <div id="container-left-col">
-        <div class="white-back" onclick="document.getElementById('new-message').style.display='block'">
-          <p align="center">new message</p>
-        </div>
-        <div class="grey-back">
-          <img src="images/<?php echo $user2["profileImg"] ?>" class="chatImage" alt="profileImage" />
-          <strong><?php echo $user2["firstname"] . " " . $user2["lastname"]; ?></strong>
-          <?php if ($matchedData['status'] === "chat") : ?>
-            <form action="" method="POST">
-              <input type="submit" class="btn btn-primary" name="request" value="Send buddy request">
-            </form>
-          <?php endif; ?>
-          <!-- <br>
-            <br>
-            <br> -->
-          <!-- <strong>Common intressests</strong> -->
-          <!-- <p>?php echo $showedMatches[$user2]["location"]; ?></p>
-            <p>?php echo $showedMatches[$user2]["interests"]; ?></p>
-            <p>?php echo $showedMatches[$user2]["travel"]; ?></p> -->
-        </div>
+    }
+
+
+    #message {
+      border: 1px solid black;
+      border-radius: 5px;
+      width: 96%;
+      padding: 5px;
+      margin: 0px auto;
+      margin-top: 2px;
+      overflow: auto;
+    }
+
+    .post__comments__list {
+
+      list-style: none;
+      display: block;
+      height: 500px;
+      width: 50%;
+      overflow: auto;
+    }
+
+    #commentText {
+      width: 50%;
+      height: 10%;
+
+    }
+
+    .btnSend {
+      /* position: absolute; */
+      overflow: auto;
+    }
+  </style>
+  </head>
+
+  <body>
+
+    <div class="post__comments">
+
+      <ul class="post__comments__list">
+        <?php foreach ($allComments as $c => $row) : ?>
+          <li>
+            <div id="message">
+              <?php
+              if ($row["from_user_id"] == $id) {
+                $user_name = '<h7>YOU</h7>';
+              } else {
+                $user_name = '<h7>' . $allInformation["firstname"] . '</h7>';
+              }
+              echo $user_name;
+              ?>
+              <br>
+              <?php echo $row['chat_message']; ?>
+              <br>
+              <small><em><?php echo $row['timestamp']; ?></em></small>
+              <br>
+              <small><em><?php echo $row['chat_message_id']; ?></em></small>
+              <a href="#" id="btnLike" name="btnLike" data-likeId="<?php echo $row["from_user_id"]; ?>">Like</a>
+            </div>
+          </li>
+        <?php endforeach; ?>
+      </ul>
+      <div class="post__comments__form">
+        <input type="text" class="form-control" id="commentText" placeholder="What's on your mind">
+        <a href="#" class="btn btn-primary" class="btnSend" id="btnAddComment" data-buddyId="<?php echo $buddyId; ?>">Add comment</a>
       </div>
     </div>
-    <div id="right-col">
-      <div id="container-right-col">
-        <div id="container-message">
-          <div class="grey-message">
-            <a href="#"><?php echo $user1["firstname"]; ?></a>
-            <p>this message is grey</p>
-          </div>
-          <div class="white-message">
-            <a href="#"><?php echo $user2["firstname"]; ?></a>
-            <p>this message is white</p>
-          </div>
-        </div>
-        <form method="post" id="message-form">
-          <textarea class="textarea" name="message_text" id="message_text" placeholder="Write your message here"></textarea>
-          <button id="send-message" name="send-message" class="btn btn-primary" type="submit">Send</button>
-        </form>
-      </div>
-    </div>
-  </div>
-  <script src="jquery-3.4.1.min.js"></script>
-  <script>
+    <script src="jquery-3.4.1.min.js"></script>
 
 
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/like.js"></script>
+    <!-- jQuery for Reaction system -->
+    <script type="text/javascript" src="js/reaction.js"></script>
 
-  </script>
-</body>
+    <script>
+
+
+    </script>
+  </body>
+
 
 </html>

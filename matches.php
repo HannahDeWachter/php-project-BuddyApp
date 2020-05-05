@@ -1,8 +1,8 @@
 <?php
+session_start();
 
 include_once(__DIR__ . "/classes/User.php");
 include_once(__DIR__ . "/includes/header.inc.php");
-session_start();
 $id = $_SESSION['user_id'];
 $dataUser = User::getAllInformation($id);
 // var_dump($dataUser);
@@ -78,7 +78,9 @@ for ($x = 0; $x < count($matches); $x++) {
         $x = count($matches); // array is gesorteerd op score, dus als er een kleiner is dan 25 moet de rest niet meer bekeken worden
     }
 }
-// var_dump($showedMatches);
+//  var_dump($showedMatches);
+
+
 
 /*$getnotification = $friend->notificationRequest($id, false);
 $checkRequestSender = $friend->senderReq($dataUser->getId(), $matches->getId());
@@ -93,8 +95,9 @@ $getrequestnot = $friend->notificationRequest($dataUser->getId(), false); */
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buddy App</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 
 <body>
@@ -105,6 +108,7 @@ $getrequestnot = $friend->notificationRequest($dataUser->getId(), false); */
             <p><?php echo $message ?> Click <a href="profileDetails.php">here</a> to complete your profile.</p>
         </div>
     <?php endif; ?>
+    <h2>Matches</h2>
     <?php if (!empty($showedMatches)) : ?>
         <?php foreach ($showedMatches as $match) : ?>
 
@@ -132,7 +136,7 @@ $getrequestnot = $friend->notificationRequest($dataUser->getId(), false); */
                     // echo '<button><a href="functions.php?action=send_req&id=' . $match->getId() . '">Send Request</a></button>';
                     // } 
                     ?>
-                    <a href="chat.php/?id=<?php echo htmlspecialchars($match['id']); ?>" class="cardlink">Accept</a>
+                    <a href="chat.php?id=<?php echo htmlspecialchars($match['id']); ?>" class="cardlink">Accept</a>
                     <a href="" class="cardlink">Decline</a>
                 </div>
                 <form action="" method="POST" class="card-group">

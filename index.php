@@ -1,8 +1,9 @@
 <?php
+session_start();
 
 include_once(__DIR__ . "/classes/User.php");
+include_once(__DIR__ . "/classes/Chat.php");
 include_once(__DIR__ . "/includes/header.inc.php");
-session_start();
 $id = $_SESSION['user_id'];
 $allInformation = User::getAllInformation($id);
 $allrequest = User::getAllRequest($id);
@@ -27,6 +28,14 @@ if (!empty($_POST['filter'])) {
   $travel = $_POST['travel'];
 
   $filters = $user->filter($music, $hobbies, $travel);
+}
+
+
+
+
+if(isset($_POST["btnAccept"])){
+
+    echo key($match);
 }
 
 if (!empty($_POST['deny_reason'])) {
@@ -90,8 +99,9 @@ $users = User::buddies();
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Buddy App</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="css/style.css">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 
 <body>
@@ -206,21 +216,34 @@ $users = User::buddies();
         <p>
       <?php endforeach; ?>
     <?php endif; ?>
-    <hr>
-    </hr>
-    <!-- dit is de namesearch div !-->
-    <h4 id="filternaam"> Filter op naam </h4>
-    <br>
-    <form action="" method="post" class="form">
-      <div id="naamsearch">
-        <label for="namesearch" class=""> Search name </label>
-        <input type="text" name="namesearch" id="namesearch" placeholder="name">
-      </div> <br>
-      <div>
-        <input type="submit" class="submit" name="name" value="searchname">
-      </div>
-    </form>
-    <br>
+
+  <hr>
+  </hr>
+  <!-- dit is de namesearch div !-->
+  <h1> Filter op naam </h1>
+  <br>
+  <form action="" method="post">
+    <div class="form-group">
+      <label for="namesearch" class=""> Search name </label>
+      <input type="text" name="namesearch" id="namesearch" placeholder="name">
+    </div> <br>
+    <div class="form btn">
+      <input type="submit" class="btn btn-primary" name="name" value="searchname">
+    </div>
+  </form>
+  <br>
+
+  <!-- <p> <b> Results: </b> </p>
+  ?php if (isset($results)) : ?>
+    ?php foreach ($results as $result) : ?>
+      <p>?php echo $result['firstname'] . " " . $result['lastname'];  ?> </p> <!-- resultaat van searchpeop() moet hier komen 
+    ?php endforeach; ?>
+  ?php endif; ?> -->
+
+  
+ 
+      <!-- href="forumdocument.php?rowid=".$row['ID']." -->
+
 
     <p> <b> Results: </b> </p>
     <?php if (isset($results)) : ?>

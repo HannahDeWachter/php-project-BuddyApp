@@ -1,21 +1,24 @@
 <?php
-  
-include_once(__DIR__."/classes/User.php");
-include_once(__DIR__."/includes/header.inc.php");
 session_start();
+
+include_once(__DIR__ . "/classes/User.php");
+include_once(__DIR__ . "/includes/header.inc.php");
 $id = $_SESSION['user_id'];
 
-var_dump($id);
+// var_dump($id);
 $userProfile = new User();
 $otherUser = $userProfile->getUser($id);
 
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>profile</title>
 </head>
+
 <body>
 <?php  include_once(__DIR__ . "/includes/header.inc.php"); ?>
 <a href="editProfile.php" id="backto"> Edit profile </a>
@@ -27,7 +30,7 @@ $otherUser = $userProfile->getUser($id);
                             <!-- hier moet foto komen !-->
                             <?php echo htmlspecialchars($otherUser['profileImg']); ?>
     
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt=""/>
+                            
                             
                             </div>
                         </div>
@@ -41,13 +44,13 @@ $otherUser = $userProfile->getUser($id);
                                        <!-- print design or development hier !--> 
                                        <?php echo htmlspecialchars($otherUser['specialization']); ?>
                                     </h6>
-                                    <h6> <?php echo htmlspecialchars($otherUser['imdYear']); ?>Hier komt de imdyear wat je hebt ingevuld buddy of buddyzoek</h6>
-                                    <p> bio komt hier </p>
+                                    <h6> <?php echo htmlspecialchars($otherUser['imdYear']); ?></h6>
+                                    
+                       
+                    <p> <?php echo htmlspecialchars($otherUser['bio']); ?> </p>
                            
                         </div>
-                    </div>
-                   
-                </div>
+    
                 <div class="row">
                     <div class="col-md-4">
                         <div class="profile-work">
@@ -64,7 +67,10 @@ $otherUser = $userProfile->getUser($id);
                             </div>
                             
             </form>           
-        </div>
-    
+            </div>
+           
+
+
 </body>
+
 </html>
