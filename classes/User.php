@@ -7,15 +7,15 @@ class User
     private $id;
     private $firstname;
     private $lastname;
-    
+
     private $email;
     private $password;
     private $imdYear;
     private $profileImg;
     private $bio;
 
-    
-  
+
+
 
     private $location;
     private $music;
@@ -178,7 +178,7 @@ class User
 
         return $this;
     }
-     
+
 
     public function updateUser()
     {
@@ -212,7 +212,7 @@ class User
         $statement = $conn->prepare("insert into users(firstname,lastname,email,password,imdYear) values (:firstname, :lastname, :email, :password, :imdYear)");
         $firstname = $this->getFirstName();
         $lastname = $this->getLastName();
-        
+
         $email = $this->getEmail();
         $password = $this->getPassword();
         $imdYear = $this->getImdYear();
@@ -222,7 +222,7 @@ class User
 
         $statement->bindParam(":firstname", $firstname);
         $statement->bindParam(":lastname", $lastname);
-        
+
         $statement->bindParam(":email", $email);
         $statement->bindParam(":password", $password);
         $statement->bindParam(":imdYear", $imdYear);
@@ -350,14 +350,14 @@ class User
                     $matchingMusicString = $matchingMusicString . $arrayUsersMusicArray[$mx] . ",";
                 }
             }
-             //echo $score;
+            //echo $score;
             for ($hx = 0; $hx < count($arrayUsersHobbiesArray); $hx++) {
                 if ($arrayUsersHobbiesArray[$hx] != '' && in_array($arrayUsersHobbiesArray[$hx], $dataUserHobbiesArray)) {
                     $score += hobbiesScore;
                     $matchingHobbiesString = $matchingHobbiesString . $arrayUsersHobbiesArray[$hx] . ",";
                 }
             }
-             //echo $score;
+            //echo $score;
             for ($tx = 0; $tx < count($arrayUsersTravelArray); $tx++) {
                 if ($arrayUsersTravelArray[$tx] != '' && in_array($arrayUsersTravelArray[$tx], $dataUserTravelArray)) {
                     $score += travelScore;
@@ -430,11 +430,11 @@ class User
     {
         $this->profileImg = $profileImg;
     }
-    
+
 
     /**
      * Get the value of user1
-     */ 
+     */
     public function getUser1()
     {
         return $this->user1;
@@ -444,7 +444,7 @@ class User
      * Set the value of user1
      *
      * @return  self
-     */ 
+     */
     public function setUser1($user1)
     {
         $this->user1 = $user1;
@@ -559,7 +559,7 @@ class User
     }
     /**
      * Get the value of user2
-     */ 
+     */
 
     public static function getAllBuddies()
     {
@@ -639,19 +639,20 @@ class User
      * Set the value of user2
      *
      * @return  self
-     */ 
+     */
     public function setUser2($user2)
     {
         $this->user2 = $user2;
 
         return $this;
-    }  
+    }
 
-    public static function buddy( $id, $buddyId){
+    public static function buddy($id, $buddyId)
+    {
 
-        $conn=Db::getConnection();
+        $conn = Db::getConnection();
         // $statement = $conn->prepare("SELECT * FROM buddy WHERE (user1_id = :user1_id AND user2_id = :user2_id) OR (user1_id = :user2_id AND user2_id = :user1_id)");
-        
+
         $statement = $conn->prepare("SELECT * FROM buddy WHERE user1_id = :user1_id AND user2_id = :user2_id ");
         $statement->bindParam(":user1_id", $id);
         $statement->bindParam(":user2_id", $buddyId);
@@ -667,26 +668,25 @@ class User
         } else {
             // var_dump("bestaand");
         }
-
-
     }
 
-    public static function AllBuddys( $id){
+    public static function AllBuddys($id)
+    {
 
-        $conn=Db::getConnection();
+        $conn = Db::getConnection();
 
         $statement = $conn->prepare("SELECT user2_id FROM buddy WHERE user1_id = $id");
-        
+
         $statement->execute();
 
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         return $result;
-      
+
         // var_dump($statement);
     }
 
-    
+
 
     public function getUsers()
     {
@@ -733,7 +733,7 @@ class User
         return $result;
     }
 
-    
+
 
     public function accept($myId, $friendId, $status)
     {
@@ -749,10 +749,8 @@ class User
         $result = $statement->execute();
         header('location: index.php');
         echo "ik ben hier aan het saven";
-        // var_dump($result);
+        var_dump($result);
         return $result;
-
-        
     }
     public static  function getAllRequest($id)
     {
@@ -800,8 +798,6 @@ class User
         $this->accept = $accept;
 
         return $this;
-
-        
     }
 
     public static function getMatchedData($user1, $user2)
@@ -815,12 +811,13 @@ class User
         // var_dump($data);
         return $data;
     }
-  public static function getUser($id){
-      $conn = Db::getconnection();
-      $statement = $conn->prepare('select * from users where id= :id');
-      $statement->bindParam(":id", $id);
-      $statement-> execute();
-      $users = $statement->fetch(PDO::FETCH_ASSOC);
-      return $users;
-  }
+    public static function getUser($id)
+    {
+        $conn = Db::getconnection();
+        $statement = $conn->prepare('select * from users where id= :id');
+        $statement->bindParam(":id", $id);
+        $statement->execute();
+        $users = $statement->fetch(PDO::FETCH_ASSOC);
+        return $users;
+    }
 }
