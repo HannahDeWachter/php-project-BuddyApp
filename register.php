@@ -37,23 +37,24 @@ if (!empty($_POST)) {
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Register</title>
-    <link rel="stylesheet" href="css/style.css">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-<!--<?php // include_once(__DIR__ . "/includes/header.inc.php"); ?> !-->
-<img class="logo1" src="./images/buddy-logo.svg">
+    <!--<?php // include_once(__DIR__ . "/includes/header.inc.php"); 
+        ?> !-->
+    <img class="logo1" src="./images/buddy-logo.svg">
 
     <div class="container">
         <form action="" method="post" class="form">
             <div class="header">
-                
+
                 <?php if (isset($error)) : ?>
                     <div class="error" style="color:red;">
                         <?php echo $error; ?>
@@ -68,16 +69,16 @@ if (!empty($_POST)) {
                 <div id="emailCheck"></div>
             </div>
             <div class="form-group">
-                <label for="firstname"class="label">Firstname</label>
+                <label for="firstname" class="label">Firstname</label>
                 <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Fristname">
             </div>
             <div class="form-group">
-                <label for="lastname"class="label">Lastname</label>
+                <label for="lastname" class="label">Lastname</label>
                 <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Lastname">
             </div>
-           
+
             <div class="form-group">
-                <label for="password"class="label">Password</label>
+                <label for="password" class="label">Password</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="Password">
             </div>
             <div class="form-group">
@@ -88,7 +89,7 @@ if (!empty($_POST)) {
             <input type="submit" class="submit" name="submit" value="Sign me up!">
         </form>
         <div class="link">
-            <a href="login.php" >Back to login</a>
+            <a href="login.php">Back to login</a>
         </div>
     </div>
 

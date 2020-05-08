@@ -33,9 +33,9 @@ if (!empty($_POST['filter'])) {
 
 
 
-if(isset($_POST["btnAccept"])){
+if (isset($_POST["btnAccept"])) {
 
-    echo key($match);
+  echo key($match);
 }
 
 if (!empty($_POST['deny_reason'])) {
@@ -51,20 +51,18 @@ if (!empty($_POST['deny_reason'])) {
 
 if ($allrequest['status'] === "verzoek") {
   $request = true;
-  
 }
 if ($allrequest['status'] === "deny") {
   $request->denyreason();
- 
 }
 if (isset($_POST['accept'])) {
 
   $status = $user->setAccept('buddies');
-   
+
   $user->accept($_SESSION['user_id'], 1, $status);
 
 
-  
+
   /**
    * 1 is the output of the $friend->getId(); or something that needs to come here.
    * Sort of like this
@@ -99,13 +97,14 @@ $users = User::buddies();
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Buddy App</title>
-  <link rel="stylesheet" href="css/style.css">
+
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-<?php include_once(__DIR__ . "/includes/header.inc.php"); ?>
+  <?php include_once(__DIR__ . "/includes/header.inc.php"); ?>
   <div class="container">
 
     <?php //if(isset($request)) : 
@@ -137,14 +136,14 @@ $users = User::buddies();
     <?php endif; ?>
 
     <?php if (isset($_POST['accept'])) : ?>
-        <p>Jullie zijn nu een match!</p>
+      <p>Jullie zijn nu een match!</p>
     <?php endif; ?>
 
 
-     
+
     <?php include_once(__DIR__ . "/includes/header.inc.php"); ?>
-      
-    
+
+
     <?php if (isset($messageComplete)) : ?>
       <div class="alert-info">
         <p><?php echo $messageComplete ?> Click<a class="here" href="profileDetails.php">here</a> to complete your profile.</p>
@@ -181,96 +180,102 @@ $users = User::buddies();
           <option value="instrument">Play an instrument</option>
           <option value="read">Read books</option>
         </select>
-    </div>
-        
+      </div>
+
       <div class="form-group">
         <label for="travel" class="">Travel</label><br>
         <select id="travel" name="travel">
-            <option value=""> -- Select an item -- </option>
-            <option value="africa"> Africa </option>
-            <option value="america">America</option>
-            <option value="asia">Asia</option>
-            <option value="europe">Europe</option>
-            <option value="oceania">Oceania</option>
-          </select> </div> 
+          <option value=""> -- Select an item -- </option>
+          <option value="africa"> Africa </option>
+          <option value="america">America</option>
+          <option value="asia">Asia</option>
+          <option value="europe">Europe</option>
+          <option value="oceania">Oceania</option>
+        </select> </div>
 
-          <div>
-            <input type="submit" class="submit" name="filter" value="Search">
-          </div>
-          <br>
+      <div>
+        <input type="submit" class="submit" name="filter" value="Search">
+      </div>
+      <br>
 
     </form>
     <p> <b> Results: </b> </p>
     <?php if (isset($filters)) : ?>
       <?php foreach ($filters as $filter) : ?>
         <div class="card">
-          <?php //echo htmlspecialchars($filter['profileimg']), ?> <!-- geen image in db !-->
-         <img src="" alt="John" style="width:100%">
-        <br>
-         <h3><?php echo htmlspecialchars($filter['firstname']) . " " . htmlspecialchars($filter['lastname']);  ?> <!-- resultaat van searchfilter() moet hier komen !--></h3>
-         <p class="title"><?php echo htmlspecialchars($filter['specialization']); ?> </p> 
-        
-          
-         <p><a href="profile.php?id=<?php echo $filter['id']; ?>" class="submit">Profile</a></p>
-</div>
+          <?php //echo htmlspecialchars($filter['profileimg']), 
+          ?>
+          <!-- geen image in db !-->
+          <img src="" alt="John" style="width:100%">
+          <br>
+          <h3><?php echo htmlspecialchars($filter['firstname']) . " " . htmlspecialchars($filter['lastname']);  ?>
+            <!-- resultaat van searchfilter() moet hier komen !-->
+          </h3>
+          <p class="title"><?php echo htmlspecialchars($filter['specialization']); ?> </p>
+
+
+          <p><a href="profile.php?id=<?php echo $filter['id']; ?>" class="submit">Profile</a></p>
+        </div>
         <p>
-      <?php endforeach; ?>
-    <?php endif; ?>
+        <?php endforeach; ?>
+      <?php endif; ?>
 
-  <hr>
-  </hr>
-  <!-- dit is de namesearch div !-->
-  <h1> Filter op naam </h1>
-  <br>
-  <form action="" method="post">
-    <div class="form-group">
-      <label for="namesearch" class=""> Search name </label>
-      <input type="text" name="namesearch" id="namesearch" placeholder="name">
-    </div> <br>
-    <div class="form btn">
-      <input type="submit" class="btn btn-primary" name="name" value="searchname">
-    </div>
-  </form>
-  <br>
+      <hr>
+      </hr>
+      <!-- dit is de namesearch div !-->
+      <h1> Filter op naam </h1>
+      <br>
+      <form action="" method="post">
+        <div class="form-group">
+          <label for="namesearch" class=""> Search name </label>
+          <input type="text" name="namesearch" id="namesearch" placeholder="name">
+        </div> <br>
+        <div class="form btn">
+          <input type="submit" class="btn btn-primary" name="name" value="searchname">
+        </div>
+      </form>
+      <br>
 
-  <!-- <p> <b> Results: </b> </p>
+      <!-- <p> <b> Results: </b> </p>
   ?php if (isset($results)) : ?>
     ?php foreach ($results as $result) : ?>
       <p>?php echo $result['firstname'] . " " . $result['lastname'];  ?> </p> <!-- resultaat van searchpeop() moet hier komen 
     ?php endforeach; ?>
   ?php endif; ?> -->
 
-  
- 
+
+
       <!-- href="forumdocument.php?rowid=".$row['ID']." -->
 
 
-    <p> <b> Results: </b> </p>
-    <?php if (isset($results)) : ?>
-      <?php foreach ($results as $result) : ?>
-        <div class="card">
-         <img src="" alt="John" style="width:100%">
-         <?php //echo htmlspecialchars($filter['profileimg']), ?> <!-- geen image in db !-->
-        <br>
-         <h3><?php echo htmlspecialchars($result['firstname']) . " " . htmlspecialchars($result['lastname']);  ?></h3>
-         <p class="title"><?php echo htmlspecialchars($result['specialization']); ?></p>
-         
-          
-         <p><a href="profile.php?id=<?php echo $result['id']; ?>" class="submit">Profile</a></p>
-</div>
-        
-        <!-- profiel moet afgeprint worden dus first last name, image en miss bio + knop bekijk profiel !-->
-      <?php endforeach; ?>
-    <?php endif; ?>
+      <p> <b> Results: </b> </p>
+      <?php if (isset($results)) : ?>
+        <?php foreach ($results as $result) : ?>
+          <div class="card">
+            <img src="" alt="John" style="width:100%">
+            <?php //echo htmlspecialchars($filter['profileimg']), 
+            ?>
+            <!-- geen image in db !-->
+            <br>
+            <h3><?php echo htmlspecialchars($result['firstname']) . " " . htmlspecialchars($result['lastname']);  ?></h3>
+            <p class="title"><?php echo htmlspecialchars($result['specialization']); ?></p>
+
+
+            <p><a href="profile.php?id=<?php echo $result['id']; ?>" class="submit">Profile</a></p>
+          </div>
+
+          <!-- profiel moet afgeprint worden dus first last name, image en miss bio + knop bekijk profiel !-->
+        <?php endforeach; ?>
+      <?php endif; ?>
 
 
 
-    <p> <b> Buddies:</b></p>
+      <p> <b> Buddies:</b></p>
 
-    <?php foreach ($users as $user) : ?>
-      
-      <p><?php echo htmlspecialchars($user['user1']) . " and " . htmlspecialchars($user['user2']) . " are now buddies."; ?></p>
-    <?php endforeach;  ?>
+      <?php foreach ($users as $user) : ?>
+
+        <p><?php echo htmlspecialchars($user['user1']) . " and " . htmlspecialchars($user['user2']) . " are now buddies."; ?></p>
+      <?php endforeach;  ?>
 
   </div>
 
