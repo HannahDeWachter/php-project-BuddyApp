@@ -21,53 +21,56 @@ $otherUser = $userProfile->getUser($id);
 </head>
 
 <body>
-    <?php include_once(__DIR__ . "/includes/header.inc.php"); ?>
-    <a href="editProfile.php" id="backto"> Edit profile </a>
-    <div class="profileContainer">
-        <form method="post">
-            <div>
-                <div class="col-md-4">
-                    <div class="profile-img">
-                        <!-- hier moet foto komen !-->
-                        <img src="images/<?php echo htmlspecialchars($otherUser['profileImg']); ?>" alt="" class="profile-image" height="200px" width="200px" />
-
+<?php  include_once(__DIR__ . "/includes/header.inc.php"); ?>
+<a href="editProfile.php" id="backto"> Edit profile </a>
+<div class="profileContainer">
+            <form method="post">
+                <div>
+                    <div class="col-md-4">
+                        <div class="profile-img">
+                            <!-- hier moet foto komen !-->
+                            <?php echo htmlspecialchars($otherUser['profileImg']); ?>
+    
+                            
+                            
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="profile-head">
-                    <h5>
-                        <?php echo htmlspecialchars($otherUser['firstname']) . " " . htmlspecialchars($otherUser['lastname']); //hier komt de firstname en lastname   
-                        ?> !
-                    </h5>
-                    <h6>
-                        <!-- print design or development hier !-->
-                        <?php echo htmlspecialchars($otherUser['specialization']); ?>
-                    </h6>
-                    <h6> <?php echo htmlspecialchars($otherUser['imdYear']); ?></h6>
+                    <div class="col-md-6">
+                        <div class="profile-head">
+                                    <h5>
+                                      <?php echo htmlspecialchars($otherUser['firstname']) . " " . htmlspecialchars($otherUser['lastname'] ); //hier komt de firstname en lastname   ?>  !
+                                    </h5>
+                                    <h6 >
+                                       <!-- print design or development hier !--> 
+                                       <?php echo htmlspecialchars($otherUser['specialization']); ?>
+                                    </h6>
+                                    <h6> <?php echo htmlspecialchars($otherUser['imdYear']); ?></h6>
+                                    
+                       
                     <p> <?php echo htmlspecialchars($otherUser['bio']); ?> </p>
-
-                </div>
+                           
+                        </div>
+    
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-work">
+                            <h3>Hobbies</h3>
+                                <p> <?php echo htmlspecialchars($otherUser['hobbies']); ?> </p>
+                            <h3>Music</h3>
+                                <p> <?php echo htmlspecialchars($otherUser['music']); ?> </p>
+                            <h3>Travel</h3>
+                                <p><?php echo htmlspecialchars($otherUser['travel']); ?> </p>
+                            
+                        </div>
+                    </div>
+                   
+                            </div>
+                            
+            </form>           
             </div>
+           
 
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="profile-work">
-                <h3>Hobbies</h3>
-                <p> hier komen de hobbies die ingegeven zijn </p>
-                <h3>Music</h3>
-                <p> hier komen de muziekstijlen die ingegeven zijn </p>
-                <h3>Travel</h3>
-                <p> hier komen de travel die ingegeven zijn </p>
-
-            </div>
-        </div>
-
-    </div>
-
-    </form>
-    </div>
 
 </body>
 
