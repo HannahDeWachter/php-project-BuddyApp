@@ -58,7 +58,8 @@ if (!empty($_POST)) {
         <form action="" method="post" class="form">
             <h4 class="title">Complete your profile, <?php echo htmlspecialchars($dataUser['firstname']); ?></h4>
             <div class="form-group">
-                <label for="location">In what city do you live?</label><br>
+                <label for="location">In what city do you live?</label>
+                <br>
                 <input type="text" class="form-control" name="location" id="location" placeholder="City" value="<?php echo htmlspecialchars($dataUser['location']); ?>">
             </div>
             <div class="form-group">

@@ -51,23 +51,16 @@ $allBuddys = User::AllBuddys($id);
     <?php endif; ?>
 
     <table class="table table-bordered table-striped" style=" width: 70%; height: 50px; margin: 0 auto;">
-        <tr>
-            <td><?php echo $Name["firstname"]; ?></td>
-            <td><?php
-                $output = "";
-                $count = Chat::unseenMessage($id, $row["user2_id"]);
-                if ($count > 0) {
-                    $output = '<span class="label label-succes">' . $count . '</span>';
-                }
-                echo $output;
-                ?></td>
-            <td><a href="chat.php?id=<?php echo $row["user2_id"]; ?>" class="btn btn-primary" name="btnAccept">Chat</a></td>
-        </tr>
+    <tr>
+        <th>Username</th>
+        <th>Unread</th>
+        <th>Action</th>
+    </tr>
         <?php foreach ($allBuddys as $b => $row) : ?>
             <?php $Name = User::getAllInformation($row["user2_id"]);  ?>
             <div class="table">
                 <tr>
-                    <td><?php echo $Name["firstname"]; ?></td>
+                    <td><?php echo htmlspecialchars( $Name["firstname"]); ?></td>
                     <td><?php
                         $output = "";
                         $count = Chat::unseenMessage($id, $row["user2_id"]);
@@ -76,7 +69,7 @@ $allBuddys = User::AllBuddys($id);
                         }
                         echo $output;
                         ?></td>
-                    <td><a href="chat.php?id=<?php echo $row["user2_id"]; ?>" class="btn btn-primary" name="btnAccept">Chat</a></td>
+                    <td><a href="chat.php?id=<?php echo htmlspecialchars( $row["user2_id"]); ?>" class="btn btn-primary" name="btnAccept">Chat</a></td>
                 </tr>
             </div>
         <?php endforeach; ?>

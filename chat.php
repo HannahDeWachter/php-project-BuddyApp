@@ -2,11 +2,13 @@
 session_start();
 
 include_once(__DIR__ . "/classes/User.php");
-include_once(__DIR__ . "/classes/Comment.php");
+include_once(__DIR__ . "/classes/Chat.php");
 include_once(__DIR__ . "/includes/header.inc.php");
 
 $id = $_SESSION['user_id'];
 $user1 = User::getAllInformation($id);
+$allInformation = User::getAllInformation($id);
+
 //var_dump($user1);
 
 // checken of velden (location, music, travel, specialization, hobbies) allemaal zijn ingevuld
@@ -112,19 +114,17 @@ $matchedData = User::getMatchedData($user1_id, $user2_id);
             <div id="message">
               <?php
               if ($row["from_user_id"] == $id) {
-                $user_name = '<h7>YOU</h7>';
+                $user_name = "YOU";
               } else {
-                $user_name = '<h7>' . $allInformation["firstname"] . '</h7>';
+                $user_name =  $allInformation["firstname"];
               }
-              echo $user_name;
+              echo htmlspecialchars($user_name);
               ?>
               <br>
-              <?php echo $row['chat_message']; ?>
+              <?php echo htmlspecialchars( $row['chat_message']); ?>
               <br>
-              <small><em><?php echo $row['timestamp']; ?></em></small>
-              <br>
-              <small><em><?php echo $row['chat_message_id']; ?></em></small>
-              <a href="#" id="btnLike" name="btnLike" data-likeId="<?php echo $row["from_user_id"]; ?>">Like</a>
+              <small><em><?php echo  htmlspecialchars( $row['timestamp']); ?></em></small>
+              <a href="#" id="btnLike" name="btnLike" data-likeId="<?php echo htmlspecialchars( $row["from_user_id"]); ?>">Like</a>
             </div>
           </li>
         <?php endforeach; ?>

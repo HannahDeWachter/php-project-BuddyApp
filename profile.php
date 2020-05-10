@@ -29,8 +29,9 @@ $otherUser = $userProfile->getUser($id);
                     <div class="col-md-4">
                         <div class="profile-img">
                             <!-- hier moet foto komen !-->
-                            <?php echo htmlspecialchars($otherUser['profileImg']); ?>
-    
+                            <!-- ?php echo htmlspecialchars($otherUser['profileImg']); ?> -->
+                            <img src="images/<?php echo htmlspecialchars($otherUser['profileImg']); ?>" alt="profileImage" class="profile-image" height="100px" width="100px">
+
                             
                             
                             </div>
