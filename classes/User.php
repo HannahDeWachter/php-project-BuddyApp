@@ -201,6 +201,7 @@ class User
         $statement->execute();
 
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        header('location: profileDetails.php');
         return $result;
     }
 
