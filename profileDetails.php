@@ -14,7 +14,7 @@ if (!empty($_POST)) {
     $user = new User();
     $user->setId($id);
     $location = $_POST['location'];
-    $user->setLocation(htmlspecialchars($location));
+    $user->setLocation($location);
     $specialization = $_POST['specialization'];
     $user->setSpecialization($specialization);
     if (!empty($_POST['music'])) {
