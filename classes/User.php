@@ -586,11 +586,11 @@ class User
     {
         $email = "dewachterhannah@gmail.com";
         // $name = "Hannah DW";
-        $body = "You have a new buddy request! Go to the app to see it.</a>";
+        $body = "You have a new buddy request! Go to the app to see it.";
         $subject = "Buddy Request";
 
         $headers = array(
-            'Authorization: Bearer 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',
+            'Authorization: Bearer api_key',
             'Content-Type: application/json'
         );
         $data = array(
